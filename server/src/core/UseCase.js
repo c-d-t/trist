@@ -3,3 +3,5 @@ class UseCase {
     this.m_repo = repo;
   }
 }
+
+module.exports = UseCase;

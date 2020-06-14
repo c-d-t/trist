@@ -1,6 +1,4 @@
 const Account = require('../../domain/account');
-const Username = require('../../domain/username');
-const Password = require('../../domain/password');
 
 const toPersistent = (domain) => {
   return {
@@ -13,8 +11,8 @@ const toPersistent = (domain) => {
 
 const toDomain = (persistent) => {
   return Account.make({
-    username: Username.make(persistent.username),
-    password: Password.make(persistent.password, true),
+    username: persistent.username,
+    password: persistent.password,
     userId: persistent.userId,
   }, persistent._id);
 };

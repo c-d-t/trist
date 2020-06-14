@@ -1,4 +1,4 @@
-import mongoose from '../../../../db';
+const mongoose = require('../../../../db');
 
 const AccountSchema = mongoose.Schema({
   username: String,
@@ -6,4 +6,4 @@ const AccountSchema = mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
-export default mongoose.model('Account', AccountSchema);
+module.exports = mongoose.model('Account', AccountSchema);
