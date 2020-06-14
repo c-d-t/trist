@@ -1,7 +1,7 @@
-const register = require('./register');
-const registerGuest = require('./register_guest');
+const createAccount = require('./create_account');
+const getAccount = require('./get_account');
 
 module.exports = {
-  register,
-  registerGuest,
+  createAccount,
+  getAccount,
 };

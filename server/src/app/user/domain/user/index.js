@@ -1,23 +1,44 @@
 const Entity = require('../../../../core/Entity');
-const DisplayName = require('../display_name');
 const Result = require('../../../../core/Result');
+const Guard = require('../../../../util/Guard');
+const Username = require('../username');
+const DisplayName = require('../display_name');
 
-class User extends Entity {
+class Account extends Entity {
   /**
-   * 
+   * Creates an account domain object
    * @param {Object} props
+   * @param {string} props.username
    * @param {string} props.displayName
-   * @param {string} id 
    */
   static make(props, id) {
+    const usernameOrError = Username.make(props.username);
     const displayNameOrError = DisplayName.make(props.displayName);
     const passOrError = Result.combine({
+      username: usernameOrError,
       displayName: displayNameOrError,
     });
     if (!passOrError.isSuccessful()) {
       return passOrError;
     }
-    return Result.succeed(new User(id, props));
+
+    return Result.succeed(new Account(id, props));
+  }
+
+  // ------------------ //
+  // GETTERS && SETTERS //
+  // ------------------ //
+  getUsername() {
+    return this.m_props.username;
+  }
+
+  setUsername(newUsername) {
+    const newUsernameOrError = Username.make(newUsername);
+    if (!newUsernameOrError.isSuccessful()) {
+      return newUsernameOrError;
+    }
+    this.m_props.username = newUsernameOrError.getValue();
+    return Result.succeed(null);
   }
 
   getDisplayName() {
@@ -33,9 +54,13 @@ class User extends Entity {
     return Result.succeed(null);
   }
 
+  // ------- //
+  // METHODS //
+  // ------- //
   softDelete() {
     this.m_props.displayName = DisplayName.make('Deleted Account').getValue();
+    this.m_props.username = Username.make('deleted_account');
   }
 }
 
-module.exports = User;
+module.exports = Account;

@@ -1,9 +1,8 @@
 const mongoose = require('../../../../db');
 
 const AccountSchema = mongoose.Schema({
-  username: String,
+  _id: mongoose.Schema.Types.ObjectId,
   password: String,
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
 module.exports = mongoose.model('Account', AccountSchema);

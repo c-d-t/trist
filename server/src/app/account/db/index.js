@@ -1,8 +1,7 @@
-const AccountRepo = require('./AccountRepo');
+const UserRepo = require('./UserRepo');
+const UserMap = require('./UserMap');
+const UserModel = require('./UserModel');
 
-const AccountModel = require('./AccountModel');
-const AccountMap = require('./AccountMap');
+const userRepo = new UserRepo(UserModel, UserMap);
 
-const accountRepo = new AccountRepo(AccountModel, AccountMap);
-
-module.exports = accountRepo;
+module.exports = userRepo;
