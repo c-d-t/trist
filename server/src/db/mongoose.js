@@ -22,7 +22,18 @@ switch(process.env.NODE_ENV) {
 }
 
 mongoose.connection.on('connected', () => {
-  console.log('connected to db');
+  console.log(`connected to ${process.env.NODE_ENV} db`);
+});
+
+mongoose.connection.once('open', async () => {
+  if (process.env.NODE_ENV === 'test') {
+    const collections = Object.keys(mongoose.connection.collections);
+    collections.forEach(async (collectionName) => {
+      const collection = mongoose.connection.collections[collectionName];
+      await collection.deleteMany();
+    })
+    console.log('deleted collections');
+  }
 });
 
 module.exports = mongoose;
