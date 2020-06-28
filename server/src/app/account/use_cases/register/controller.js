@@ -22,7 +22,7 @@ class RegisterController extends Controller
         maxAge: 1000 * 60 * 60 * 12,
       };
 
-      this._res.cookie('jwt', data, options);
+      this._res.cookie('jwt', data.token, options);
       return this.ok();
     }
 

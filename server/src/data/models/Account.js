@@ -5,8 +5,8 @@ const AccountSchema = mongoose.Schema({
   username: String,
   password: String,
   email: String,
-  isEmailVerified: Boolean,
-  dateCreated: Date,
+  status: Number, // -1=banned 0=guest 1=registered 2=emailVerified
+  timeCreated: Date,
 });
 
 module.exports = mongoose.model('Account', AccountSchema);

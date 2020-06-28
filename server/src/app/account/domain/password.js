@@ -19,7 +19,17 @@ class Password extends ValueObject {
   }
 }
 
-async function makePassword(string)
+function make(string)
+{
+  if (!string || !string.length)
+  {
+    return Result.fail('A password is required.');
+  }
+  
+  return Result.ok(new Password(string));
+}
+
+async function makeHashed(string)
 {
   if (!string || !string.length)
   {
@@ -35,4 +45,7 @@ async function makePassword(string)
   return Result.ok(new Password(hashedString));
 }
 
-module.exports = makePassword;
+module.exports = {
+  make,
+  makeHashed,
+};

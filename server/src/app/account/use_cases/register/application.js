@@ -1,8 +1,9 @@
 const Application = require("../../../../core/Application");
-const makeAccount = require("../../domain/account");
-const makeUsername = require("../../domain/username");
-const makePassword = require("../../domain/password");
-const makeEmail = require("../../domain/email");
+const Account = require("../../domain/account");
+const Username = require("../../domain/username");
+const Password = require("../../domain/password");
+const Email = require("../../domain/email");
+const DisplayName = require('../../domain/displayName');
 const Result = require("../../../../core/Result");
 const RegisterErrors = require("./errors");
 const jwt = require('../../services/jwt');
@@ -25,9 +26,9 @@ class RegisterApplication extends Application
    */
   async run(input)
   {
-    const usernameResult = makeUsername(input.username);
-    const passwordResult = await makePassword(input.password);
-    const emailResult = makeEmail(input.email);
+    const usernameResult = Username.make(input.username);
+    const passwordResult = await Password.makeHashed(input.password);
+    const emailResult = Email.make(input.email);
     const propsResult = Result.combine({
       username: usernameResult,
       password: passwordResult,
@@ -41,25 +42,31 @@ class RegisterApplication extends Application
     const username = usernameResult.value;
     const password = passwordResult.value;
     const email = emailResult.value;
-
-    if (!!this._accountRepo.findByUsername(username) === true)
+    const displayName = DisplayName.make().value;
+    if (!!await this._accountRepo.findByUsername(username) === true)
     {
       return this.failed(RegisterErrors.UsernameAlreadyExists, "An account with that username already exists.");
     }
 
-    if (!!this._accountRepo.findByEmail(email) === true)
+    if (!!await this._accountRepo.findByEmail(email) === true)
     {
       return this.failed(RegisterErrors.EmailAlreadyExists, "An account with that email already exists.");
     }
 
-    const accountResult = makeAccount({ username, password, email, isVerified: false });
+    const accountResult = Account.make({
+      username,
+      password,
+      email,
+      displayName,
+      status: 1,
+    });
     if (accountResult.failed)
     {
       return this.failed();
     }
 
     const newAccount = accountResult.value;
-    const account = this._accountRepo.save(newAccount);
+    const account = await this._accountRepo.save(newAccount);
     
     // send email verification
 

@@ -13,7 +13,7 @@ class Username extends ValueObject
   }
 }
 
-function makeUsername(string) {
+function make(string) {
   if (!string || !string.length) {
     return Result.fail('A username is required.');
   }
@@ -22,11 +22,13 @@ function makeUsername(string) {
     return Result.fail('A username must be between 3 and 20 characters.');
   }
 
-  if (/[^\w]/g.test(string)) {
+  if (/[^\w]/.test(string)) {
     return Result.fail('A username can only contain alphanumeric characters and underscores.');
   }
 
   return Result.ok(new Username(string));
 }
 
-module.exports = makeUsername;
+module.exports = {
+  make,
+};

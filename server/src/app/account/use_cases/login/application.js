@@ -1,6 +1,6 @@
 const Application = require('../../../../core/Application');
-const makeUsername = require('../../domain/username');
-const makeEmail = require('../../domain/email');
+const Username = require('../../domain/username');
+const Email = require('../../domain/email');
 const LoginErrors = require('./errors');
 const jwt = require('../../services/jwt');
 
@@ -21,8 +21,8 @@ class LoginApplication extends Application
    */
   async run(input)
   {
-    const usernameResult = makeUsername(input.username);
-    const emailResult =  makeEmail(input.email);
+    const usernameResult = Username.make(input.username);
+    const emailResult =  Email.make(input.email);
 
     let foundUser = null;
     if (usernameResult.succeeded) // login via username

@@ -1,5 +1,3 @@
-const Result = require("./Result");
-
 function againstNull(value)
 {
   if (value === undefined || value === null)

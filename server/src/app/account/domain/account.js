@@ -19,14 +19,19 @@ class Account extends Entity
     return this._value.email;
   }
 
-  get verified()
+  get displayName()
   {
-    return this._value.verified;
+    return this._value.displayName;
   }
 
-  get hasId()
+  get status()
   {
-    return !!this.id;
+    return this._value.status;
+  }
+
+  get timeCreated()
+  {
+    return this._value.timeCreated;
   }
 
   changeUsername(newUsername)
@@ -43,17 +48,38 @@ class Account extends Entity
 /**
  * Makes an account object
  * @param {Object} props
- * @param {Id} props.id
+ * @param {string} props.id
  * @param {Username} props.username
  * @param {Password} props.password
  * @param {Email} props.email
- * @param {boolean} props.isVerified
+ * @param {DisplayName} props.displayName
+ * @param {boolean} props.status
+ * @param {Data} props.timeCreated
  */
-function makeAccount(props)
+function make(props)
 {
-  Guard.againstNullBulk([ props.username, props.password, props.email, props.isVerified ]);
+  if (props.status === 0)
+  {
+    Guard.againstNullBulk([ props.displayName, props.status]);
+  }
+  else
+  {
+    Guard.againstNullBulk([ props.username, props.password, props.email, props.displayName, props.status ]);
+  }
+
+  if (props.status === 0 && props.displayName.isEmpty)
+  {
+    return Result.fail('A guest account must have a display name.');
+  }
+
+  if (props.timeCreated === null || props.timeCreated === undefined)
+  {
+    props.timeCreated = Date.now();
+  }
 
   return Result.ok(new Account(props));
 }
 
-module.exports = makeAccount;
+module.exports = {
+  make,
+};

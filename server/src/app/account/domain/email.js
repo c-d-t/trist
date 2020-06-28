@@ -14,7 +14,7 @@ class Email extends ValueObject
   }
 }
 
-function makeEmail(string)
+function make(string)
 {
   if (!string || !string.length)
   {
@@ -30,4 +30,6 @@ function makeEmail(string)
   return Result.ok(new Email(string));
 }
 
-module.exports = makeEmail;
+module.exports = {
+  make
+};
