@@ -28,12 +28,12 @@ class LoginApplication extends Application
     if (usernameResult.succeeded) // login via username
     {
       const username = usernameResult.value;
-      foundUser = await this._accountRepo.findByUsername(username);
+      foundUser = await this._accountRepo.findByUsername(username.value);
     }
     else if (emailResult.succeeded) // login via email
     {
       const email = emailResult.value;
-      foundUser = await this._accountRepo.findByEmail(email);
+      foundUser = await this._accountRepo.findByEmail(email.value);
     }
 
     if (!foundUser || !await foundUser.password.compare(input.password))

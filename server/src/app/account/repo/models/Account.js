@@ -1,4 +1,4 @@
-const mongoose = require('../mongoose');
+const mongoose = require('../../../../data/mongoose');
 
 const AccountSchema = mongoose.Schema({
   displayName: String,

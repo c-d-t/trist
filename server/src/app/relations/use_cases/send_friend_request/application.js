@@ -25,37 +25,42 @@ class SendFriendRequestApplication extends Application
     const accountToSendRequest = await this._accountRepo.findByUsername(input.otherAccountUsername);
     if (!accountToSendRequest)
     {
-      return this.failed(SendFriendRequestErrors.UsernameDoesNotExist, 'An account with that username does not exist.');
+      return this.failed(SendFriendRequestErrors.UsernameDoesNotExist, `An account with the username '${input.otherAccountUsername}' does not exist.`);
     }
-
     const sentFriendRequestResult = Relationship.make({
       thisAccountId: input.thisAccountId,
       otherAccountId: accountToSendRequest.id,
-      type: 1,
-    })
+      status: 0,
+    });
     if (sentFriendRequestResult.failed)
     {
       return this.failed(SendFriendRequestErrors.CouldNotMakeFriendRequest, sentFriendRequestResult.error);
     }
-
+    
     const sentFriendRequest = sentFriendRequestResult.value;
-    const existingRelationship = this._relationshipRepo.findByAccounts(sentFriendRequest);
+    const existingRelationship = await this._relationshipRepo.findByAccounts(sentFriendRequest.thisAccountId, sentFriendRequest.otherAccountId);
     if (!!existingRelationship === true)
     {
-      switch (existingRelationship.type)
+      let message;
+      switch (existingRelationship.status)
       {
+        case -1:
+          message = 'You cannot send a friend request to someone you blocked.';
+          break;
+        case 0:
+          message = 'You already sent a friend request to that account.';
+          break;
         case 1:
-          return this.failed(SendFriendRequestErrors.existingRelationship, 'You already sent a friend request to that account.');
+          message = 'That account has already sent you a friend request.';
+          break;
         case 2:
-          return this.failed(SendFriendRequestErrors.existingRelationship, 'That account has already sent you a friend request.');
-        case 3:
-          return this.failed(SendFriendRequestErrors.existingRelationship, 'You are already friends with that account.');
-        default:
-          return this.failed();
+          message = 'You are already friends with that account.';
+          break;
       }
+      return this.failed(SendFriendRequestErrors.AlreadyInARelationship, message);
     }
 
-    await this._relationshipRepo.save(sentFriendRequestResult);
+    await this._relationshipRepo.save(sentFriendRequest);
 
     return this.ok();
   }

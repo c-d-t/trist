@@ -1,6 +1,6 @@
 const AccountRepo = require('./repo');
 const accountMap = require('./map');
-const accountModel = require('../../../data/models/Account');
+const accountModel = require('./models/Account');
 
 const accountRepo = new AccountRepo(accountMap, accountModel);
 

@@ -14,6 +14,10 @@ class JWTService
 
   decode(token)
   {
+    if (token === undefined || token === null)
+    {
+      return null;
+    }
     return this._jwt.verify(token, config.JWT_KEY);
   }
 }

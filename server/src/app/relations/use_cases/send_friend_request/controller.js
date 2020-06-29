@@ -10,10 +10,10 @@ class SendFriendRequestController extends Controller
 
   async implementation(req)
   {
-    const { thisAccountId } = req;
+    const { thisAccount } = req;
     const { otherAccountUsername } = req.body;
 
-    const result = await this._sendFriendRequest({ thisAccountId, otherAccountUsername });
+    const result = await this._sendFriendRequest.run({ thisAccountId: thisAccount.id, otherAccountUsername });
     const { success, data } = result;
     if (success)
     {
@@ -26,8 +26,10 @@ class SendFriendRequestController extends Controller
         return this.notFound(data.message);
       case SendFriendRequestErrors.CouldNotMakeFriendRequest:
         return this.forbidden(data.message);
-      case SendFriendRequestErrors.AlreadyExists:
+      case SendFriendRequestErrors.AlreadyInARelationship:
         return this.conflict(data.message);
+      default:
+        return this.failed();
     }
   }
 }

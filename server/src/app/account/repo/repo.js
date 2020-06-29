@@ -4,7 +4,7 @@ class AccountRepo extends Repo
 {
   async findByUsername(username)
   {
-    const persistent = await this._model.findOne({ username: username.value });
+    const persistent = await this._model.findOne({ username });
     if (!persistent)
     {
       return null;
@@ -14,7 +14,7 @@ class AccountRepo extends Repo
 
   async findByEmail(email)
   {
-    const persistent = await this._model.findOne({ email: email.value });
+    const persistent = await this._model.findOne({ email });
     if (!persistent)
     {
       return null;

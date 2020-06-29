@@ -55,12 +55,12 @@ class UpgradeApplication extends Application
     newAccount.changePassword(password);
     newAccount.changeEmail(email);
     
-    if (!!await this._accountRepo.findByUsername(newAccount.username) === true)
+    if (!!await this._accountRepo.findByUsername(newAccount.username.value) === true)
     {
       return this.failed(UpgradeErrors.UsernameExists, 'An account with that username already exists.');
     }
     
-    if (!!await this._accountRepo.findByEmail(newAccount.email) === true)
+    if (!!await this._accountRepo.findByEmail(newAccount.email.value) === true)
     {
       return this.failed(UpgradeErrors.EmailExists, 'An account with that email already exists.');
     }
