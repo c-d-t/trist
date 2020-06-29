@@ -43,6 +43,25 @@ class Account extends Entity
   {
     this._value.password = newPassword;
   }
+
+  changeEmail(newEmail)
+  {
+    this._value.email = newEmail;
+  }
+
+  changeDisplayName(newDisplayName)
+  {
+    this._value.displayName = newDisplayName;
+  }
+
+  changeStatus(newStatus)
+  {
+    if (newStatus < -2 || newStatus > 2)
+    {
+      throw new Error('Status must be between -2 and 2.');
+    }
+    this._value.status = newStatus;
+  }
 }
 
 /**

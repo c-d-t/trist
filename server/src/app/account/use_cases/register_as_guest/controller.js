@@ -1,19 +1,19 @@
 const Controller = require('../../../../core/Controller');
-const RegisterErrors = require('./errors');
+const RegisterAsGuestErrors = require('./errors');
 
-class RegisterController extends Controller
+class RegisterAsGuestController extends Controller
 {
-  constructor(register)
+  constructor(registerAsGuest)
   {
     super();
-    this._register = register;
+    this._registerAsGuest = registerAsGuest;
   }
 
   async implementation(req)
   {
-    const { username, password, email } = req.body;
+    const { displayName } = req.body;
     
-    const result = await this._register.run({ username, password, email });
+    const result = await this._registerAsGuest.run({ displayName });
     const { success, data } = result;
     if (success)
     {
@@ -29,15 +29,14 @@ class RegisterController extends Controller
     // ERROR HANDLING
     switch(data.errorType)
     {
-      case RegisterErrors.InvalidFields:
+      case RegisterAsGuestErrors.InvalidFields:
         return this.invalidFields(data.message);
-      case RegisterErrors.UsernameAlreadyExists:
-      case RegisterErrors.EmailAlreadyExists:
-        return this.conflict(data.message);
+      case RegisterAsGuestErrors.CouldNotMakeAccount:
+        return this.failed(data.message);
       default:
         return this.failed();
     }
   }
 }
 
-module.exports = RegisterController;
+module.exports = RegisterAsGuestController;

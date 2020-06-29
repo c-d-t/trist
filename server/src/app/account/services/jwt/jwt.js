@@ -1,6 +1,6 @@
 const config = require('../../../../config');
 
-class JWT
+class JWTService
 {
   constructor(jwt)
   {
@@ -18,4 +18,4 @@ class JWT
   }
 }
 
-module.exports = JWT;
+module.exports = JWTService;

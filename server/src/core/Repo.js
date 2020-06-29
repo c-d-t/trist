@@ -9,6 +9,10 @@ class Repo
   async findById(id)
   {
     const persistent = await this._model.findById(id);
+    if (!persistent)
+    {
+      return null;
+    }
     return this._map.toDomain(persistent);
   }
 

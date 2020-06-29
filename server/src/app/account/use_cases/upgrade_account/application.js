@@ -1,14 +1,11 @@
 const Application = require("../../../../core/Application");
-const Account = require("../../domain/account");
 const Username = require("../../domain/username");
 const Password = require("../../domain/password");
 const Email = require("../../domain/email");
-const DisplayName = require('../../domain/displayName');
 const Result = require("../../../../core/Result");
-const RegisterErrors = require("./errors");
-const jwt = require('../../services/jwt');
+const UpgradeErrors = require("./errors");
 
-class RegisterApplication extends Application
+class UpgradeApplication extends Application
 {
   constructor(accountRepo, emailService)
   {
@@ -20,6 +17,7 @@ class RegisterApplication extends Application
   /**
    * 
    * @param {Object} input
+   * @param {string} input.thisAccountId
    * @param {string} input.username
    * @param {string} input.password
    * @param {string} input.email 
@@ -36,46 +34,43 @@ class RegisterApplication extends Application
     });
     if (propsResult.failed)
     {
-      return this.failed(RegisterErrors.InvalidFields, propsResult.error);
+      return this.failed(UpgradeErrors.InvalidFields, propsResult.error);
     }
     const username = usernameResult.value;
     const password = passwordResult.value;
     const email = emailResult.value;
-    const displayName = DisplayName.make().value;
-
-    const newAccountResult = Account.make({
-      username,
-      password,
-      email,
-      displayName,
-      status: 1,
-    });
-    if (newAccountResult.failed)
+    
+    let newAccount = await this._accountRepo.findById(input.thisAccountId);
+    if (!newAccount)
     {
       return this.failed();
     }
-    const newAccount = newAccountResult.value;
+    if (newAccount.status !== 0)
+    {
+      return this.failed(UpgradeErrors.AlreadyRegistered, 'This account is already registered.');
+    }
+
+    newAccount.changeStatus(1);
+    newAccount.changeUsername(username);
+    newAccount.changePassword(password);
+    newAccount.changeEmail(email);
     
     if (!!await this._accountRepo.findByUsername(newAccount.username) === true)
     {
-      return this.failed(RegisterErrors.UsernameAlreadyExists, 'An account with that username already exists.');
+      return this.failed(UpgradeErrors.UsernameExists, 'An account with that username already exists.');
     }
     
     if (!!await this._accountRepo.findByEmail(newAccount.email) === true)
     {
-      return this.failed(RegisterErrors.EmailAlreadyExists, 'An account with that email already exists.');
+      return this.failed(UpgradeErrors.EmailExists, 'An account with that email already exists.');
     }
 
-    const account = await this._accountRepo.save(newAccount);
+    await this._accountRepo.save(newAccount);
     
     // send email verification
 
-    // make token
-    const token = jwt.encode({ id: account.id });
-    const responseJSON = { token };
-
-    return this.ok(responseJSON);
+    return this.ok();
   }
 }
 
-module.exports = RegisterApplication;
+module.exports = UpgradeApplication;

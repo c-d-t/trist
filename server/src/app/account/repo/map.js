@@ -6,9 +6,15 @@ const DisplayName = require('../domain/displayName');
 
 function toDomain(persistent)
 {
-  const username = Username.make(persistent.username).value;
-  const password = Password.make(persistent.password).value;
-  const email = Email.make(persistent.email).value;
+  let username;
+  let password;
+  let email;
+  if (persistent.status !== 0)
+  {
+    username = Username.make(persistent.username).value;
+    password = Password.make(persistent.password).value;
+    email = Email.make(persistent.email).value;
+  }
   const displayName = DisplayName.make(persistent.displayName).value;
   return Account.make({
     id: persistent._id,
@@ -25,9 +31,9 @@ function toPersistent(domain)
 {
   return {
     _id: domain.id,
-    username: domain.username.value,
-    password: domain.password.value,
-    email: domain.email.value,
+    username: !domain.username ? undefined : domain.username.value,
+    password: !domain.password ? undefined : domain.password.value,
+    email: !domain.email ? undefined : domain.email.value,
     displayName: domain.displayName.value,
     status: domain.status,
     timeCreated: domain.timeCreated,

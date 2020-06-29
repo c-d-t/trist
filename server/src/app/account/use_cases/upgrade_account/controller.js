@@ -1,5 +1,5 @@
 const Controller = require('../../../../core/Controller');
-const RegisterErrors = require('./errors');
+const UpgradeErrors = require('./errors');
 
 class RegisterController extends Controller
 {
@@ -11,29 +11,26 @@ class RegisterController extends Controller
 
   async implementation(req)
   {
+    const { thisAccount } = req;
     const { username, password, email } = req.body;
     
-    const result = await this._register.run({ username, password, email });
+    const result = await this._register.run({ username, password, email, thisAccountId: thisAccount.id });
     const { success, data } = result;
     if (success)
     {
-      const options = {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 12,
-      };
-
-      this._res.cookie('jwt', data.token, options);
       return this.ok();
     }
 
     // ERROR HANDLING
     switch(data.errorType)
     {
-      case RegisterErrors.InvalidFields:
+      case UpgradeErrors.InvalidFields:
         return this.invalidFields(data.message);
-      case RegisterErrors.UsernameAlreadyExists:
-      case RegisterErrors.EmailAlreadyExists:
+      case UpgradeErrors.EmailExists:
+      case UpgradeErrors.UsernameExists:
         return this.conflict(data.message);
+      case UpgradeErrors.AlreadyRegistered:
+        return this.forbidden(data.message);
       default:
         return this.failed();
     }

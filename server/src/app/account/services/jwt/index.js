@@ -1,6 +1,6 @@
-const JWT = require('./jwt');
+const JWTService = require('./jwt');
 const jsonwebtoken = require('jsonwebtoken');
 
-const jwt = new JWT(jsonwebtoken);
+const jwt = new JWTService(jsonwebtoken);
 
 module.exports = jwt;
