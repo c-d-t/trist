@@ -1,4 +1,4 @@
-const mongoose = require('../mongoose');
+const mongoose = require('../../../../data');
 
 const MessageSchema = mongoose.Schema({
   authorId: { type: mongoose.Schema.Types.ObjectId, ref: 'Account'},

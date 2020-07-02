@@ -17,6 +17,7 @@ class SendFriendRequestController extends Controller
     const { success, data } = result;
     if (success)
     {
+      req.emitEventToAccount(data.otherAccountId, 'friend:receive', { accountId: data.otherAccountId });
       return this.ok();
     }
 

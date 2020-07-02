@@ -56,10 +56,6 @@ class Account extends Entity
 
   changeStatus(newStatus)
   {
-    if (newStatus < -2 || newStatus > 2)
-    {
-      throw new Error('Status must be between -2 and 2.');
-    }
     this._value.status = newStatus;
   }
 }

@@ -5,25 +5,104 @@
 }
 
 body {
-  overflow: hidden;
-  background-color: white;
+  background-color: rgb(245, 247, 248);
   display: flex;
 }
 
 header {
   height: 100vh;
-  min-width: 5rem;
-  border-right: 1px solid rgb(171, 171, 171);
+  min-width: 15rem;
+  background-color: white;
+}
+#profile > h1 {
+  text-align: center;
+  line-height: 4rem;
+  color: rgb(33, 226, 152);
+  width: 90%;
+  margin: 0 auto;
+  border-bottom: 3px solid rgb(235, 235, 235);
+}
+header > #profile {
+  width: 100%;
+  height: 8rem;
+  position: relative;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+#tabs {
+  display: flex;
+  position: absolute;
+  width: 15rem;
+  bottom: 0;
+}
+#tabs > div {
+  width: 31%;
+  height: 2.5rem;
+  background-image: linear-gradient(-45deg, rgb(0, 233, 175), rgb(0, 221, 203));
+  margin: 5px 1%;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  line-height: 2.5rem;
+  font-weight: bolder;
+  transition: box-shadow 500ms ease;
+}
+#tabs > div:hover {
+  box-shadow: rgb(211, 211, 211) 3px 4px;
 }
 
-#content {
+#content-container {
   min-width: 40rem;
   height: 100vh;
-  border-right: 1px solid rgb(171, 171, 171);
+  overflow: scroll;
+}
+#content-container > .account {
+  width: 90%;
+  background-color: rgb(255, 255, 255);
+  height: 80vh;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+.content {
+  height: 3rem;
+  width: 95%;
+  text-align: center;
+  color: #444;
+  display: flex;
+  margin: 5px auto;
+  border-radius: 10px;
+  position: relative;
+}
+
+.content:hover > .icon {
+  background-color: rgb(117, 255, 170);
+}
+.content > .icon {
+  transition: background-color 150ms ease-in;
+  height: 2.5rem;
+  width: 2.5rem;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+  right: 0;
+}
+.content > h1 {
+  font-weight: normal;
+  font-size: 1rem;
+  line-height: 3rem;
+  margin: 0 10px;
+}
+.content > p {
+  color: rgb(11, 131, 105);
+  line-height: 3rem;
+  margin-left: 20px;
+  font-weight: bold;
 }
 
 #channel-container {
   flex-grow: 1;
+  background-color: white;
 }
 
 .message-container {

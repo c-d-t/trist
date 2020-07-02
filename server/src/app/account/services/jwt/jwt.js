@@ -18,7 +18,15 @@ class JWTService
     {
       return null;
     }
-    return this._jwt.verify(token, config.JWT_KEY);
+    
+    try
+    {
+      return this._jwt.verify(token, config.JWT_KEY);
+    }
+    catch(e)
+    {
+      return null;
+    }
   }
 }
 

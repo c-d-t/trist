@@ -1,4 +1,4 @@
-const mongoose = require('../mongoose');
+const mongoose = require('../../../../data');
 
 const ChannelSchema = mongoose.Schema({
   type: Number,

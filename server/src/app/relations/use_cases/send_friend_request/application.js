@@ -62,7 +62,7 @@ class SendFriendRequestApplication extends Application
 
     await this._relationshipRepo.save(sentFriendRequest);
 
-    return this.ok();
+    return this.ok({ otherAccountId: sentFriendRequest.otherAccountId });
   }
 }
 
