@@ -1,0 +1,5 @@
+#channel-container {
+  width: 10rem;
+  background-color: #fff;
+  flex-grow: 1;
+}

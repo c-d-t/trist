@@ -1,0 +1,10 @@
+.option {
+  margin-top: 3px;
+  border-radius: 5px;
+  padding: 5px;
+  font-weight: bold;
+  transition: all 100ms ease;
+}
+.option:hover {
+  background-color: #f5f5f5;
+}

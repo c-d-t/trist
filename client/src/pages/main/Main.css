@@ -1,0 +1,5 @@
+#content-container {
+  min-width: 40em;
+  padding: 1em 2em;
+  box-sizing: border-box;
+}

@@ -1,0 +1,31 @@
+.form-input > input {
+  background-color: #ddd;
+  width: 100%;
+  padding: 2px 5px;
+  margin: 2px auto -3px auto;
+  line-height: 2em;
+  border-radius: 1px;
+  box-sizing: border-box;
+  font-size: 15px;
+  transition: all 100ms ease;
+}
+.form-input > span {
+  position: relative;
+  background-color: rgb(23, 196, 129);
+  display: block;
+  width: 0;
+  height: 3px;
+  margin-bottom: 2px;
+  z-index: 1;
+  transition: all 350ms ease;
+}
+.form-input > input:focus + span {
+  width: 100%;
+}
+
+.form-input > .form-input-placeholder {
+  color: grey;
+}
+/* input:focus {
+  background-image: linear-gradient(140deg, rgb(202, 255, 197), rgb(177, 255, 212));
+} */
