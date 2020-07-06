@@ -9,9 +9,9 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
   const {
     url,
     method,
-    data,
+    data = {},
     onSuccess,
-    onFailure,
+    onFailure = () => { return { type: 'do_nothing' } },
     label,
   } = action.payload;
 
@@ -29,8 +29,8 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
     dispatch(onSuccess(data));
   })
   .catch((error) => {
-    dispatch(apiError(error));
-    dispatch(onFailure(error));
+    dispatch(apiError(error.response.data));
+    dispatch(onFailure(error.response.data));
   })
   .finally(() => {
     if (label)

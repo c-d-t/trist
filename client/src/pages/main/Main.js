@@ -1,5 +1,8 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
+
+import { logout } from '../../redux/actions/sessionActions';
 
 import Header from '../../components/header';
 import HeaderContent from '../../components/header/header_content';
@@ -14,6 +17,8 @@ import Channel from '../../components/channel';
 import './Main.css';
 
 const Main = () => {
+  const dispatch = useDispatch();
+
   return (
     <>
       <Header>
@@ -28,7 +33,7 @@ const Main = () => {
         <HeaderContent title="Profile">
           <Option title="Settings" />
           <Option title="Friends" />
-          <WarningButton text="Logout" color="#f00" onClick={() => alert('logged out')} />
+          <WarningButton text="Logout" color="#f00" onClick={() => dispatch(logout())} />
         </HeaderContent>
       </Header>
 

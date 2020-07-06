@@ -10,7 +10,7 @@ const sessionReducer = (state = initState, action) => {
     case LOGGED_IN:
       return { loggedIn: true };
     case LOGGED_OUT:
-      return { loggedIn: true };
+      return { loggedIn: false };
     default:
       return state;
   }

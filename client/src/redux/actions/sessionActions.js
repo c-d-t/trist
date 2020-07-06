@@ -12,7 +12,6 @@ export function login({ usernameOrEmail, password })
     method: 'POST',
     data: { usernameOrEmail, password },
     onSuccess: loggedIn,
-    onFailure: console.log('failed to log in'),
     label: LOGIN,
   });
 }
@@ -30,7 +29,6 @@ export function logout()
     url: '/account/logout',
     method: 'POST',
     onSuccess: loggedOut,
-    onFailure: () => console.log('Error trying to log out.'),
     label: LOGOUT,
   });
 }
