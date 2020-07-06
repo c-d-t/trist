@@ -2,6 +2,7 @@ const Application = require('../../../../core/Application');
 const Account = require('../../domain/account');
 const DisplayName = require('../../domain/displayName');
 const RegisterAsGuestErrors = require('./errors');
+const onAccountCreation = require('../../services/onAccountCreation');
 const jwt = require('../../services/jwt');
 
 class RegisterAsGuestApplication extends Application
@@ -34,6 +35,8 @@ class RegisterAsGuestApplication extends Application
 
     const newAccount = accountResult.value;
     const account = await this._accountRepo.save(newAccount);
+    
+    await onAccountCreation.run(account.id);
     
     const token = jwt.encode({ id: account.id });
     const responseJSON = { token };

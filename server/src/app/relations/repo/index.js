@@ -4,4 +4,6 @@ const RelationshipRepo = require('./repo');
 
 const relationshipRepo = new RelationshipRepo(relationshipMap, relationshipModel);
 
-module.exports = relationshipRepo;
+module.exports = {
+  relationshipRepo,
+}

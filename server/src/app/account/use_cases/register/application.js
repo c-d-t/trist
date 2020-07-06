@@ -6,6 +6,7 @@ const Email = require("../../domain/email");
 const DisplayName = require('../../domain/displayName');
 const Result = require("../../../../core/Result");
 const RegisterErrors = require("./errors");
+const onAccountCreation = require('../../services/onAccountCreation');
 const jwt = require('../../services/jwt');
 
 class RegisterApplication extends Application
@@ -67,8 +68,8 @@ class RegisterApplication extends Application
     }
 
     const account = await this._accountRepo.save(newAccount);
-    
-    // send email verification
+
+    await onAccountCreation.run(account.id);
 
     // make token
     const token = jwt.encode({ id: account.id });

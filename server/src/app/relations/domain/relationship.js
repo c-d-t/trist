@@ -21,7 +21,7 @@ class Relationship extends Entity
 
   contains(accountId)
   {
-    return (this._value.thisAccountId == accountId || this._value.otherAccountId == accountId);
+    return (this._value.thisAccountId === accountId || this._value.otherAccountId === accountId);
     
   }
 

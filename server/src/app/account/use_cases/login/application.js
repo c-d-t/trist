@@ -15,25 +15,16 @@ class LoginApplication extends Application
   /**
    * Checks if a user exists with username/email and password
    * @param {Object} input
-   * @param {string} input.username
+   * @param {string} input.usernameOrEmail
    * @param {string} input.password
-   * @param {string} input.email
    */
   async run(input)
   {
-    const usernameResult = Username.make(input.username);
-    const emailResult =  Email.make(input.email);
-
     let foundUser = null;
-    if (usernameResult.succeeded) // login via username
+    foundUser = await this._accountRepo.findByUsername(input.usernameOrEmail);
+    if (!foundUser) // login via email
     {
-      const username = usernameResult.value;
-      foundUser = await this._accountRepo.findByUsername(username.value);
-    }
-    else if (emailResult.succeeded) // login via email
-    {
-      const email = emailResult.value;
-      foundUser = await this._accountRepo.findByEmail(email.value);
+      foundUser = await this._accountRepo.findByEmail(input.usernameOrEmail);
     }
 
     if (!foundUser || !await foundUser.password.compare(input.password))

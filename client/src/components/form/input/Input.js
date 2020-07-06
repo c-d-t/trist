@@ -2,18 +2,33 @@ import React from 'react';
 
 import './Input.css';
 
-const Input = ({ type, placeholder, value, setValue, onSubmit }) => {
+const Input = ({ name, type, placeholder, value, setValue, onSubmit, error }) => {
+  let errClass = '';
+  if (error !== undefined)
+  {
+    if (error === '')
+    {
+      errClass = 'highlighted';
+    }
+    else
+    {
+      errClass = 'hasError';
+    }
+  }
+
   return (
     <div className="form-input">
-      <p className="form-input-placeholder">{placeholder}</p>
+      <p className="form-input-placeholder">{!placeholder ? name : placeholder}</p>
       <input
-        className="form-input"
+        className={`shake form-input ${errClass}`}
+        name={name}
         type={type}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onKeyDown={(e) => (e.keyCode === 13) && (!!onSubmit) ? onSubmit() : null}
+        onChange={setValue}
+        onKeyDown={(e) => e.keyCode === 13 ? onSubmit() : null}
       />
       <span></span>
+      <div className="error-message">{error}</div>
     </div>
   );
 };

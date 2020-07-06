@@ -1,11 +1,12 @@
-const Relationship = require('../domain/relationship')
+const { ObjectId } = require('mongoose').Types;
+const Relationship = require('../domain/relationship');
 
 function toDomain(persistent)
 {
   return Relationship.make({
-    id: persistent._id,
-    thisAccountId: persistent.thisAccountId,
-    otherAccountId: persistent.otherAccountId,
+    id: persistent._id.toString(),
+    thisAccountId: persistent.thisAccountId.toString(),
+    otherAccountId: persistent.otherAccountId.toString(),
     status: persistent.status,
   }).value;
 }
@@ -13,9 +14,9 @@ function toDomain(persistent)
 function toPersistent(domain)
 {
   return {
-    _id: domain.id,
-    thisAccountId: domain.thisAccountId,
-    otherAccountId: domain.otherAccountId,
+    _id: ObjectId(domain.id),
+    thisAccountId: ObjectId(domain.thisAccountId),
+    otherAccountId: ObjectId(domain.otherAccountId),
     status: domain.status
   };
 }

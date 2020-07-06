@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongoose').Types;
 const Account = require('../domain/account');
 const Username = require('../domain/username');
 const Password = require('../domain/password');
@@ -17,7 +18,7 @@ function toDomain(persistent)
   }
   const displayName = DisplayName.make(persistent.displayName).value;
   return Account.make({
-    id: persistent._id,
+    id: persistent._id.toString(),
     username,
     password,
     email,
@@ -30,7 +31,7 @@ function toDomain(persistent)
 function toPersistent(domain)
 {
   return {
-    _id: domain.id,
+    _id: ObjectId(domain.id),
     username: !domain.username ? undefined : domain.username.value,
     password: !domain.password ? undefined : domain.password.value,
     email: !domain.email ? undefined : domain.email.value,

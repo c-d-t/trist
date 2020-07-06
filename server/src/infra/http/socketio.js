@@ -1,38 +1,41 @@
 const socketIo = require('socket.io');
 const cookieParser = require('socket.io-cookie-parser');
 const jwt = require('../../app/account/services/jwt');
-
+let io = null;
 class Sockets
 {
   constructor(http)
   {
-    this._io = socketIo(http);
-    this._io.use(cookieParser());
+    io = socketIo(http);
+    io.use(cookieParser());
     this._initSockets();
+  }
+
+  _emitEventToAccount(accountId, event, data)
+  {
+    io.to(accountId).emit(event, data);
+  }
+
+  _emitEventToAccounts(accountIds, event, data)
+  {
+    accountIds.foreach((accountId) => {
+      io.to(accountId).emit(event, data);
+    });
   }
 
   middleware()
   {
-    return function(req, _res, next)
+    return (req, _res, next) =>
     {
-      req.emitEventToAccount = function(accountId, event, data)
-      {
-        this._io.to(accountId).emit(event, data);
-      };
-      req.emitEventToAccounts = function(accountIds, event, data)
-      {
-        accountIds.foreach((accountId) => {
-          this._io.to(accountId).emit(event, data);
-        });
-      };
-      req.emit()
+      req.emitEventToAccount = this._emitEventToAccount;
+      req.emitEventToAccounts = this._emitEventToAccounts;
       next();
     }
   }
 
   _initSockets()
   {
-    this._io.on('connect', (socket) => {
+    io.on('connect', (socket) => {
       const token = socket.request.cookies[jwt];
       const { accountId } = jwt.decode(token);
       if (!accountId)

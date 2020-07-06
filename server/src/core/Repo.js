@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongoose').Types;
+
 class Repo
 {
   constructor(map, model)
@@ -8,6 +10,10 @@ class Repo
 
   async findById(id)
   {
+    if (!ObjectId.isValid(id))
+    {
+      return null;
+    }
     const persistent = await this._model.findById(id);
     if (!persistent)
     {
@@ -27,6 +33,10 @@ class Repo
     else
     {
       savedPersistent = await this._model.findByIdAndUpdate(domain.id, persistent);
+      if (!savedPersistent) // if an entity starts with an id before being entered in db
+      {
+        savedPersistent = await this._model.create(persistent);
+      }
     }
     return this._map.toDomain(savedPersistent);
   }

@@ -7,11 +7,11 @@ import Landing from './pages/landing';
 import Main from './pages/main';
 
 function App() {
-  const isLoggedIn = useSelector((state) => state.thisAccount.isLoggedIn);
+  const loggedIn = useSelector((state) => state.session.loggedIn);
 
   return (
     <div id="app">
-      {isLoggedIn ? <Main /> : <Landing />}
+      {loggedIn ? <Main /> : <Landing />}
     </div>
   );
 }

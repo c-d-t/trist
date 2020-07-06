@@ -13,6 +13,16 @@ class Application
   {
     return { success: false, data: { errorType, message } };
   }
+
+  invalidFields(message)
+  {
+    return this.failed(0, message);
+  }
+
+  forbidden(message)
+  {
+    return this.failed( message);
+  }
 }
 
 module.exports = Application;

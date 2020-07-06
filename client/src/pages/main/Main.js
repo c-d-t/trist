@@ -4,7 +4,7 @@ import Header from '../../components/header';
 import HeaderContent from '../../components/header/header_content';
 import Option from '../../components/option';
 
-import Messages from '../../components/messages';
+import ComingSoon from '../../components/coming_soon_tm';
 
 import Channel from '../../components/channel';
 
@@ -29,7 +29,7 @@ const Main = () => {
       </Header>
 
       <div id="content-container">
-        <Messages />
+        <ComingSoon />
       </div>
 
       <Channel />
