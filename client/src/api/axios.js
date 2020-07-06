@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../redux/store';
-import { login as loginAction } from '../redux/actions/thisAccountActions';
+import { login as loginAction } from '../redux/actions/sessionActions';
 
 export async function login({ usernameOrEmail, password })
 {

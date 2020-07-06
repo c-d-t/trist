@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { API } from '../actions/types';
-import { apiError, apiStart, apiEnd } from '../actions/api';
+import { API, apiError, apiStart, apiEnd } from '../actions/apiActions';
 
 const apiAction = ({ dispatch }) => (next) => (action) => {
   next(action);
@@ -30,7 +29,6 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
     dispatch(onSuccess(data));
   })
   .catch((error) => {
-    console.log(error);
     dispatch(apiError(error));
     dispatch(onFailure(error));
   })

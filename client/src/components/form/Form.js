@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Children, cloneElement } from 'react';
+import { useSelector } from 'react-redux';
 
 import './Form.css';
 
@@ -16,7 +17,8 @@ const Form = ({ title, buttonName, onSubmit, children }) => {
   const [fields, setFields] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
   const [errors, setErrors] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+
+  const formLoader = useSelector((state) => state.loaders.formLoader);
 
   buttonName = !buttonName ? title : buttonName;
 
@@ -68,14 +70,7 @@ const Form = ({ title, buttonName, onSubmit, children }) => {
       return;
     }
     
-    setIsLoading(true);
-    onSubmit(fields)
-    .then(() => {
-      setIsLoading(false)
-    })
-    .catch((e) => {
-      console.error(e);
-    });
+    onSubmit(fields);
   };
 
   return (
@@ -95,9 +90,9 @@ const Form = ({ title, buttonName, onSubmit, children }) => {
       <button
         type="button"
         onClick={submit}
-        style={isLoading ? loadingButton : null}
+        style={formLoader ? loadingButton : null}
       >
-        {isLoading ? 'loading' : buttonName}
+        {formLoader ? 'loading' : buttonName}
       </button>
     </div>
   );
