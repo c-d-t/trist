@@ -4,7 +4,18 @@ export const LOGIN = 'session:login';
 export const LOGGED_IN = 'session:loginSuccess';
 export const LOGOUT = 'session:logout';
 export const LOGGED_OUT = 'seesion:logoutSuccess';
+export const MARCO = 'session:marco';
+export const POLO = 'session:polo';
 
+export function marco()
+{
+  return createAPIAction({
+    url: '/account/marco',
+    method: 'GET',
+    data: {},
+    onSuccess: login,
+  });
+}
 export function login({ usernameOrEmail, password })
 {
   return createAPIAction({
@@ -15,7 +26,6 @@ export function login({ usernameOrEmail, password })
     label: LOGIN,
   });
 }
-
 function loggedIn()
 {
   return {
@@ -29,10 +39,8 @@ export function logout()
     url: '/account/logout',
     method: 'POST',
     onSuccess: loggedOut,
-    label: LOGOUT,
   });
 }
-
 function loggedOut()
 {
   return {

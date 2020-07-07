@@ -2,4 +2,59 @@
   width: 10rem;
   background-color: #fff;
   flex-grow: 1;
+  position: relative;
+}
+#message-history {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  top: 0;
+  padding-top: 3em;
+  bottom: 70px;
+  overflow: scroll;
+  width: 100%;
+}
+#message-history > :first-child {
+  margin-top: auto;
+}
+#channel-input {
+  position: absolute;
+  height: 40px;
+  bottom: 1em;
+  box-sizing: border-box;
+  width: 94%;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  background-image: linear-gradient(145deg, rgb(221, 255, 239), rgb(213, 254, 255));
+  border-radius: 15px;
+  transition: all 100ms linear;
+  margin: 0 3%;
+}
+#channel-input > button {
+  background: #444;
+  margin: 0 10px;
+  color: rgb(191, 255, 239);
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 15px;
+  line-height: 20px;
+}
+#channel-input > input {
+  background: none;
+  flex-grow: 1;
+  box-sizing: border-box;
+  font-size: 1rem;
+  height: 40px;
+  margin: auto 0;
+}
+#channel-input > input::placeholder {
+  color: rgb(35, 134, 109);
+}
+#channel-input:focus-within {
+  border-radius: 5px;
 }

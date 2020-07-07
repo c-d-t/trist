@@ -1,7 +1,8 @@
 import { API_START, API_END } from '../actions/apiActions';
-import { LOGIN, LOGOUT } from '../actions/sessionActions';
+import { MARCO, LOGIN } from '../actions/sessionActions';
 
 const initState = {
+  pageLoader: true,
   formLoader: false,
 };
 
@@ -22,6 +23,8 @@ const loadersReducer = (state = initState, action) => {
 
   switch (action.label)
   {
+    case MARCO:
+      return { ...state, pageLoader: isLoading };
     case LOGIN:
       return { ...state, formLoader: isLoading };
     default:

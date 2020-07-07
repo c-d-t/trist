@@ -1,6 +1,7 @@
 const config = require('../../config');
 const express = require('express');
 const Http = require('http');
+const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes');
 const Sockets = require('./socketio');
@@ -14,6 +15,7 @@ function startServer()
   app.use(sockets.middleware());
 
   app.use(express.json());
+  app.use(helmet());
   app.use(cookieParser());
   
   app.use('/', routes);

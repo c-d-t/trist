@@ -9,8 +9,9 @@ import HeaderContent from '../../components/header/header_content';
 import Option from '../../components/option';
 import WarningButton from '../../components/warning_button';
 
-import ComingSoon from '../../components/coming_soon_tm';
-import Messages from '../../components/messages';
+import ComingSoon from './coming_soon_tm';
+import Messages from './messages';
+import Friends from './friends';
 
 import Channel from '../../components/channel';
 
@@ -31,8 +32,8 @@ const Main = () => {
           <Option title="Open Chat" />
         </HeaderContent>
         <HeaderContent title="Profile">
-          <Option title="Settings" />
           <Option title="Friends" />
+          <Option title="Settings" />
           <WarningButton text="Logout" color="#f00" onClick={() => dispatch(logout())} />
         </HeaderContent>
       </Header>
@@ -41,6 +42,7 @@ const Main = () => {
         <Switch>
           <Route path="/feed" component={ComingSoon} />
           <Route path="/messages" component={Messages} />
+          <Route path="/friends" component={Friends} />
           <Redirect to="/feed" />
         </Switch>
       </div>

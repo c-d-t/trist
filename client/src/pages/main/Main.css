@@ -1,5 +1,40 @@
 #content-container {
   min-width: 40em;
-  padding: 1em 2em;
+  margin: 1em 2em;
+  padding: 1em;
   box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 5px;
+}
+#content-container > .create-container {
+  margin: 5px 0 1em 0;
+}
+#content-container > .create-container > button {
+  margin-right: 1em;
+  padding: 6px;
+  border-radius: 2px;
+  background-color: #444;
+  color: #fff;
+  font-size: 0.8em;
+}
+#content-container > .item {
+  padding: 5px 1em;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2px 0;
+  border-top: 1px solid #eee;
+} 
+#content-container > .item:last-child {
+  border-bottom: 1px solid #eee;
+}
+#content-container > .item:hover {
+  background-color: #f2f2f2;
+}
+#content-container > .item > .icon {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background-color: rgb(202, 202, 202);
 }
