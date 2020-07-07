@@ -26,7 +26,7 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
     data,
   })
   .then(({ data }) => {
-    dispatch(onSuccess(data));
+    dispatch(onSuccess(data.data));
   })
   .catch((error) => {
     dispatch(apiError(error.response));

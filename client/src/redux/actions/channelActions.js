@@ -11,7 +11,7 @@ export function getDms()
     onSuccess: gotDms,
   });
 }
-function gotDms({ data })
+function gotDms(data)
 {
   return {
     type: GOT_DMS,

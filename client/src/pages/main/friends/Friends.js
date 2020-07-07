@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { getFriends } from '../../../redux/actions/usersActions';
 
 import Friend from './Friend';
 
 const Friends = () => {
+  const friendList = useSelector((state) => state.users.friendList);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getFriends());
+  }, []); 
+
   return (
     <>
-      <Friend username="Benjo" />
-      <Friend username="Bobby" />
+      {friendList.map((friendship) => (
+        <Friend username={friendship.user.username} />
+      ))}
     </>
   );
 };

@@ -13,6 +13,7 @@ router.use(middleware.authenticated());
 router.get('/account/marco', (req, res) => accountController.marco.run(req, res));
 router.put('/account/upgrade', (req, res) => accountController.upgrade.run(req, res));
 
+router.get('/friends', (req, res) => relationsController.getFriends.run(req, res));
 router.post('/friends/request', (req, res) => relationsController.sendFriendRequest.run(req, res));
 router.post('/friends/accept', (req, res) => relationsController.acceptFriendRequest.run(req, res));
 
