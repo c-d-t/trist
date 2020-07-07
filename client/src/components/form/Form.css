@@ -14,3 +14,12 @@
   font-weight: 700;
   transition: all 200ms ease;
 }
+.form-error {
+  font-size: 0.8em;
+  color: #fff;
+  background-color: rgb(255, 49, 49);
+  margin: 2px 0;
+  padding: 5px;
+  box-sizing: border-box;
+  border-radius: 2px;
+}

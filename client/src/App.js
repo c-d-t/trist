@@ -14,7 +14,9 @@ function App() {
   const [loggedIn, pageLoader] = useSelector((state) => [state.session.loggedIn, state.loaders.pageLoader]);
 
   useEffect(() => {
-    dispatch(marco());
+    setTimeout(() => {
+      dispatch(marco());
+    }, 500);
   }, []);
 
   if (pageLoader)

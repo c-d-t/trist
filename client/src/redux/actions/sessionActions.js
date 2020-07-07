@@ -1,4 +1,5 @@
 import { createAPIAction } from './apiActions';
+import { makeFormError } from './errorActions';
 
 export const LOGIN = 'session:login';
 export const LOGGED_IN = 'session:loginSuccess';
@@ -24,6 +25,7 @@ export function login({ usernameOrEmail, password })
     method: 'POST',
     data: { usernameOrEmail, password },
     onSuccess: loggedIn,
+    onFailure: makeFormError('Username or password is incorrect.'),
     label: LOGIN,
   });
 }

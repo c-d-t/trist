@@ -18,7 +18,7 @@ const Form = ({ title, buttonName, onSubmit, children }) => {
   const [touchedFields, setTouchedFields] = useState({});
   const [errors, setErrors] = useState({});
 
-  const formLoader = useSelector((state) => state.loaders.formLoader);
+  const [formLoader, formErrors] = useSelector((state) => [state.loaders.formLoader, state.errors.formErrors]);
 
   buttonName = !buttonName ? title : buttonName;
 
@@ -72,10 +72,12 @@ const Form = ({ title, buttonName, onSubmit, children }) => {
     
     onSubmit(fields);
   };
-
   return (
     <div className="form-container">
       <h1>{title}</h1>
+      {!formErrors ? null : Object.keys(formErrors).map((errorName, i) => (
+        <div key={`formError${i}`} className="form-error">{formErrors[errorName]}</div>
+      ))}
       {Children.map(children, (child) => {
         return cloneElement(child, {
           key: child.key,
