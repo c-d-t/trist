@@ -1,6 +1,8 @@
 import { createAPIAction } from './apiActions';
 import { makeFormError } from './errorActions';
 
+export const REGISTER_AS_GUEST = 'session:guest';
+export const REGISTER = 'session:register';
 export const LOGIN = 'session:login';
 export const LOGGED_IN = 'session:loginSuccess';
 export const LOGOUT = 'session:logout';
@@ -49,4 +51,26 @@ function loggedOut()
   return {
     type: LOGGED_OUT,
   };
+}
+
+export function register({ username, email, password })
+{
+  return createAPIAction({
+    url: '/account/register',
+    method: 'POST',
+    onSuccess: loggedIn,
+    onFailure: makeFormError(),
+    label: REGISTER,
+  });
+}
+
+export function registerAsGuest({ displayName })
+{
+  return createAPIAction({
+    url: '/account/guest',
+    method: 'POST',
+    onSuccess: loggedIn,
+    onFailure: makeFormError(),
+    label: REGISTER_AS_GUEST,
+  });
 }

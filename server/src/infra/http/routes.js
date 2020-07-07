@@ -16,7 +16,8 @@ router.put('/account/upgrade', (req, res) => accountController.upgrade.run(req, 
 router.post('/friends/request', (req, res) => relationsController.sendFriendRequest.run(req, res));
 router.post('/friends/accept', (req, res) => relationsController.acceptFriendRequest.run(req, res));
 
-router.post('/dms', (req, res) => messagingController.createDm.run(req, res));
-router.post('/messages', (req, res) => messagingController.sendMessage.run(req, res));
+router.post('/channel', (req, res) => messagingController.createDm.run(req, res));
+router.get('/channel', (req, res) => messagingController.getDms.run(req, res));
+router.post('/channel/messages', (req, res) => messagingController.sendMessage.run(req, res));
 
 module.exports = router;

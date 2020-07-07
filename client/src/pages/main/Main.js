@@ -34,7 +34,7 @@ const Main = () => {
         <HeaderContent title="Profile">
           <Option title="Friends" />
           <Option title="Settings" />
-          <WarningButton text="Logout" color="#f00" onClick={() => dispatch(logout())} />
+          <WarningButton text="Logout" color="#f44" onClick={() => dispatch(logout())} />
         </HeaderContent>
       </Header>
 
