@@ -9,7 +9,7 @@ class JWTService
 
   encode(data)
   {
-    return this._jwt.sign({ data, expiresIn: '1d'}, config.JWT_KEY);
+    return this._jwt.sign(data, config.JWT_KEY, { expiresIn: '1d' });
   }
 
   decode(token)

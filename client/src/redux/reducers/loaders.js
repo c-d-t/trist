@@ -20,8 +20,8 @@ const loadersReducer = (state = initState, action) => {
   {
     return state;
   }
-
-  switch (action.label)
+  
+  switch (action.payload)
   {
     case MARCO:
       return { ...state, pageLoader: isLoading };

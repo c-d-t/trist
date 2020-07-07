@@ -3,9 +3,8 @@ import { createAPIAction } from './apiActions';
 export const LOGIN = 'session:login';
 export const LOGGED_IN = 'session:loginSuccess';
 export const LOGOUT = 'session:logout';
-export const LOGGED_OUT = 'seesion:logoutSuccess';
+export const LOGGED_OUT = 'sesion:logoutSuccess';
 export const MARCO = 'session:marco';
-export const POLO = 'session:polo';
 
 export function marco()
 {
@@ -13,7 +12,9 @@ export function marco()
     url: '/account/marco',
     method: 'GET',
     data: {},
-    onSuccess: login,
+    onSuccess: loggedIn,
+    onFailure: loggedOut,
+    label: MARCO,
   });
 }
 export function login({ usernameOrEmail, password })
