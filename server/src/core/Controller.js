@@ -11,6 +11,32 @@ class Controller
     throw new Error('ERR_NOT_IMPLEMENTED');
   }
 
+  /**
+   * @param {Object} data 
+   * @param {Number} data.errorType
+   * @param {string | Object} data.message
+   */
+  handleError(data)
+  {
+    switch (data.errorType)
+    {
+      case 0:
+        return this.failed();
+      case 1:
+        return this.unauthorized();
+      case 3:
+        return this.forbidden();
+      case 4:
+        return this.notFound();
+      case 9:
+        return this.conflict();
+      case 22:
+        return this.invalidFields();
+      case 29:
+        return this.tooMany();
+    }
+  }
+
   jsonResponse(code, data)
   {
     this._res.status(code);
@@ -58,7 +84,7 @@ class Controller
 
   invalidFields(message)
   {
-    this.jsonResponse(409, message || 'Invalid Fields');
+    this.jsonResponse(422, message || 'Invalid Fields');
   }
 
   tooMany(message)

@@ -14,14 +14,19 @@ class Application
     return { success: false, data: { errorType, message } };
   }
 
-  invalidFields(message)
-  {
-    return this.failed(0, message);
-  }
-
   forbidden(message)
   {
-    return this.failed( message);
+    return this.failed(3, message);
+  }
+  
+  notFound(message)
+  {
+    return this.failed(4, message)
+  }
+  
+  invalidFields(message)
+  {
+    return this.failed(9, message);
   }
 }
 

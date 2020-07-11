@@ -15,6 +15,11 @@ const Messages = () => {
     dispatch(getDms());
   }, []);
 
+  const openDm = (id) =>
+  {
+    console.log('hi')
+  };
+
   return (
     <>
       <div className="create-container">
