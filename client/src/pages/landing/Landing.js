@@ -8,7 +8,7 @@ import GuestForm from './GuestForm';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
 
-const Landing = ({  }) => {
+const Landing = () => {
   const { pathname } = useLocation();
   if (pathname !== '/')
   {
@@ -16,7 +16,6 @@ const Landing = ({  }) => {
   }
 
   return (
-    <>
     <Header>
       <HeaderContent title="guest">
         <GuestForm />
@@ -28,8 +27,7 @@ const Landing = ({  }) => {
         <RegisterForm />
       </HeaderContent>
     </Header>
-    </>
-  )
+  );
 };
 
 export default Landing;

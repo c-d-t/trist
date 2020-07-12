@@ -36,23 +36,15 @@ class Sockets
   _initSockets()
   {
     io.on('connect', (socket) => {
-      const token = socket.request.cookies[jwt];
-      const { accountId } = jwt.decode(token);
+      const token = socket.request.cookies.jwt;
+      const { id: accountId } = jwt.decode(token);
       if (!accountId)
       {
         return socket.disconnect();
       }
       socket.leaveAll();
       socket.join(accountId);
-      socket.currentChannelId = null;
-
-      socket.on('channel:listen', (data) => {
-        socket.join(data.channelId);
-      });
-
-      socket.on('channel:ignore', (data) => {
-        socket.leave(data.channelId);
-      });
+      io.to(accountId).emit('test', 'hello');
     });
   }
 }
