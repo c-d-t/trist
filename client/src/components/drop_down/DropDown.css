@@ -1,0 +1,16 @@
+#drop-down {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  animation: dropDownOnLoad 100ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 50ms forwards;
+}
+
+@keyframes dropDownOnLoad {
+  0% {
+
+  }
+
+  100% {
+
+  }
+}

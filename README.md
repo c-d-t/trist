@@ -1,7 +1,12 @@
 # Trist
 Minimal social network utilizing (some) domain driven design.
 
-----
+-----
+
+![trist thumbnail](img/Trist-Thumbnail.png)
+
+-----
+
 ### Getting Started
 As easy as one, two, three.
 

@@ -2,7 +2,7 @@ import { API_START, API_END } from '../actions/apiActions';
 import { MARCO, LOGIN } from '../actions/sessionActions';
 
 const initState = {
-  pageLoader: true,
+  pageLoader: false,
   formLoader: false,
 };
 

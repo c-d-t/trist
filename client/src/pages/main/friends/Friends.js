@@ -15,6 +15,9 @@ const Friends = () => {
 
   return (
     <>
+      <div className="create-container">
+        <button>Add Friend</button>
+      </div>
       {friendList.map((friendship) => (
         <Friend username={friendship.user.username} />
       ))}
