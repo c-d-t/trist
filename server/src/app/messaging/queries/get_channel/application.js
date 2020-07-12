@@ -3,49 +3,46 @@ const Guard = require('../../../../core/Guard');
 
 class MarcoApplication extends Application
 {
-  constructor(channelModel)
+  constructor(channelRepo, messageModel)
   {
     super();
-    this._channelModel = channelModel;
+    this._channelRepo = channelRepo;
+    this._messageModel = messageModel;
   }
 
   /**
    * @param {Object} input 
    * @param {string} input.thisAccountId
    * @param {string} input.channelId
+   * @param {string} input.startingPoint
    */
   async run(input)
   {
     Guard.againstNull(input.thisAccountId);
 
-    const channel = await this._channelModel.findById(input.channelId);
-    if (channelId)
+    const channel = await this._channelRepo.findById(input.channelId);
+    if (!channel || !channel.hasUserId(input.thisAccountId))
     {
-      
+      return this.notFound('A channel with that ID could not be found.');
     }
 
-    const { dmIds } = await this._channelModel.findById(input.thisAccountId)
+    let dms = await this._messageModel.find({ channelId: channel.id })
     .populate({
-      path: 'dmIds',
-      populate: {
-        path: 'participantIds',
-        match: { _id: { $ne: input.thisAccountId } },
-        select: 'username',
-      },
-      select: '-__v',
-    });
+      path: 'authorId',
+      select: 'username',
+    }).sort({ timeCreated: -1 }).skip(input.startingPoint || 0).limit(20); 
 
-    const dms = dmIds.map((dm) => {
-      let name;
-      if (dm.type === 0)
-      {
-        name = dm.participantIds[0].username
+    dms = dms.map((dm) => {
+      return {
+        id: dm._id,
+        author: {
+          id: dm.authorId._id,
+          username: dm.authorId.username,
+        },
+        timeCreated: dm.timeCreated,
+        text: dm.text,
+        edited: dm.__v !== 0,
       }
-      else
-      {
-        name = dm.title;
-      }
-      return { id: dm._id, name };
     });
 
     return this.ok({ dms });

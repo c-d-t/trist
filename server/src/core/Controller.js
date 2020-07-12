@@ -3,7 +3,13 @@ class Controller
   async run(req, res)
   {
     this._res = res;
-    await this.implementation(req);
+    try {
+      await this.implementation(req);
+    }
+    catch (e)
+    {
+      console.error(e);
+    }
   }
 
   async implementation()
@@ -21,19 +27,19 @@ class Controller
     switch (data.errorType)
     {
       case 0:
-        return this.failed();
+        return this.failed(data.message);
       case 1:
-        return this.unauthorized();
+        return this.unauthorized(data.message);
       case 3:
-        return this.forbidden();
+        return this.forbidden(data.message);
       case 4:
-        return this.notFound();
+        return this.notFound(data.message);
       case 9:
-        return this.conflict();
+        return this.conflict(data.message);
       case 22:
-        return this.invalidFields();
+        return this.invalidFields(data.message);
       case 29:
-        return this.tooMany();
+        return this.tooMany(data.message);
     }
   }
 
