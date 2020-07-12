@@ -10,6 +10,10 @@ Minimal social network utilizing (some) domain driven design.
 ### Getting Started
 As easy as one, two, three.
 
+##### Prerequisites
+
+Install [Node](https://nodejs.org/)
+
 ##### 1 - Make a folder to put your new Trist
 ```
 mkdir <folder_name>
