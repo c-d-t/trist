@@ -11,7 +11,7 @@ class GetChannelController extends Controller
   async implementation(req)
   {
     const { thisAccount } = req;
-    const { channelId, startingPoint } = req.body;
+    const { channelId, startingPoint } = req.query;
 
     const result = await this._getChannel.run({ thisAccountId: thisAccount.id, channelId, startingPoint });
     const { success, data } = result;

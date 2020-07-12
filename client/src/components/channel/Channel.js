@@ -1,39 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { openChannel } from '../../redux/actions/channelActions'
 
 import Message from './message';
 
 import './Channel.css';
 
 const Channel = () => {
+  const dispatch = useDispatch();
+
+  const currentChannel = useSelector((state) => state.channel.channels[state.channel.currentChannelId]);
+
+  useEffect(() => {
+    dispatch(openChannel('5f01de0b6d7c506622f171ad'))
+  }, []);
+
   return (
     <div id="channel-container">
       <div id="message-history">
-        <Message name="benjo" text="Top" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code." />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Hello, there" />
-        <Message name="benjo" text="Where are you?" />
+        {!currentChannel ? null : (
+          currentChannel.map((message, index) => {
+            return <Message
+              key={`channelMessage${index}`}
+              name={message.author.name}
+              text={message.text}
+            />;
+          })
+        )}
       </div>
       <div id="channel-input">
         <button

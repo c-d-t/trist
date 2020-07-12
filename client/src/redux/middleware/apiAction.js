@@ -20,10 +20,12 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
     dispatch(apiStart(label))
   }
 
+  const dataOrParams = ["GET", "DELETE"].includes(method) ? "params" : "data";
+
   axios.request({
     url,
     method,
-    data,
+    [dataOrParams]: data,
   })
   .then(({ data }) => {
     dispatch(onSuccess(data.data));

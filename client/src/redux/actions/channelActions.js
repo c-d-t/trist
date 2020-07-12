@@ -25,17 +25,23 @@ function gotDms(data)
 export function openChannel(channelId)
 {
   return createAPIAction({
-    url: '/channel',
+    url: '/channel/messages',
     method: 'GET',
     data: { channelId },
-    onSuccess: openedChannel,
+    onSuccess: makeOpenedChannel(channelId),
     label: OPEN_CHANNEL,
   });
 }
-function openedChannel(data)
+function makeOpenedChannel(channelId)
 {
-  return {
-    type: OPENED_CHANNEL,
-    payload: data.dm,
-  };
+  return function openedChannel(data)
+  {
+    return {
+      type: OPENED_CHANNEL,
+      payload: {
+        channelId: channelId,
+        messages: data.messages
+      },
+    };
+  }
 }

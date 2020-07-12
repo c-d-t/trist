@@ -26,26 +26,26 @@ class MarcoApplication extends Application
       return this.notFound('A channel with that ID could not be found.');
     }
 
-    let dms = await this._messageModel.find({ channelId: channel.id })
+    let messages = await this._messageModel.find({ channelId: channel.id })
     .populate({
       path: 'authorId',
-      select: 'username',
+      select: 'username displayName',
     }).sort({ timeCreated: -1 }).skip(input.startingPoint || 0).limit(20); 
 
-    dms = dms.map((dm) => {
+    messages = messages.map((message) => {
       return {
-        id: dm._id,
+        id: message._id,
         author: {
-          id: dm.authorId._id,
-          username: dm.authorId.username,
+          id: message.authorId._id,
+          name: message.authorId.displayName || message.authorId.username,
         },
-        timeCreated: dm.timeCreated,
-        text: dm.text,
-        edited: dm.__v !== 0,
+        timeCreated: message.timeCreated,
+        text: message.text,
+        edited: message.__v !== 0,
       }
     });
 
-    return this.ok({ dms });
+    return this.ok({ messages });
   }
 }
 
