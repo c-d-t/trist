@@ -3,11 +3,11 @@ const Guard = require('../../../../core/Guard');
 
 class MarcoApplication extends Application
 {
-  constructor(channelRepo, messageModel)
+  constructor(channelRepo, messagingView)
   {
     super();
     this._channelRepo = channelRepo;
-    this._messageModel = messageModel;
+    this._messagingView = messagingView;
   }
 
   /**
@@ -26,24 +26,7 @@ class MarcoApplication extends Application
       return this.notFound('A channel with that ID could not be found.');
     }
 
-    let messages = await this._messageModel.find({ channelId: channel.id })
-    .populate({
-      path: 'authorId',
-      select: 'username displayName',
-    }).sort({ timeCreated: -1 }).skip(input.startingPoint || 0).limit(20); 
-
-    messages = messages.map((message) => {
-      return {
-        id: message._id,
-        author: {
-          id: message.authorId._id,
-          name: message.authorId.displayName || message.authorId.username,
-        },
-        timeCreated: message.timeCreated,
-        text: message.text,
-        edited: message.__v !== 0,
-      }
-    });
+    let messages = await this._messagingView.findMessagesByChannelId(channel.id);
 
     return this.ok({ messages });
   }

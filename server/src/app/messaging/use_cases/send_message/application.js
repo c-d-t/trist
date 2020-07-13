@@ -7,14 +7,16 @@ const MessageText = require('../../domain/messageText');
 
 class SendMessageApplication extends Application
 {
-  constructor(messageRepo, channelRepo, userRepo)
+  constructor(messageRepo, channelRepo, userRepo, eventEmitter)
   {
     super();
     this._messageRepo = messageRepo;
     this._channelRepo = channelRepo;
     this._userRepo = userRepo;
+    this._eventEmitter = eventEmitter;
   }
-
+  
+  // FIXME: oh no big messy
   /**
    * Sends a message in a channel
    * @param {Object} input 
@@ -34,7 +36,42 @@ class SendMessageApplication extends Application
       return this.failed(SendMessageErrors.ChannelDoesNotExist, 'A channel with that id doesn\'t exist.');
     }
 
+
+    // create message
+    const messageTextResult = MessageText.make(input.text);
+    if (messageTextResult.failed)
+    {
+      return this.failed(SendMessageErrors.InvalidFields, messageTextResult.error);
+    }
+    const messageText = messageTextResult.value;
+    const messageResult = Message.make({ authorId: thisUser.id, channelId: channel.id, text: messageText });
+    if (messageResult.failed)
+    {
+      return this.failed();
+    }
+    const newMessage = messageResult.value;
+
+
+    // dm or open
+    if (channel.type === 0 || channel.type === 1)
+    {
+      const result = await this.dmMessage(channel, newMessage);
+      if (!result.success) return result;
+    }
+
+
+    const message = await this._messageRepo.save(newMessage);
+
+    this._eventEmitter.messageCreated(channel, message);
+
+    return this.ok();
+  }
+
+  async dmMessage(channel)
+  {
     const allUsers = await this._userRepo.findByIds(channel.participantIds);
+    const usersToAddDm = [];
+
     // dont allow users to dm people with closed dms or people who are blocked
     if (channel.type === 0)
     {
@@ -52,54 +89,19 @@ class SendMessageApplication extends Application
       }
     }
 
-    // create message
-    const messageTextResult = MessageText.make(input.text);
-    if (messageTextResult.failed)
-    {
-      return this.failed(SendMessageErrors.InvalidFields, messageTextResult.error);
-    }
-    const messageText = messageTextResult.value;
-    const messageResult = Message.make({ authorId: thisUser.id, channelId: channel.id, text: messageText });
-    if (messageResult.failed)
-    {
-      return this.failed();
-    }
-    const message = messageResult.value;
-
-    if ((channel.type === 0 || channel.type === 1))
-    {
-      // add to dm list if not added
-      let userDmsHaveBeenUpdated = false;
-      allUsers.forEach((user) => {
-        if (!user.dmIds.includes(channel.id))
-        {
-          userDmsHaveBeenUpdated = true;
-          user.addDmId(channel.id);
-        }
-      });
-
-      if (userDmsHaveBeenUpdated)
+    // add to dm list if not added
+    allUsers.forEach((user) => {
+      if (!user.dmIds.includes(channel.id))
       {
-        await Promise.all([
-          this._userRepo.saveMany(allUsers),
-          this._messageRepo.save(message),
-        ]);
+        usersToAddDm.push(user.id);
+        user.addDmId(channel.id);
       }
-      else
-      {
-        // change back
-        await Promise.all([
-          this._userRepo.saveMany(allUsers),
-          this._messageRepo.save(message),
-        ]);
-      }
-    }
-    else
+    });
+
+    if (usersToAddDm.length > 0)
     {
-      await this._messageRepo.save(message);
+      this._userRepo.saveMany(allUsers);
     }
-
-
 
     return this.ok();
   }

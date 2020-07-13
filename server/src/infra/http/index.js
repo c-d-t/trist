@@ -4,15 +4,14 @@ const Http = require('http');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes');
-const Sockets = require('./socketio');
+const eventEmitter = require('../events');
 
 function startServer()
 {
   const app = express();
   const http = Http.createServer(app);
 
-  const sockets = new Sockets(http);
-  app.use(sockets.middleware());
+  eventEmitter.init(http);
 
   app.use(express.json());
   app.use(helmet());

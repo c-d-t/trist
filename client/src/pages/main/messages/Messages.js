@@ -26,8 +26,8 @@ const Messages = () => {
         <button>Start DM</button>
         <button>Make Group</button>
       </div>
-      {dms.map((dm, index) => (
-        <Dm key={`dms${index}`} username={dm.name} lastMessage="test" timestamp="now" />
+      {!dms ? null : dms.map((dm, index) => (
+        <Dm key={`dms${index}`} username={dm.title} lastMessage="test" timestamp="now" />
       ))}
     </>
   );

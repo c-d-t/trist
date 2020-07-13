@@ -1,9 +1,8 @@
 const GetChannelApplication = require('./application');
 const GetChannelController = require('./controller');
-const { channelRepo } = require('../../repo');
-const messageModel = require('../../repo/models/Message');
+const { messagingView, channelRepo } = require('../../repo');
 
-const getChannelUseCase = new GetChannelApplication(channelRepo, messageModel);
+const getChannelUseCase = new GetChannelApplication(channelRepo, messagingView);
 const getChannel = new GetChannelController(getChannelUseCase);
 
 module.exports = getChannel;

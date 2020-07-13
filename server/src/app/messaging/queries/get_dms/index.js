@@ -1,8 +1,8 @@
 const GetDmsApplication = require('./application');
 const GetDmsController = require('./controller');
-const User = require('../../repo/models/User');
+const { messagingView } = require('../../repo');
 
-const getDms = new GetDmsApplication(User);
+const getDms = new GetDmsApplication(messagingView);
 const getDmsGet = new GetDmsController(getDms);
 
 module.exports = getDmsGet;
