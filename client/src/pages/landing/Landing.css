@@ -1,0 +1,68 @@
+#landing-container {
+  padding-top: 40px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  height: 40px;
+  background-color: rgb(33, 226, 152);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  box-sizing: border-box;
+  align-items: center;
+}
+header > #logo {
+  font-family: 'Montserrat Alternates';
+  color: #fff;
+  font-size: 1.7em;
+}
+header > #buttons {
+}
+header > #buttons > a {
+  padding: 7px 10px;
+  border-radius: 2px;
+  margin-left: 5px;
+}
+header > #buttons > .login {
+  border: 1px solid #fff;
+  background: none;
+  color: #fff;
+}
+header > #buttons > .register {
+  background-color: #fff;
+  color: rgb(33, 226, 152);
+}
+#landing-cover {
+  height: 30em;
+  width: 100%;
+  background-image: linear-gradient(180deg,rgb(33, 226, 152), rgb(33, 226, 152), rgb(92, 247, 208));
+}
+#landing-cover > .title {
+  font-size: 2.5em;
+  font-family: 'Montserrat Alternates';
+  text-align: center;
+  color: rgb(255, 255, 255);
+  padding-top: 4em;
+  margin-bottom: 10px;
+}
+#landing-cover > .subtitle {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 4em;
+}
+#landing-cover > .call-of-action {
+  text-align: center;
+  display: block;
+  font-size: 1.5em;
+  width: 50%;
+  max-width: 250px;
+  background-color: #fff;
+  color: rgb(67, 241, 198);
+  font-weight: bold;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 25px;
+}

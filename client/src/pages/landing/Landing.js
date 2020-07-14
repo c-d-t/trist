@@ -1,33 +1,96 @@
 import React from 'react';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 
-import Header from '../../components/header';
-import HeaderContent from '../../components/header/header_content';
+import LoginForm from './forms/LoginForm';
+import GuestForm from './forms/GuestForm';
+import RegisterForm from './forms/RegisterForm';
 
-import GuestForm from './GuestForm';
-import LoginForm from './LoginForm';
-import RegisterForm from './RegisterForm';
+import './Landing.css';
 
-const Landing = () => {
-  const { pathname } = useLocation();
-  if (pathname !== '/')
-  {
-    return <Redirect to="/" />;
-  }
-
+const MobileLanding = () => {
   return (
-    <Header>
-      <HeaderContent title="guest">
-        <GuestForm />
-      </HeaderContent>
-      <HeaderContent title="login">
-        <LoginForm />
-      </HeaderContent>
-      <HeaderContent title="register">
-        <RegisterForm />
-      </HeaderContent>
-    </Header>
+    <div id="landing-container">
+    <header>
+      <Link to="/" id="logo">trist</Link>
+      <div id="buttons">
+        <Link to="/login" className="login">Login</Link>
+        <Link to="/register" className="register">Register</Link>
+      </div>
+    </header>
+    <Switch>
+      <Route path="/login" component={LoginForm} />
+      <Route path="/guest" component={GuestForm} />
+      <Route path="/register" component={RegisterForm} />
+      <Route path="/">
+        <div id="landing-cover">
+          <h1 className="title">trist</h1>
+          <p className="subtitle">A something something bla</p>
+          <Link to="/guest" className="call-of-action">
+            Start!
+          </Link>
+        </div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+        <div>blablablablabl</div>
+
+      </Route>
+    </Switch>
+    </div>
   );
 };
 
-export default Landing;
+export default MobileLanding;

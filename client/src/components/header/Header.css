@@ -1,9 +1,9 @@
-header {
+/* header {
   background-color: #fff;
-  width: 17%;
   min-width: 230px;
   padding: 20px;
   box-sizing: border-box;
+  height: 100vh;
 }
 header > h1 {
   font-family: 'Montserrat Alternates', sans-serif;
@@ -15,4 +15,16 @@ header > h1 {
   text-align: center;
   font-size: 30px;
   border-bottom: 3px solid rgb(226, 226, 226);
+} */
+
+@media only screen and (max-width: 1024px) {
+  header {
+    position: absolute;
+    transform: translate(-100%, 0);
+    transition: all 100ms ease;
+    background-color: #eee;
+  }
+  .header-open {
+    transform: translate(0, 0);
+  }
 }

@@ -5,10 +5,11 @@ import Tabs from '../tabs';
 import MainTab from './header_tab';
 
 const Header = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <header>
+    <header className={isOpen ? 'header-open' : ''}>
       <h1>trist</h1>
       <Tabs activeTab={activeTab} onClick={(i) => () => setActiveTab(i)}>
         {children.map((child, index) => {

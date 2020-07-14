@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
+import { AiFillCaretLeft } from "react-icons/ai";
 
 import { logout } from '../../redux/actions/sessionActions';
 
@@ -18,11 +19,13 @@ import Channel from '../../components/channel';
 import './Main.css';
 
 const Main = () => {
+  const [headerOpen, setHeaderOpen] = useState(false);
+  const [channelOpen, setChannelOpen] = useState(false);
   const dispatch = useDispatch();
 
   return (
     <>
-      <Header>
+      <Header className={headerOpen ? 'header-open' : ''}>
         <HeaderContent title="Home">
           <Option title="Feed" />
           <Option title="Messages" />
@@ -45,6 +48,9 @@ const Main = () => {
           <Route path="/friends" component={Friends} />
           <Redirect to="/feed" />
         </Switch>
+        <div id="mobile-nav">
+          <button type="button" onClick={() => setHeaderOpen(!headerOpen)}><AiFillCaretLeft /></button>
+        </div>
       </div>
 
       <Channel />

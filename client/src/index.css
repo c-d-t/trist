@@ -7,7 +7,6 @@
   color: #333;
 }
 body {
-  /* overflow: hidden; */
   background-color: rgb(245, 247, 248);
 }
 
@@ -20,6 +19,9 @@ button:hover {
   cursor: pointer;
 }
 a {
-  display: block;
+  color: rgb(9, 136, 119);
   text-decoration: none;
+}
+svg, path {
+  color: inherit;
 }

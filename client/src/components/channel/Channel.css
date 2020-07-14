@@ -1,8 +1,9 @@
 #channel-container {
-  width: 10rem;
-  background-color: #fff;
-  flex-grow: 1;
   position: relative;
+  flex-grow: 1;
+  background-color: #fff;
+  height: 100vh;
+  min-width: 25%;
 }
 #message-history {
   position: absolute;
@@ -57,4 +58,12 @@
 }
 #channel-input:focus-within {
   border-radius: 5px;
+}
+
+@media only screen and (max-width: 1024px) {
+  #channel-container {
+    position: absolute;
+    right: 100%;
+    width: 100vw;
+  }
 }

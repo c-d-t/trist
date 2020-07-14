@@ -49,8 +49,8 @@ class MessagingView
       .populate({
         path: 'authorId',
         select: 'username displayName',
-      }).skip(startingPoint || 0).limit(20); 
-      // FIXME: is this proper sorting?
+      }).sort({ timeCreated: -1 }).skip(startingPoint || 0).limit(20); 
+
       messages = messages.map((message) => {
         return {
           id: message._id,

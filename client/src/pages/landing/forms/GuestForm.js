@@ -1,9 +1,9 @@
 import React from 'react';
 
-import validators from '../../validators';
+import validators from '../../../validators';
 
-import Form from '../../components/form';
-import Input from '../../components/form/input';
+import Form from '../../../components/form';
+import Input from '../../../components/form/input';
 
 const onSubmit = () => {
   alert('Registering is disabled during initial release.');

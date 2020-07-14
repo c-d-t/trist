@@ -5,17 +5,20 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import store from './redux/store';
+import WindowDimensionsProvider from './api/windowDimensions';
 import getSocket from './api/socket';
 
 getSocket(store);
 
 ReactDOM.render(
+  <WindowDimensionsProvider>
   <Provider store={store}>
   <BrowserRouter>
   <React.StrictMode>
     <App />
   </React.StrictMode>
   </BrowserRouter>
-  </Provider>,
+  </Provider>
+  </WindowDimensionsProvider>,
   document.getElementById('root')
 );
