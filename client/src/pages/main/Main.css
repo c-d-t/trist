@@ -7,10 +7,10 @@
   background-color: #fff;
   border-radius: 5px;
 }
-#content-container > .create-container {
+.create-container {
   margin: 5px 0 1em 0;
 }
-#content-container > .create-container > button {
+.create-container > button {
   margin-right: 1em;
   padding: 6px;
   border-radius: 2px;

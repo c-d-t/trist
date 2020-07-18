@@ -1,0 +1,19 @@
+#desktop {
+  text-align: center;
+  font-family: 'Montserrat Alternates';
+  font-size: 3em;
+  color: #fff;
+}
+
+#desktop-sub {
+  text-align: center;
+  margin-top: 1em;
+  font-size: 1.5em;
+  color: #999;
+}
+
+#desktop-container {
+  height: 100vh;
+  background-color: #111;
+  padding-top: 30vh;
+}

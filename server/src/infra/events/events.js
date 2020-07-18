@@ -24,14 +24,13 @@ class EventEmitter
       {
         return socket.disconnect();
       }
-      socket.leaveAll();
       socket.join(accountId);
 
-      socket.on('subscribe-to-channel', ({ channelId }) => {
+      socket.on('join-channel', ({ channelId }) => {
         socket.join(channelId);
       });
 
-      socket.on('unsubscribe-to-channel', ({ channelId }) => {
+      socket.on('leave-channel', ({ channelId }) => {
         socket.leave(channelId);
       });
     });

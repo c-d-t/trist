@@ -6,7 +6,7 @@ import Form from '../../../components/form';
 import Input from '../../../components/form/input';
 
 const onSubmit = () => {
-  alert('Registering is disabled during initial release.');
+  alert('Registering is currently disabled.');
 };
 
 const GuestForm = () => {

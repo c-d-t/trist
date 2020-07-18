@@ -8,8 +8,32 @@
   border-top-left-radius: 15px;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 #mobile-nav > a {
-  font-size: 0.75em;
+  height: 30px;
+  max-width: 30px;
+  font-size: 1.75em;
+  transition: all 400ms ease;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  border-radius: 10px;
+}
+#mobile-nav > a > p {
+  color: #fff;
+  font-size: 0.6em;
+  font-weight: bold;
+  line-height: 40px;
+  margin: 0 10px;
+  display: none;
+  line-height: 30px;
+}
+#mobile-nav > .highlight {
+  background-color: rgb(33, 226, 152);
+  color: #fff;
+  max-width: 1000px;
+}
+#mobile-nav > .highlight > p {
+  display: inline-block;
 }

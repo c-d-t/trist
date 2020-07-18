@@ -8,6 +8,8 @@
   border-radius: 2px;
   font-size: 15px;
   line-height: 18px;
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 .message-container > h1 {
   color: rgb(107, 204, 175);

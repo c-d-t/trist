@@ -3,5 +3,91 @@
   top: 0;
   bottom: 0;
   width: 100vw;
+  overflow-x: hidden;
   box-sizing: border-box;
+}
+
+.header {
+  background-color: rgb(33, 226, 152);
+  font-weight: bold;
+  color: #fff;
+  font-size: 1.2em;
+  padding: .5em 10px;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.header > button {
+  background: none;
+  color: #fff;
+  margin-right: 0.5em;
+}
+
+.action-buttons {
+  margin: 15px 15px 1em 15px;
+}
+.action-buttons > button {
+  margin-right: 1em;
+  padding: 6px;
+  border-radius: 2px;
+  background-color: #444;
+  color: #fff;
+  font-size: 0.8em;
+}
+
+.list-container {
+  max-height: 90%;
+  overflow-y: scroll;
+  margin: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.list-container > .sm {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 10px 5px;
+  border-radius: 2px;
+  margin-bottom: 5px;
+  min-width: 100%;
+}
+.list-container > .sm > .img {
+  background-color: brown;
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+.list-container > .sm > .info > .primary {
+  font-weight: bold;
+}
+.list-container > .sm > .info > .secondary {
+  color: #888;
+  font-size: 0.9em;
+}
+
+.list-container > .md {
+  background-color: #fff;
+  width: 48%;
+  border-radius: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #fff;
+  margin-bottom: 0.7em;
+  display: flex;
+  align-items: center;
+}
+.list-container > .md > .primary {
+  font-weight: bold;
+  text-align: center;
+  font-size: 1em;
+  color: #c2c2c2;
+  margin-left: 10px;
+}
+.list-container > .md > .img {
+  color:  rgb(135, 175, 142);
+  font-size: 2em;
+  text-align: center;
 }

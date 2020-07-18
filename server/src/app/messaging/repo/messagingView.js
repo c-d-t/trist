@@ -83,6 +83,7 @@ class MessagingView
   
       message = {
         id: message._id,
+        channelId: message.channelId,
         author: {
           id: message.authorId._id,
           name: message.authorId.displayName || message.authorId.username,

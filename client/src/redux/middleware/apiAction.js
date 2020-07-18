@@ -10,7 +10,7 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
     url,
     method,
     data = {},
-    onSuccess,
+    onSuccess = () => { return { type: 'nothing' } },
     onFailure = (err) => { console.log(err); return { type: 'do_nothing' }; },
     label,
   } = action.payload;

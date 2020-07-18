@@ -28,7 +28,7 @@ const Form = ({ title, buttonName, onSubmit, children }) => {
       initFields[child.props.name] = '';
     });
     setFields(initFields);
-  }, []);
+  }, [children]);
 
   useEffect(() => {
     const newErrors = {};

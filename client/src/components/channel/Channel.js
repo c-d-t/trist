@@ -1,23 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { AiOutlineMenu } from 'react-icons/ai';
 
-import { openChannel } from '../../redux/actions/channelActions'
+import { closeChannel, sendMessage } from '../../redux/actions/channelActions';
 
 import Message from './message';
 
 import './Channel.css';
 
 const Channel = () => {
+  const [input, setInput] = useState('');
   const dispatch = useDispatch();
 
-  const currentChannel = useSelector((state) => state.channel.channels[state.channel.currentChannelId]);
+  const [currentChannelId, currentChannel] = useSelector((state) => [
+    state.channel.currentChannelId,
+    state.channel.channels[state.channel.currentChannelId]
+  ]);
 
-  useEffect(() => {
-    dispatch(openChannel('5f01de0b6d7c506622f171ad'))
-  }, []);
+  const onSendMessage = () => {
+    if (input.length === 0)
+    {
+      return;
+    }
+    dispatch(sendMessage(currentChannelId, input));
+    setInput('');
+  };
+
+  const closeDm = () => {
+    dispatch(closeChannel());
+  };
 
   return (
-    <div id="channel-container">
+    <div id="channel-container" className={!currentChannelId ? 'channel-hidden' : ''}>
+      <div className="header">
+        <button
+          type="button"
+          onClick={closeDm}
+        ><AiOutlineMenu /></button>
+        Berb
+      </div>
       <div id="message-history">
         {!currentChannel ? null : (
           currentChannel.map((message, index) => {
@@ -35,7 +56,11 @@ const Channel = () => {
         >+</button>
         <input
           placeholder="Message Benjo"
-          type="text" />
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => e.keyCode === 13 ? onSendMessage() : null}
+        />
       </div>
     </div>
   );

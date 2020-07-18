@@ -3,7 +3,10 @@ import { createAPIAction } from './apiActions';
 export const GET_DMS = 'channel:getDms';
 export const GOT_DMS = 'channel:gotDms';
 export const OPEN_CHANNEL = 'channel:open';
-export const OPENED_CHANNEL = 'channel:opened'
+export const OPENED_CHANNEL = 'channel:opened';
+export const CLOSED_CHANNEL = 'channel:closed';
+export const GOT_MESSAGE = 'channel:gotMessage';
+export const SENT_MESSAGE = 'channel:sentMessage';
 
 export function getDms()
 {
@@ -44,4 +47,20 @@ function makeOpenedChannel(channelId)
       },
     };
   }
+}
+
+export function closeChannel()
+{
+  return {
+    type: CLOSED_CHANNEL,
+  };
+}
+
+export function sendMessage(channelId, text)
+{
+  return createAPIAction({
+    url: '/channel/messages',
+    method: 'POST',
+    data: { channelId, text },
+  });
 }

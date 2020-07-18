@@ -1,33 +1,38 @@
+.channel-hidden {
+  transform: translate(100%, 0);
+}
 #channel-container {
-  position: relative;
-  flex-grow: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
   background-color: #fff;
-  height: 100vh;
-  min-width: 25%;
+  transition: all 150ms ease;
 }
 #message-history {
   position: absolute;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: flex-start;
-  top: 0;
-  padding-top: 3em;
+  top: 2.7em;
   bottom: 70px;
   overflow: scroll;
   width: 100%;
+  padding-top: 2em;
+  box-sizing: border-box;
 }
-#message-history > :first-child {
+#message-history > :last-child {
   margin-top: auto;
 }
 #channel-input {
   position: absolute;
-  height: 40px;
+  height: 3em;
   bottom: 1em;
   box-sizing: border-box;
   width: 94%;
   display: flex;
   align-items: center;
-  padding: 0 4px;
   background-image: linear-gradient(145deg, rgb(221, 255, 239), rgb(213, 254, 255));
   border-radius: 15px;
   transition: all 100ms linear;
@@ -58,12 +63,4 @@
 }
 #channel-input:focus-within {
   border-radius: 5px;
-}
-
-@media only screen and (max-width: 1024px) {
-  #channel-container {
-    position: absolute;
-    right: 100%;
-    width: 100vw;
-  }
 }
