@@ -9,6 +9,7 @@ const UserList = () => {
 
   useEffect(() => {
     dispatch(getDms());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   const openDm = (id) =>

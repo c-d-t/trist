@@ -1,5 +1,6 @@
 import { createAPIAction } from './apiActions';
 import { makeFormError } from './errorActions';
+import { initSocket, closeSocket } from '../../api/socket';
 
 export const REGISTER_AS_GUEST = 'session:guest';
 export const REGISTER = 'session:register';
@@ -33,6 +34,7 @@ export function login({ usernameOrEmail, password })
 }
 function loggedIn()
 {
+  initSocket();
   return {
     type: LOGGED_IN,
   };
@@ -48,6 +50,7 @@ export function logout()
 }
 function loggedOut()
 {
+  closeSocket();
   return {
     type: LOGGED_OUT,
   };

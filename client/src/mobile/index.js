@@ -6,6 +6,7 @@ import DmList from '../components/dm_list';
 import Discover from '../components/discover';
 import Channel from '../components/channel';
 import Profile from '../components/profile';
+import Settings from '../components/settings';
 
 import './Mobile.css';
 
@@ -13,6 +14,7 @@ const Mobile = () => {
   return (
     <>
     <Switch>
+      <Route path="/profile/settings" component={Settings} />
       <Route path="/messages" component={DmList} />
       <Route path="/discover" component={Discover} />
       <Route path="/profile" component={Profile} />

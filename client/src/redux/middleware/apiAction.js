@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API, apiError, apiStart, apiEnd } from '../actions/apiActions';
+import { LOGGED_OUT } from '../actions/sessionActions';
 
 const apiAction = ({ dispatch }) => (next) => (action) => {
   next(action);
@@ -31,6 +32,8 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
     dispatch(onSuccess(data.data));
   })
   .catch((error) => {
+    if (error.response.status === 403) return dispatch({ type: LOGGED_OUT });
+
     dispatch(apiError(error.response));
     dispatch(onFailure(error.response));
   })

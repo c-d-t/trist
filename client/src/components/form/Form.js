@@ -28,7 +28,8 @@ const Form = ({ title, buttonName, onSubmit, children }) => {
       initFields[child.props.name] = '';
     });
     setFields(initFields);
-  }, [children]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const newErrors = {};
@@ -47,6 +48,7 @@ const Form = ({ title, buttonName, onSubmit, children }) => {
     });
     setTouchedFields({ ...touchedFields, ...newTouchedFields });
     setErrors(newErrors);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fields]);
 
 

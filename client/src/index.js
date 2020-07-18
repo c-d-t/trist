@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import store from './redux/store';
 import WindowDimensionsProvider from './api/windowDimensions';
-import getSocket from './api/socket';
+import { setStore } from './api/socket';
 
-getSocket(store);
+setStore(store);
 
 ReactDOM.render(
   <WindowDimensionsProvider>

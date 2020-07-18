@@ -18,6 +18,7 @@ function App() {
 
   useEffect(() => {
     dispatch(marco());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (pageLoader)

@@ -4,12 +4,15 @@ import { AiOutlineMessage, AiOutlineHome, AiOutlineUser } from 'react-icons/ai';
 
 const Nav = () => {
   const { pathname } = useLocation();
+  const splitPath = pathname.split('/');
+  const currentBasePathName = splitPath[1];
+  const currentPathName = splitPath[splitPath.length - 1];
 
   return (
     <div id="mobile-nav">
-      <Link to="/messages" className={pathname === '/messages' ? 'highlight' : ''}><AiOutlineMessage /><p>Messages</p></Link>
-      <Link to="/discover" className={pathname === '/discover' ? 'highlight' : ''}><AiOutlineHome /><p>Discover</p></Link>
-      <Link to="/profile" className={pathname === '/profile' ? 'highlight' : ''}><p>Profile</p><AiOutlineUser /></Link>
+      <Link to="/messages" className={currentBasePathName === 'messages' ? 'highlight' : ''}><AiOutlineMessage /><p>{currentPathName}</p></Link>
+      <Link to="/discover" className={currentBasePathName === 'discover' ? 'highlight' : ''}><AiOutlineHome /><p>{currentPathName}</p></Link>
+      <Link to="/profile" className={currentBasePathName === 'profile' ? 'highlight' : ''}><p>{currentPathName}</p><AiOutlineUser /></Link>
     </div>
   );
 };
