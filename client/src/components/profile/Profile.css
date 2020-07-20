@@ -27,9 +27,12 @@
   font-size: 2em;
 }
 #profile-container > #new-post-button {
-  background-color: #444;
-  border-radius: 2px;
-  padding: 10px;
+  background-color: rgb(74, 230, 134);
+  font-weight: bold;
+  font-size: 2em;
+  border-radius: 50%;
+  height: 1.5em;
+  width: 1.5em;
   color: #fff;
   margin: 1em 0;
 }

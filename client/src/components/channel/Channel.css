@@ -1,5 +1,5 @@
 .channel-hidden {
-  transform: translate(0, 100%);
+  transform: translate(100%, 0);
 }
 #channel-container {
   position: absolute;

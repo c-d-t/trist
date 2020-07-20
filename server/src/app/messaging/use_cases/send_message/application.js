@@ -82,7 +82,7 @@ class SendMessageApplication extends Application
           bothDmsAreOpen = false;
         }
       });
-      if ((!bothDmsAreOpen && await relationshipService.areFriends(allUsers[0], allUsers[1]))
+      if ((!bothDmsAreOpen && !await relationshipService.areFriends(allUsers[0], allUsers[1]))
       || await relationshipService.hasBlock(allUsers[0], allUsers[1]))
       {
         return this.failed(SendMessageErrors.DmsAreNotOpen, 'Either you or your recipient don\'t allow dms from non-friends.');    

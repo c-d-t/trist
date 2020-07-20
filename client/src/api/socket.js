@@ -14,6 +14,7 @@ export const leaveChannel = (channelId) => {
 
 export function initSocket()
 {
+  if (!!socket) return;
   socket = io();
   socket.on('message-created', (data) => {
     store.dispatch({ type: GOT_MESSAGE, payload: data });
@@ -22,6 +23,7 @@ export function initSocket()
 
 export function closeSocket()
 {
+  if (!socket) return;
   socket.disconnect();
   socket = null;
 }

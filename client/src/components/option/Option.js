@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import './Option.css';
 
 const Option = ({ title }) => {
   const location = useLocation();

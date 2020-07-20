@@ -9,12 +9,12 @@ const Profile = () => {
       <div id="header">
         <div id="pfp"></div>
       </div>
-      <div id="action-buttons">
+      <div className="action-buttons">
         <Link to="/profile/settings">Settings </Link>
         <Link to="/profile/friends"> Friends</Link>
       </div>
-      <p id="name">Berrb</p>
-      <button type="button" id="new-post-button" onClick={() => alert('Coming Soon')}>Make Post</button>
+      <p id="name">[Username goes here]</p>
+      <button type="button" id="new-post-button" onClick={() => alert('Making posts are disabled.')}>+</button>
     </div>
   );
 };

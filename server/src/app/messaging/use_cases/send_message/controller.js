@@ -26,7 +26,7 @@ class CreateDmController extends Controller
       case SendMessageErrors.ChannelDoesNotExist:
         return this.notFound(data.message);
       case SendMessageErrors.DmsAreNotOpen:
-        return this.forbidden(data.message);
+        return this.failed(data.message);
       case SendMessageErrors.InvalidFields:
         return this.invalidFields(data.message);
       default:

@@ -68,6 +68,10 @@
   color: #888;
   font-size: 0.9em;
 }
+.list-container > .sm > .action-buttons {
+  margin: 0;
+  margin-left: auto;
+}
 
 .list-container > .md {
   background-color: #fff;

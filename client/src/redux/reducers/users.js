@@ -1,7 +1,8 @@
-import { GOT_FRIENDS } from '../actions/relationshipActions';
+import { GOT_FRIENDS, GOT_REQUESTS } from '../actions/relationshipActions';
 
 const initState = {
   friendList: [],
+  requestList: [],
 };
 
 function usersReducer(state = initState, action)
@@ -10,6 +11,8 @@ function usersReducer(state = initState, action)
   {
     case GOT_FRIENDS:
       return { ...state, friendList: action.payload };
+    case GOT_REQUESTS:
+      return { ...state, requestList: action.payload };
     default:
       return state;
   }

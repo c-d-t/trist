@@ -21,7 +21,10 @@ class RelationshipService
       this._relationshipRepo.findByAccounts(accountIdOne, accounntIdTwo),
       this._relationshipRepo.findByAccounts(accounntIdTwo, accountIdOne),
     ]);
-
+    if (!relationshipOne)
+    {
+      return false;
+    }
     if (relationshipOne.type === -1 || relationshipTwo.type === -1)
     {
       return true;

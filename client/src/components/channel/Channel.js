@@ -54,6 +54,7 @@ const Channel = () => {
       <div id="channel-input">
         <button
           type="button"
+          onClick={() => alert('Adding images is disabled.')}
         >+</button>
         <input
           placeholder="Message Benjo"

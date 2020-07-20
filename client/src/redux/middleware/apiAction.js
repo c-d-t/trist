@@ -32,9 +32,9 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
     dispatch(onSuccess(data.data));
   })
   .catch((error) => {
-    if (error.response.status === 403) return dispatch({ type: LOGGED_OUT });
+    if (!!error.response && error.response.status === 403) return dispatch({ type: LOGGED_OUT });
 
-    dispatch(apiError(error.response));
+    dispatch(apiError(error.response.data));
     dispatch(onFailure(error.response.data));
   })
   .finally(() => {
