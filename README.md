@@ -4,9 +4,9 @@ Minimal social network utilizing (some) domain driven design.
 -----
 
 <img src="img/Trist-Thumbnail.png" width="100%" />
-<img src="img/trist_channel_mobile.png" width="150"/>
-<img src="img/trist_profile_mobile.png" width="150"/>
-<img src="img/trist_friends_mobile.png" width="150"/>
+<img src="img/trist_channel_mobile.png" align="right" width="33%"/>
+<img src="img/trist_profile_mobile.png" align="right" width="33%"/>
+<img src="img/trist_friends_mobile.png" align="right" width="33%"/>
 
 -----
 
