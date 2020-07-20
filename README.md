@@ -3,7 +3,10 @@ Minimal social network utilizing (some) domain driven design.
 
 -----
 
-![trist thumbnail](img/Trist-Thumbnail.png)
+<img src="img/Trist-Thumbnail.png" width="100%" />
+<img src="img/trist_channel_mobile.png" width="150"/>
+<img src="img/trist_profile_mobile.png" width="150"/>
+<img src="img/trist_friends_mobile.png" width="150"/>
 
 -----
 

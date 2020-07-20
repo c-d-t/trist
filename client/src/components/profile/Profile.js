@@ -13,7 +13,7 @@ const Profile = () => {
         <Link to="/profile/settings">Settings </Link>
         <Link to="/profile/friends"> Friends</Link>
       </div>
-      <p id="name">[Username goes here]</p>
+      <p id="name">Berb</p>
       <button type="button" id="new-post-button" onClick={() => alert('Making posts are disabled.')}>+</button>
     </div>
   );

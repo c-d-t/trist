@@ -7,12 +7,7 @@ const Nav = () => {
   const splitPath = pathname.split('/');
   const currentBasePathName = splitPath[1];
   let currentPathName;
-
-  if (!currentPathName)
-  {
-    currentPathName = currentBasePathName;
-  }
-  else
+  if (!!currentBasePathName)
   {
     currentPathName = splitPath[splitPath.length - 1];
     currentPathName = currentPathName[0].toUpperCase() + currentPathName.slice(1);
