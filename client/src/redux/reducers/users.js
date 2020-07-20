@@ -1,4 +1,4 @@
-import { GOT_FRIENDS } from '../actions/usersActions';
+import { GOT_FRIENDS } from '../actions/relationshipActions';
 
 const initState = {
   friendList: [],

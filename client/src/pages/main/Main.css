@@ -1,4 +1,4 @@
-#content-container {
+/* #content-container {
   min-width: 25em;
   flex-grow: 1;
   margin: 1em 2em;
@@ -6,8 +6,8 @@
   box-sizing: border-box;
   background-color: #fff;
   border-radius: 5px;
-}
-.create-container {
+} */
+/* .create-container {
   margin: 5px 0 1em 0;
 }
 .create-container > button {
@@ -17,8 +17,8 @@
   background-color: #444;
   color: #fff;
   font-size: 0.8em;
-}
-#content-container > .item {
+} */
+/* #content-container > .item {
   padding: 5px 1em;
   border-radius: 3px;
   display: flex;
@@ -38,4 +38,4 @@
   height: 3em;
   border-radius: 50%;
   background-color: rgb(202, 202, 202);
-}
+} */

@@ -26,7 +26,7 @@ class SendFriendRequestController extends Controller
       case SendFriendRequestErrors.UsernameDoesNotExist:
         return this.notFound(data.message);
       case SendFriendRequestErrors.CouldNotMakeFriendRequest:
-        return this.forbidden(data.message);
+        return this.failed(data.message);
       case SendFriendRequestErrors.AlreadyInARelationship:
         return this.conflict(data.message);
       default:

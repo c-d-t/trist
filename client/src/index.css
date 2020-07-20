@@ -14,6 +14,10 @@ input, button {
   border: none;
   outline: none;
   font-size: inherit;
+  border-radius: 0;
+}
+button {
+  touch-action: manipulation;
 }
 button:hover {
   cursor: pointer;

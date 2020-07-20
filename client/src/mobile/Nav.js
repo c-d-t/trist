@@ -6,7 +6,8 @@ const Nav = () => {
   const { pathname } = useLocation();
   const splitPath = pathname.split('/');
   const currentBasePathName = splitPath[1];
-  const currentPathName = splitPath[splitPath.length - 1];
+  let currentPathName = splitPath[splitPath.length - 1];
+  currentPathName = currentPathName[0].toUpperCase() + currentPathName.slice(1);
 
   return (
     <div id="mobile-nav">

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Children, cloneElement } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { clearErrors } from '../../redux/actions/errorActions';
 
 import './Form.css';
 
@@ -14,6 +15,7 @@ const globalValidation = (value, validator) => {
 }
 
 const Form = ({ title, buttonName, onSubmit, children }) => {
+  const dispatch = useDispatch();
   const [fields, setFields] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
   const [errors, setErrors] = useState({});
@@ -28,6 +30,9 @@ const Form = ({ title, buttonName, onSubmit, children }) => {
       initFields[child.props.name] = '';
     });
     setFields(initFields);
+    return () => {
+      dispatch(clearErrors());
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -71,7 +76,7 @@ const Form = ({ title, buttonName, onSubmit, children }) => {
       setErrors({ ...errors, ...newErrors });
       return;
     }
-    
+    dispatch(clearErrors());
     onSubmit(fields);
   };
   return (

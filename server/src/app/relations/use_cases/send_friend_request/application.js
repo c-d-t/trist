@@ -25,7 +25,7 @@ class SendFriendRequestApplication extends Application
     const accountToSendRequest = await this._accountRepo.findByUsername(input.otherAccountUsername);
     if (!accountToSendRequest)
     {
-      return this.failed(SendFriendRequestErrors.UsernameDoesNotExist, `An account with the username '${input.otherAccountUsername}' does not exist.`);
+      return this.failed(SendFriendRequestErrors.UsernameDoesNotExist, `An account with the username "${input.otherAccountUsername}" does not exist.`);
     }
     const sentFriendRequestResult = Relationship.make({
       thisAccountId: input.thisAccountId,
@@ -34,7 +34,7 @@ class SendFriendRequestApplication extends Application
     });
     if (sentFriendRequestResult.failed)
     {
-      return this.failed(SendFriendRequestErrors.CouldNotMakeFriendRequest, sentFriendRequestResult.error);
+      return this.failed(SendFriendRequestErrors.CouldNotMakeFriendRequest, 'You\'re already best friends with yourself.');
     }
     
     const sentFriendRequest = sentFriendRequestResult.value;

@@ -1,5 +1,5 @@
 .channel-hidden {
-  transform: translate(100%, 0);
+  transform: translate(0, 100%);
 }
 #channel-container {
   position: absolute;
@@ -8,7 +8,7 @@
   height: 100%;
   width: 100%;
   background-color: #fff;
-  transition: all 150ms ease;
+  transition: transform 120ms ease;
 }
 #message-history {
   position: absolute;

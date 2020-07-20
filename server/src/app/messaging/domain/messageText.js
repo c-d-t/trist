@@ -16,6 +16,7 @@ class MessageText extends ValueObject
 
 function make(string)
 {
+  string = string.trim();
   if (!string || string.length === 0)
   {
     return Result.fail('A message body is required.');

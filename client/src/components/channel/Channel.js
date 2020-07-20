@@ -18,11 +18,12 @@ const Channel = () => {
   ]);
 
   const onSendMessage = () => {
-    if (input.length === 0)
+    const toSend = input.trim();
+    if (toSend.length === 0)
     {
       return;
     }
-    dispatch(sendMessage(currentChannelId, input));
+    dispatch(sendMessage(currentChannelId, toSend));
     setInput('');
   };
 
