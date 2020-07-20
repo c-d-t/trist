@@ -33,9 +33,11 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
   })
   .catch((error) => {
     if (!!error.response && error.response.status === 403) return dispatch({ type: LOGGED_OUT });
-
-    dispatch(apiError(error.response.data));
-    dispatch(onFailure(error.response.data));
+    if (!!error.response && !!error.response.data)
+    {
+      dispatch(apiError(error.response.data));
+      dispatch(onFailure(error.response.data));
+    }
   })
   .finally(() => {
     if (label)

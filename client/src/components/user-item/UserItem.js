@@ -1,5 +1,7 @@
 import React from 'react';
 
+import WarningButton from '../warning_button';
+
 const UserItem = ({ pfp, name, secondary, buttonOne, buttonTwo }) => {
   return (
     <div className="sm">
@@ -9,8 +11,14 @@ const UserItem = ({ pfp, name, secondary, buttonOne, buttonTwo }) => {
         <div className="secondary">{secondary}</div>
       </div>
       <div className="action-buttons">
-        {!buttonOne ? null : <button type="button" onClick={buttonOne.onClick} >{buttonOne.text}</button>}
-        {!buttonTwo ? null : <button type="button" onClick={buttonTwo.onClick} >{buttonTwo.text}</button>}
+        {!buttonOne ? null : !buttonOne.warning ?
+          <button type="button" onClick={buttonOne.onClick} >{buttonOne.text}</button> :
+          <WarningButton text={buttonOne.text} onClick={buttonOne.onClick} />
+        }
+        {!buttonTwo ? null : !buttonTwo.warning ?
+          <button type="button" onClick={buttonTwo.onClick} >{buttonTwo.text}</button> :
+          <WarningButton text={buttonTwo.text} onClick={buttonTwo.onClick} />
+        }
       </div>
     </div>
   );

@@ -46,6 +46,14 @@ class RelationshipRepo extends Repo
     return this._map.toDomain(savedRelationship);
   }
 
+  async delete(domain)
+  {
+    const oldPersistentOne = await this._model.findById(domain.id);
+    const oldPersistentTwo = await this._model.findOne(this._flipRelationship(oldPersistentOne));
+    await this._model.findByIdAndDelete(oldPersistentOne._id);
+    await this._model.findByIdAndDelete(oldPersistentTwo._id);
+  }
+
   _flipRelationship(persistent)
   {
     let newStatus = persistent.status;

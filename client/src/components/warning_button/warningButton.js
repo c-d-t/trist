@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 
-import './WarningButton.css';
-
-const WarningButton = ({ text, color, onClick }) => {
+const WarningButton = ({ text, className, onClick }) => {
   const [isActive, setIsActive] = useState(false);
 
   const click = () => {
@@ -15,15 +13,13 @@ const WarningButton = ({ text, color, onClick }) => {
   }
 
   return (
-    <div className="warning-button">
-      <button
-        type="button"
-        style={{ backgroundColor: color }}
-        onClick={click}
-      >
-      {isActive ? 'Are you sure?' : text}
-      </button>
-    </div>
+    <button
+      type="button"
+      className={className}
+      onClick={click}
+    >
+    {isActive ? 'Are you sure?' : text}
+    </button>
   );
 };
 

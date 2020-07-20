@@ -7,6 +7,7 @@ export const GET_FRIENDS = 'relationships:getFriends';
 export const GOT_FRIENDS = 'relationships:gotFriends';
 export const GOT_REQUESTS = 'relationships:gotRequests';
 export const ACCEPTED_REQUEST = 'relationships:acceptedRequest';
+export const REMOVED_RELATIONSHIP = 'relationships:removed';
 
 export function getFriends()
 {
@@ -79,5 +80,21 @@ function acceptedRequest()
 {
   return {
     type: ACCEPTED_REQUEST,
+  };
+}
+
+export function removeRelationship(relationshipId)
+{
+  return createAPIAction({
+    url: '/friends',
+    method: 'DELETE',
+    data: { relationshipId },
+    onSuccess: removedRelationship,
+  });
+}
+function removedRelationship()
+{
+  return {
+    type: REMOVED_RELATIONSHIP,
   };
 }

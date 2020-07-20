@@ -8,7 +8,7 @@ class RelationshipService
   async areFriends(accountIdOne, accountIdTwo)
   {
     const foundRelationship = await this._relationshipRepo.findByAccounts(accountIdOne, accountIdTwo);
-    if (!foundRelationship || foundRelationship.type !== 2)
+    if (!foundRelationship || foundRelationship.status !== 2)
     {
       return false;
     }
@@ -25,7 +25,7 @@ class RelationshipService
     {
       return false;
     }
-    if (relationshipOne.type === -1 || relationshipTwo.type === -1)
+    if (relationshipOne.status === -1 || relationshipTwo.status === -1)
     {
       return true;
     }

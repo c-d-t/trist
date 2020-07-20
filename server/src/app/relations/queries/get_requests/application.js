@@ -17,7 +17,7 @@ class GetRequestsApplication extends Application
   {
     Guard.againstNull(input.thisAccountId);
 
-    const rawRequests = await this._relationshipModel.find({ status: { $in: [0, 1] }, thisAccountId: input.thisAccountId }, '-__v -thisAccountId -status')
+    const rawRequests = await this._relationshipModel.find({ status: { $in: [0, 1] }, thisAccountId: input.thisAccountId }, '-__v -thisAccountId')
     .populate({
       path: 'otherAccountId',
       select: 'username',
@@ -26,6 +26,7 @@ class GetRequestsApplication extends Application
     const requests = rawRequests.map((request) => {
       return {
         id: request._id,
+        status: request.status,
         user: {
           id: request.otherAccountId._id,
           username: request.otherAccountId.username,

@@ -96,3 +96,11 @@
   font-size: 2em;
   text-align: center;
 }
+
+.danger-button {
+  background-color: #f33;
+  font-weight: bold;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 2px;
+}

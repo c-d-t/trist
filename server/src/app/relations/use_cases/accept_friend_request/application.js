@@ -4,11 +4,10 @@ const AcceptFriendRequestErrors = require('./errors');
 
 class AcceptFriendRequestApplication extends Application
 {
-  constructor(relationshipRepo, accountRepo)
+  constructor(relationshipRepo)
   {
     super();
     this._relationshipRepo = relationshipRepo;
-    this._accountRepo = accountRepo;
   }
 
   /**

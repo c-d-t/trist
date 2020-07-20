@@ -4,21 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getFriends, getRequests, sendFriendRequest } from '../../redux/actions/relationshipActions';
 import { clearErrors } from '../../redux/actions/errorActions';
 
-import UserItem from '../user-item';
 import Requests from './requests';
+import Friends from './friends';
 
 import './Friends.css';
 
-const Friends = () => {
+const Relations = () => {
   const [currentTab, setCurrentTab] = useState(0);
   const [addFriendInput, setAddFriendInput] = useState('');
   const [friendInputOpen, setFriendInputOpen] = useState(false);
-  const [friendList, requestList, errors] = useSelector((state) => [state.users.friendList, state.users.requestList, state.errors.formErrors]);
+  const errors = useSelector((state) => state.errors.formErrors);
   const dispatch = useDispatch();
   
   useEffect(() => {
-    dispatch(getFriends());
-    dispatch(getRequests());
     return () => {
       dispatch(clearErrors());
     };
@@ -37,18 +35,9 @@ const Friends = () => {
   const renderContent = () => {
     switch(currentTab) 
     {
-      case 0:
-        if (friendList.length === 0) return <div className="sm">Empty</div>
-        return (
-        <div className="list-container">
-          {friendList.map((friendship, index) => (
-            <UserItem key={`relationship${index}`} name={friendship.user.username} />
-          ))}
-        </div>)
-      case 1:
-        return <Requests />;
-      default:
-        return <div className="sm">Nothing here</div>
+      case 0: return <Friends />;
+      case 1: return <Requests />;
+      default: return null;
     }
   };
 
@@ -75,4 +64,4 @@ const Friends = () => {
   );
 };
 
-export default Friends;
+export default Relations;
