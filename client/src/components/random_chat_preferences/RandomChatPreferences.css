@@ -1,0 +1,40 @@
+#tags-container {
+  width: 100%;
+  margin-bottom: 3em;
+}
+#tags-container > p {
+  color: #777;
+}
+#tags-container > #tags-input-container {
+  padding: 5px;
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  box-sizing: border-box;
+}
+#tags-container > #tags-input-container > .tag {
+  user-select: none;
+  background-color: #444;
+  color: #fff;
+  padding: 5px;
+  line-height: 2em;
+  height: 2em;
+  margin: 1px 3px;
+  border-radius: 2px;
+}
+#tags-container > #tags-input-container > .tag > .delete {
+  color: #fff;
+  padding: 0 5px 0 10px;
+}
+#tags-container > #tags-input-container > .tag > .delete:hover {
+  cursor: pointer;
+}
+#tags-container > #tags-input-container > input {
+  padding: 15px 10px;
+  box-sizing: border-box;
+  background: none;
+  flex-grow: 1;
+  width: 5em;
+}

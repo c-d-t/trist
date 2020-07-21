@@ -45,6 +45,12 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
+.list-container > h1 {
+  width: 100%;
+  color: rgb(33, 226, 152);
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
 .list-container > .sm {
   display: flex;
   align-items: center;
@@ -98,6 +104,13 @@
   text-align: center;
 }
 
+.main-button{
+  background-color: rgb(33, 226, 152);
+  font-weight: bold;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 2px;
+}
 .danger-button {
   background-color: #f33;
   font-weight: bold;

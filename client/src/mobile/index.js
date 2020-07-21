@@ -8,6 +8,7 @@ import Channel from '../components/channel';
 import Profile from '../components/profile';
 import Settings from '../components/settings';
 import Relations from '../components/relations';
+import RandomChatPreferences from '../components/random_chat_preferences';
 
 import './Mobile.css';
 
@@ -17,6 +18,7 @@ const Mobile = () => {
     <Switch>
       <Route exact path="/messages" component={DmList} />
       <Route exact path="/discover" component={Discover} />
+      <Route exact path="/discover/random" component={RandomChatPreferences} />
       <Route exact path="/profile" component={Profile} />
       <Route exact path="/profile/settings" component={Settings} />
       <Route exact path="/profile/friends" component={Relations} />
