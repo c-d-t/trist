@@ -26,9 +26,10 @@
 
 .action-buttons {
   margin: 15px 15px 1em 15px;
+  display: flex;
 }
 .action-buttons > button, .action-buttons > a {
-  margin-right: 1em;
+  margin-right: 10px;
   padding: 6px;
   border-radius: 2px;
   background-color: #444;
@@ -56,7 +57,7 @@
 }
 .list-container > .sm > .img {
   background-color: brown;
-  width: 2.5em;
+  min-width: 2.5em;
   height: 2.5em;
   border-radius: 50%;
   margin-right: 20px;

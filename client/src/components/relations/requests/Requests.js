@@ -35,7 +35,8 @@ const Requests = () => {
           return <UserItem
             key={`request${index}`}
             name={request.user.username}
-            secondary='friend request sent...'
+            secondary="friend request sent..."
+            buttonOne={{ text: 'cancel', onClick: makeOnDeclineRequest(request.id)}}
           />
         }
         else
@@ -43,7 +44,7 @@ const Requests = () => {
           return <UserItem
             key={`request${index}`}
             name={request.user.username}
-            secondary="sent you a friend request"
+            secondary="sent a friend request"
             buttonOne={{ text: 'accept', onClick: makeOnAcceptRequest(request.id)}}
             buttonTwo={{ text: 'decline', onClick: makeOnDeclineRequest(request.id)}}
           />

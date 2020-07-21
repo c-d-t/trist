@@ -26,7 +26,6 @@ const Friends = () => {
         return <UserItem
           key={`request${index}`}
           name={request.user.username}
-          secondary="sent you a friend request"
           buttonOne={{ text: 'remove', onClick: makeOnRemoveFriend(request.id), warning: true }}
         />
       })}
