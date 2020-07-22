@@ -1,9 +1,10 @@
 class MessagingView
 {
-  constructor(userModel, messageModel)
+  constructor(userModel, messageModel, channelModel)
   {
     this._userModel = userModel;
     this._messageModel = messageModel;
+    this._channelModel = channelModel;
   }
 
   async findDmsByUserId(userId)
@@ -96,6 +97,33 @@ class MessagingView
       return message;
     }
     catch(e)
+    {
+      return null;
+    }
+  }
+
+  async findPrivateChannelById(channelId)
+  {
+    try {
+      let channel = await this._channelModel.findById(channelId)
+      .populate({
+        path: 'participantIds',
+        select: 'username displayName'
+      });
+
+      channel = {
+        id: channel._id,
+        participants: channel.participantIds.map((participantId) => {
+          return {
+            id: participantId.id,
+            name: participantId.displayName || participantId.username,
+          };
+        }),
+      };
+
+      return channel;
+    }
+    catch (e)
     {
       return null;
     }

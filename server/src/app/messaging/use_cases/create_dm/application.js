@@ -25,11 +25,11 @@ class CreateDmApplication extends Application
       this._userRepo.findById(input.thisAccountId),
       this._userRepo.findById(input.otherAccountId),
     ]);
-    if (!otherUser)
+    if (!thisUser || !otherUser)
     {
       return this.failed(CreateDmErrors.OtherUserDoesNotExist, 'A user with that id doesn\'t exist.');
     }
-    const newChannelResult = Channel.make({ type: 0, participantIds: [thisUser.id, otherUser.id] });
+    const newChannelResult = Channel.makeDm({ participantIds: [thisUser.id, otherUser.id] });
     if (newChannelResult.failed)
     {
       return this.failed(CreateDmErrors.InvalidFields, newChannelResult.error);

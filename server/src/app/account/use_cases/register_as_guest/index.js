@@ -1,4 +1,4 @@
-const accountRepo = require('../../repo');
+const { accountRepo } = require('../../repo');
 const RegisterAsGuestController = require('./controller');
 const RegisterAsGuestApplication = require('./application');
 

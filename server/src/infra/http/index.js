@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes');
 const eventEmitter = require('../events');
+const cronJobs = require('../cron_jobs');
 
 function startServer()
 {
@@ -12,6 +13,7 @@ function startServer()
   const http = Http.createServer(app);
 
   eventEmitter.init(http);
+  cronJobs.init();
 
   app.use(express.json());
   app.use(helmet());

@@ -19,6 +19,30 @@ class Channel extends Entity
     return this._value.participantIds;
   }
 
+  get lastActivity()
+  {
+    return this._value.lastActivity;
+  }
+
+  updateLastActivity()
+  {
+    this._value.lastActivity = Date.now();
+  }
+
+  addParticipantId(participantId)
+  {
+    if (this._value.participantIds.includes(participantId))
+    {
+      throw new Error('ERR_CHANNEL_DUPLICATE_PARTICIPANTS');
+    }
+    this._value.participantIds.push(participantId);
+  }
+
+  removeParticipantId(participantId)
+  {
+    this._value.participantIds = this._value.participantIds.filter((id) => id !== participantId);
+  }
+
   changeCreatorId(accountId)
   {
     this._value.creator = accountId;
@@ -60,6 +84,7 @@ function uniqueParticipants(participants)
  * @param {Object} props 
  * @param {string} props.id
  * @param {[string]} props.participantIds
+ * @param {Date} props.lastActivity
  */
 function makeDm(props)
 {
@@ -70,7 +95,12 @@ function makeDm(props)
     return Result.fail('You can\'t make a DM with yourself.');
   }
 
-  return Result.ok(new Channel({ ...props, type: 0 }));
+  return Result.ok(new Channel({
+    id: props.id,
+    type: 0,
+    participantIds: props.participantIds,
+    lastActivity: props.lastActivity,
+  }));
 }
 
 /**
@@ -106,6 +136,24 @@ function makeGroupDm(props)
 }
 
 /**
+ * @param {Object} props
+ * @param {string} props.id
+ * @param {string} props.participantIds
+ * @param {Date} props.lastActivity
+ */
+function makePrivateChannel(props)
+{
+  Guard.againstNullBulk([props.participantIds, props.lastActivity]);
+
+  return Result.ok(new Channel({
+    id: props.id,
+    type: 2,
+    participantIds: props.participantIds,
+    lastActivity: props.lastActivity,
+  }));
+}
+
+/**
  * Creates a channel
  * @param {Object} props 
  * @param {string} props.id
@@ -113,6 +161,7 @@ function makeGroupDm(props)
  * @param {Number} props.type
  * @param {string} props.creatorId
  * @param {[string]} props.participantIds
+ * @param {Date} props.lastActivity
  */
 function make(props)
 {
@@ -121,15 +170,20 @@ function make(props)
   switch(props.type)
   {
     case 0:
-      result = makeDm({ id: props.id, participantIds: props.participantIds });
+      result = makeDm(props);
       break;
     case 1:
       result = makeGroupDm({ id: props.id, participantIds: props.participantIds, creatorId: props.creatorId });
       break;
+    case 2:
+      result = makePrivateChannel(props);
   }
   return result;
 }
 
 module.exports = {
   make,
+  makeDm,
+  makeGroupDm,
+  makePrivateChannel,
 };

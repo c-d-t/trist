@@ -32,6 +32,8 @@ class Repo
     }
     else
     {
+      // removes undefined keys since mongoose automatically turns them into null
+      Object.keys(persistent).forEach(key => persistent[key] === undefined ? delete persistent[key] : null);
       savedPersistent = await this._model.findByIdAndUpdate(domain.id, persistent);
       if (!savedPersistent) // if an entity starts with an id before being entered in db
       {

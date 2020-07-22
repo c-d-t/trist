@@ -1,4 +1,4 @@
-const accountRepo = require('../../repo');
+const { accountRepo } = require('../../repo');
 const UpgradeController = require('./controller');
 const UpgradeApplication = require('./application');
 

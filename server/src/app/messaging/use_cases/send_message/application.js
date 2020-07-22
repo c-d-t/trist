@@ -58,10 +58,19 @@ class SendMessageApplication extends Application
       const result = await this.dmMessage(channel, newMessage);
       if (!result.success) return result;
     }
+    else if (channel.type === 2)
+    {
+      if (channel.participantIds.length < 2)
+      {
+        return this.failed('You cannot send a message in an empty private channel.');
+      }
+    }
 
-
-    const message = await this._messageRepo.save(newMessage);
-
+    channel.updateLastActivity();
+    const [message] = await Promise.all([
+      this._messageRepo.save(newMessage),
+      this._channelRepo.save(channel),
+    ]);
     this._eventEmitter.messageCreated(channel, message);
 
     return this.ok();

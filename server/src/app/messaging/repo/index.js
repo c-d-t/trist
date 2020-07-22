@@ -9,7 +9,7 @@ const userMap = require('./userMap');
 const userModel = require('./models/User');
 const UserRepo = require('./userRepo');
 
-const messagingView = new MessagingView(userModel, messageModel);
+const messagingView = new MessagingView(userModel, messageModel, channelModel);
 const channelRepo = new ChannelRepo(channelMap, channelModel);
 const messageRepo = new MessageRepo(messageMap, messageModel);
 const userRepo = new UserRepo(userMap, userModel);

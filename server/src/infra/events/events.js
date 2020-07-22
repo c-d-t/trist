@@ -3,9 +3,10 @@ const cookieParser = require('socket.io-cookie-parser');
 const jwt = require('../../app/account/services/jwt');
 class EventEmitter
 {
-  constructor(messagingView)
+  constructor(messagingView, accountView)
   {
     this._messagingView = messagingView;
+    this._accountView = accountView;
   }
 
   init(http)
@@ -51,13 +52,31 @@ class EventEmitter
   async messageCreated(channel, message)
   {
     const messageToSend = await this._messagingView.findMessageById(message.id);
-    if (channel.type === 0 || channel.type === 1)
+    if (channel.type === 0 || channel.type === 1 || channel.type === 2)
     {
       this.emitEventToAccounts(channel.participantIds, 'message-created', { message: messageToSend });
     }
     else
     {
       this.emitEventToAccount(channel.id, 'message-created', { message: messageToSend });
+    }
+  }
+
+  async connectionCreated(channel)
+  {
+    if (channel.type === 2)
+    {
+      const channelToSend = await this._messagingView.findPrivateChannelById(channel.id);
+      this.emitEventToAccounts(channel.participantIds, 'connection-created', { channel: channelToSend });
+    }
+  }
+
+  async privateChannelLeave(channel, user)
+  {
+    if (channel.type === 2)
+    {
+      const userToSend = await this._accountView.getProfile(user.id);
+      this.emitEventToAccounts(channel.participantIds, 'connection-created', { channelId: channel.id, user: userToSend });
     }
   }
 }

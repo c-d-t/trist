@@ -9,24 +9,39 @@ class Application
    * Returns as failed and the type of error.
    * @param {number} errorType 
    */
-  failed(errorType, message)
+  makeError(errorType, message)
   {
     return { success: false, data: { errorType, message } };
   }
 
-  forbidden(message)
+  failed(message)
   {
-    return this.failed(3, message);
+    return this.makeError(0, message);
+  }
+
+  unauthorized(message)
+  {
+    return this.makeError(2, message);
   }
   
   notFound(message)
   {
-    return this.failed(4, message)
+    return this.makeError(4, message)
   }
   
+  conflict(message)
+  {
+    return this.makeError(9, message);
+  }
+
   invalidFields(message)
   {
-    return this.failed(9, message);
+    return this.makeError(22, message);
+  }
+
+  tooMany(message)
+  {
+    return this.makeError(29, message);
   }
 }
 

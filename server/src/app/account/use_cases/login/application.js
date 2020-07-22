@@ -1,6 +1,4 @@
 const Application = require('../../../../core/Application');
-const Username = require('../../domain/username');
-const Email = require('../../domain/email');
 const LoginErrors = require('./errors');
 const jwt = require('../../services/jwt');
 

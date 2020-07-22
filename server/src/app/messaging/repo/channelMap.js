@@ -7,9 +7,10 @@ function toDomain(persistent)
   return Channel.make({
     id: persistent._id.toString(),
     type: persistent.type,
-    creatorId: !persistent.creatorId ? null : persistent.creatorId.toString(),
-    participantIds: !persistent.participantIds ? null : persistent.participantIds.map((participantId) => participantId.toString()),
-    title: !persistent.title ? null : ChannelTitle.make(persistent.title).value,
+    creatorId: !persistent.creatorId ? undefined : persistent.creatorId.toString(),
+    participantIds: !persistent.participantIds ? undefined : persistent.participantIds.map((participantId) => participantId.toString()),
+    title: !persistent.title ? undefined : ChannelTitle.make(persistent.title).value,
+    lastActivity: persistent.lastActivity || Date.now(),
   }).value;
 }
 
@@ -18,9 +19,10 @@ function toPersistent(domain)
   return {
     _id: ObjectId(domain.id),
     type: domain.type,
-    creatorId: ObjectId(domain.creatorId),
+    creatorId: !domain.creatorId ? undefined : ObjectId(domain.creatorId),
     participantIds: domain.participantIds.map((participantId) => ObjectId(participantId)),
     title: domain.title,
+    lastActivity: domain.lastActivity,
   };
 }
 

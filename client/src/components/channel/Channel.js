@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineMenu } from 'react-icons/ai';
 
@@ -16,6 +17,23 @@ const Channel = () => {
     state.channel.currentChannelId,
     state.channel.channels[state.channel.currentChannelId]
   ]);
+  const history = useHistory();
+
+  useEffect(() => {
+    const preventBack = () => {
+      if (!!currentChannelId)
+      {
+        dispatch(closeChannel());
+        history.go(1);
+      } 
+    }
+    window.addEventListener("popstate", preventBack);
+
+    return () => {
+      window.removeEventListener("popstate", preventBack);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentChannelId]);
 
   const onSendMessage = () => {
     const toSend = input.trim();

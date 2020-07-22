@@ -30,8 +30,6 @@ class Controller
         return this.failed(data.message);
       case 1:
         return this.unauthorized(data.message);
-      case 3:
-        return this.forbidden(data.message);
       case 4:
         return this.notFound(data.message);
       case 9:
