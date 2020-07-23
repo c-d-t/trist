@@ -1,16 +1,20 @@
-#drop-down {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  animation: dropDownOnLoad 100ms cubic-bezier(0.68, -0.55, 0.265, 1.55) 50ms forwards;
+.drop-down-container {
+  position: relative;
 }
-
-@keyframes dropDownOnLoad {
-  0% {
-
-  }
-
-  100% {
-
-  }
+.drop-down {
+  background-color: #333;
+  left: 0;
+  bottom: 0;
+  transform: translate(0, 110%);
+  position: absolute;
+  padding: 5px;
+  opacity: 0;
+  transition: all 100ms ease;
+}
+.drop-down-container > .open {
+  opacity: 1;
+}
+.drop-down > h1 {
+  color: rgb(33, 226, 152);
+  font-size: 1.3em;
 }
