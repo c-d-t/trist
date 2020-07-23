@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { joinPrivateChannel } from '../../redux/actions/channelActions';
 
 import './RandomChatPreferences.css';
 
 const RandomChatPreferences = () => {
+  const dispatch = useDispatch();
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState([]);
 
@@ -16,6 +20,10 @@ const RandomChatPreferences = () => {
 
   const onDeleteTag = (toDelete) => {
     setTags(tags.filter((_, index) => index !== toDelete))
+  };
+
+  const onStart = () => {
+    dispatch(joinPrivateChannel());
   };
 
   return (
@@ -43,7 +51,13 @@ const RandomChatPreferences = () => {
           />
         </div>
       </div>
-      <button type="button" className="main-button">Start</button>
+      <button
+        type="button"
+        className="main-button"
+        onClick={onStart}
+      >
+        Start
+      </button>
     </div>
   );
 };

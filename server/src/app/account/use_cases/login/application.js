@@ -18,20 +18,20 @@ class LoginApplication extends Application
    */
   async run(input)
   {
-    let foundUser = null;
-    foundUser = await this._accountRepo.findByUsername(input.usernameOrEmail);
-    if (!foundUser) // login via email
+    let foundAccount = null;
+    foundAccount = await this._accountRepo.findByUsername(input.usernameOrEmail);
+    if (!foundAccount) // login via email
     {
-      foundUser = await this._accountRepo.findByEmail(input.usernameOrEmail);
+      foundAccount = await this._accountRepo.findByEmail(input.usernameOrEmail);
     }
 
-    if (!foundUser || !await foundUser.password.compare(input.password))
+    if (!foundAccount || !await foundAccount.password.compare(input.password))
     {
       return this.failed(LoginErrors.InvalidCredentials);
     }
 
-    const token = jwt.encode({ id: foundUser.id });
-    const responseJSON = { token };
+    const token = jwt.encode({ id: foundAccount.id });
+    const responseJSON = { token, id: foundAccount.id };
     return this.ok(responseJSON);
   }
 }

@@ -1,7 +1,8 @@
 const EventEmitter = require('./events');
 const { messagingView } = require('../../app/messaging/repo');
-const { accountView } = require('../../app/account/repo');
 
-const eventEmitter = new EventEmitter(messagingView, accountView);
+const eventEmitter = new EventEmitter(messagingView);
 
-module.exports = eventEmitter;
+// pulling my hair out with circular dependencies.
+// TODO: get this outa global.
+global._eventEmitter = eventEmitter;

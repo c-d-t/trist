@@ -19,6 +19,39 @@ export function initSocket()
   socket.on('message-created', (data) => {
     store.dispatch({ type: GOT_MESSAGE, payload: data });
   });
+
+  socket.on('connection-created', (data) => {
+    const { channel } = data;
+    const { accountId } = store.getState().session;
+    const otherUser = channel.participants.filter((participant) => {
+      return participant.id !== accountId;
+    })[0];
+    store.dispatch({
+      type: GOT_MESSAGE,
+      payload: {
+        message: {
+          system: true,
+          channelId: channel.id,
+          text: `You connected with ${otherUser.name}`
+        }
+      }
+    });
+  });
+  
+  socket.on('connection-lost', (data) => {
+    const { channel } = data;
+    const otherUser = channel.participants[0];
+    store.dispatch({
+      type: GOT_MESSAGE,
+      payload: {
+        message: {
+          system: true,
+          channelId: channel.id,
+          text: `${otherUser.name} disconnected`,
+        }
+      }
+    });
+  })
 }
 
 export function closeSocket()

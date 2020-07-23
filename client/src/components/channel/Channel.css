@@ -65,3 +65,20 @@
 #channel-input:focus-within {
   border-radius: 5px;
 }
+#active-system-message {
+  color: rgb(33, 226, 152);
+  animation: active-system-message-anim 2s ease-in-out infinite;
+}
+.system-message {
+  color: #888;
+  text-align: center;
+  margin-bottom: 1em;
+}
+@keyframes active-system-message-anim {
+  0%, 100% {
+    transform: translate(0, -2px);
+  }
+  50% {
+    transform: translate(0, 2px);
+  }
+}

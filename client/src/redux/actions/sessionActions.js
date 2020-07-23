@@ -32,11 +32,12 @@ export function login({ usernameOrEmail, password })
     label: LOGIN,
   });
 }
-function loggedIn()
+function loggedIn(data)
 {
   initSocket();
   return {
     type: LOGGED_IN,
+    payload: { id: data.id },
   };
 }
 
@@ -61,6 +62,7 @@ export function register({ username, email, password })
   return createAPIAction({
     url: '/account/register',
     method: 'POST',
+    data: { username, email, password },
     onSuccess: loggedIn,
     onFailure: makeFormError(),
     label: REGISTER,

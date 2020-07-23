@@ -1,6 +1,7 @@
 import { LOGGED_IN, LOGGED_OUT } from '../actions/sessionActions';
 
 const initState = {
+  accountId: null,
   loggedIn: false,
 };
 
@@ -8,9 +9,9 @@ const sessionReducer = (state = initState, action) => {
   switch (action.type)
   {
     case LOGGED_IN:
-      return { loggedIn: true };
+      return { ...initState, loggedIn: true };
     case LOGGED_OUT:
-      return { loggedIn: false };
+      return { accountId: null, loggedIn: false };
     default:
       return state;
   }

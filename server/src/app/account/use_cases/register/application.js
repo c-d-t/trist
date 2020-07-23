@@ -73,7 +73,7 @@ class RegisterApplication extends Application
 
     // make token
     const token = jwt.encode({ id: account.id });
-    const responseJSON = { token };
+    const responseJSON = { token, id: account.id };
 
     return this.ok(responseJSON);
   }

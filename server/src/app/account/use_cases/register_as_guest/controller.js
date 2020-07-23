@@ -23,7 +23,7 @@ class RegisterAsGuestController extends Controller
       };
 
       this._res.cookie('jwt', data.token, options);
-      return this.ok();
+      return this.ok({ id: data.id });
     }
 
     // ERROR HANDLING

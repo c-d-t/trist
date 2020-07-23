@@ -16,7 +16,7 @@ class JoinRandomChatController extends Controller
     const { success, data } = result;
     if (success)
     {
-      return this.ok();
+      return this.ok(data);
     }
 
     return this.handleError(data);

@@ -3,14 +3,11 @@ const Channel = require('../../domain/channel');
 
 class JoinRandomChatApplication extends Application
 {
-  constructor(channelRepo, userRepo, eventEmitter)
+  constructor(channelRepo, userRepo)
   {
     super();
     this._channelRepo = channelRepo;
     this._userRepo = userRepo;
-    this._eventEmitter = eventEmitter;
-    
-    this._waitingList = [];
   }
 
   /**
@@ -27,20 +24,18 @@ class JoinRandomChatApplication extends Application
     }
 
     // find match
-    if (!!this._waitingList[0] === true)
+    const waitingChannel = await this._channelRepo.findWaitingPrivateChannel();
+    if (!!waitingChannel === true)
     {
-      const channel = await this._channelRepo.findById(this._waitingList[0]);
-      if (channel.hasUserId(thisUser.id))
+      if (waitingChannel.hasUserId(thisUser.id))
       {
         return this.failed('You are already waiting to connect.');
       }
-      channel.addParticipantId(thisUser.id);
+      waitingChannel.addParticipantId(thisUser.id);
 
-      this._waitingList.shift();
-
-      await this._channelRepo.save(channel);
-      this._eventEmitter.connectionCreated(channel);
-      return this.ok();
+      await this._channelRepo.save(waitingChannel);
+      global._eventEmitter.connectionCreated(waitingChannel);
+      return this.ok({ channelId: waitingChannel.id });
     }
 
     // make a new channel
@@ -52,8 +47,7 @@ class JoinRandomChatApplication extends Application
     const newChannel = newChannelResult.value;
     const channel = await this._channelRepo.save(newChannel);
 
-    this._waitingList.push(channel.id);
-    return this.ok();
+    return this.ok({ channelId: channel.id });
   }
 }
 

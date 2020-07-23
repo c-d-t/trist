@@ -43,6 +43,11 @@ class Controller
 
   jsonResponse(code, data)
   {
+    if (!this._res)
+    {
+      return;
+    }
+
     this._res.status(code);
     if (!data)
     {

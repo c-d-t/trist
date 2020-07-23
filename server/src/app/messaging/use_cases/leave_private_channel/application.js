@@ -2,18 +2,19 @@ const Application = require('../../../../core/Application');
 
 class LeavePrivateChannelApplication extends Application
 {
-  constructor(channelRepo, userRepo, eventEmitter)
+  constructor(channelRepo, messageRepo, userRepo)
   {
     super();
     this._channelRepo = channelRepo;
+    this._messageRepo = messageRepo;
     this._userRepo = userRepo;
-    this._eventEmitter = eventEmitter;
   }
 
   /**
    * @param {Object} input
    * @param {string} input.thisAccountId
-   * @param {string} input.channelId
+   * @param {string?} input.channelId
+   * @param {boolean?} input.all
    */
   async run(input)
   {
@@ -24,15 +25,35 @@ class LeavePrivateChannelApplication extends Application
       return this.notFound('A user with that Id doesn\'t exist.');
     }
 
-    const channel = this._channelRepo.findById()
-    if (!channel.hasUserId(thisUser.id))
+    if (!input.all)
     {
-      return this.failed('You are not in that channel.');
+      const channel = await this._channelRepo.findById(input.channelId);
+      if (!channel || !channel.hasUserId(thisUser.id))
+      {
+        return this.failed('You are not in that channel.');
+      }
+      return this.leaveChannel(thisUser, channel);
+    }
+    else
+    {
+      const channels = await this._channelRepo.findPrivateChannelsByUserId(thisUser.id);
+      channels.forEach(async (channel) => {
+        await this.leaveChannel(thisUser, channel);
+      });
     }
 
-    channel.removeParticipantId(thisUser.id);
-    await this._channelRepo.save(channel);
-    this._eventEmitter.privateChannelLeave(channel, thisUser);
+    return this.ok();
+  }
+
+  async leaveChannel(user, channel)
+  {
+    channel.removeParticipantId(user.id);
+    global._eventEmitter.connectionLost(channel);
+
+    await Promise.all([
+      this._channelRepo.deleteById(channel.id),
+      this._messageRepo.deleteManyByChannelId(channel.id),
+    ]);
 
     return this.ok();
   }

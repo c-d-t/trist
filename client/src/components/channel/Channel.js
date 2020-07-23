@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineMenu } from 'react-icons/ai';
 
-import { closeChannel, sendMessage } from '../../redux/actions/channelActions';
+import { closeChannel, leavePrivateChannel, sendMessage } from '../../redux/actions/channelActions';
 
 import Message from './message';
 
@@ -13,17 +13,18 @@ const Channel = () => {
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
 
-  const [currentChannelId, currentChannel] = useSelector((state) => [
-    state.channel.currentChannelId,
-    state.channel.channels[state.channel.currentChannelId]
-  ]);
+  const [currentChannel, messages] = useSelector((state) => {
+    return [
+    state.channel.currentChannel,
+    !state.channel.currentChannel ? null : state.channel.messages[state.channel.currentChannel.id]
+  ]});
   const history = useHistory();
 
   useEffect(() => {
     const preventBack = () => {
-      if (!!currentChannelId)
+      if (!!currentChannel)
       {
-        dispatch(closeChannel());
+        closeDm();
         history.go(1);
       } 
     }
@@ -33,7 +34,7 @@ const Channel = () => {
       window.removeEventListener("popstate", preventBack);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentChannelId]);
+  }, [currentChannel]);
 
   const onSendMessage = () => {
     const toSend = input.trim();
@@ -41,16 +42,20 @@ const Channel = () => {
     {
       return;
     }
-    dispatch(sendMessage(currentChannelId, toSend));
+    dispatch(sendMessage(currentChannel.id, toSend));
     setInput('');
   };
 
   const closeDm = () => {
+    if (currentChannel.type === 2)
+    {
+      dispatch(leavePrivateChannel(currentChannel.id));
+    }
     dispatch(closeChannel());
   };
 
   return (
-    <div id="channel-container" className={!currentChannelId ? 'channel-hidden' : ''}>
+    <div id="channel-container" className={!currentChannel ? 'channel-hidden' : ''}>
       <div className="header">
         <button
           type="button"
@@ -59,8 +64,20 @@ const Channel = () => {
         Berb
       </div>
       <div id="message-history">
-        {!currentChannel ? null : (
-          currentChannel.map((message, index) => {
+        {!messages ? null : (
+          messages.map((message, index) => {
+            if (message.system)
+            {
+              return (
+                <div
+                  key={`channelMessage${index}`}
+                  id={index === 0 ? 'active-system-message' : ''}
+                  className="system-message"
+                >
+                  {message.text}
+                </div>
+              );
+            }
             return <Message
               key={`channelMessage${index}`}
               name={message.author.name}

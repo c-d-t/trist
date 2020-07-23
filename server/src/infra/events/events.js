@@ -1,12 +1,13 @@
 const socketIo = require('socket.io');
 const cookieParser = require('socket.io-cookie-parser');
 const jwt = require('../../app/account/services/jwt');
+const messagingController = require('../../app/messaging/use_cases');
+
 class EventEmitter
 {
-  constructor(messagingView, accountView)
+  constructor(messagingView)
   {
     this._messagingView = messagingView;
-    this._accountView = accountView;
   }
 
   init(http)
@@ -34,6 +35,10 @@ class EventEmitter
       socket.on('leave-channel', ({ channelId }) => {
         socket.leave(channelId);
       });
+
+      socket.on('disconnect', async () => {
+        await messagingController.leavePrivateChannel.run({ thisAccount: { id: accountId }, query: { all: true } });
+      });
     });
   }
 
@@ -41,7 +46,7 @@ class EventEmitter
   {
     this.io.to(accountId).emit(event, data);
   }
-
+  
   emitEventToAccounts(accountIds, event, data)
   {
     accountIds.forEach((accountId) => {
@@ -71,12 +76,12 @@ class EventEmitter
     }
   }
 
-  async privateChannelLeave(channel, user)
+  async connectionLost(channel)
   {
     if (channel.type === 2)
     {
-      const userToSend = await this._accountView.getProfile(user.id);
-      this.emitEventToAccounts(channel.participantIds, 'connection-created', { channelId: channel.id, user: userToSend });
+      const channelToSend = await this._messagingView.findPrivateChannelById(channel.id);
+      this.emitEventToAccounts(channel.participantIds, 'connection-lost', { channel: channelToSend });
     }
   }
 }

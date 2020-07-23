@@ -4,15 +4,15 @@ const Http = require('http');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes');
-const eventEmitter = require('../events');
 const cronJobs = require('../cron_jobs');
+require('../events');
 
 function startServer()
 {
   const app = express();
   const http = Http.createServer(app);
 
-  eventEmitter.init(http);
+  global._eventEmitter.init(http);
   cronJobs.init();
 
   app.use(express.json());

@@ -31,22 +31,19 @@ export function openChannel(channelId)
     url: '/channel/messages',
     method: 'GET',
     data: { channelId },
-    onSuccess: makeOpenedChannel(channelId),
+    onSuccess: openedChannel,
     label: OPEN_CHANNEL,
   });
 }
-function makeOpenedChannel(channelId)
+function openedChannel(data)
 {
-  return function openedChannel(data)
-  {
-    return {
-      type: OPENED_CHANNEL,
-      payload: {
-        channelId: channelId,
-        messages: data.messages
-      },
-    };
-  }
+  return {
+    type: OPENED_CHANNEL,
+    payload: {
+      channel: data.channel,
+      messages: data.messages
+    },
+  };
 }
 
 export function closeChannel()
@@ -62,5 +59,30 @@ export function sendMessage(channelId, text)
     url: '/channel/messages',
     method: 'POST',
     data: { channelId, text },
+  });
+}
+
+export function joinPrivateChannel()
+{
+  return createAPIAction({
+    url: '/channel/private',
+    method: 'POST',
+    onSuccess: openedPrivateChannel,
+  });
+}
+function openedPrivateChannel(data)
+{
+  return {
+    type: OPENED_CHANNEL,
+    payload: { channel: { id: data.channelId, type: 2 }, messages: [{ system: true, text: 'waiting for someone...' }] },
+  };
+}
+
+export function leavePrivateChannel(channelId)
+{
+  return createAPIAction({
+    url: '/channel/private',
+    method: 'DELETE',
+    data: { channelId },
   });
 }

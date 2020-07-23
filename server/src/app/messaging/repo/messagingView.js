@@ -110,7 +110,7 @@ class MessagingView
         path: 'participantIds',
         select: 'username displayName'
       });
-
+      
       channel = {
         id: channel._id,
         participants: channel.participantIds.map((participantId) => {

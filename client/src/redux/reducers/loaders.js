@@ -4,6 +4,7 @@ import { MARCO, LOGIN } from '../actions/sessionActions';
 const initState = {
   pageLoader: false,
   formLoader: false,
+  channelLoader: false,
 };
 
 const loadersReducer = (state = initState, action) => {

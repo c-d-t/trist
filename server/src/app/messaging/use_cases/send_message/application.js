@@ -7,13 +7,12 @@ const MessageText = require('../../domain/messageText');
 
 class SendMessageApplication extends Application
 {
-  constructor(messageRepo, channelRepo, userRepo, eventEmitter)
+  constructor(messageRepo, channelRepo, userRepo)
   {
     super();
     this._messageRepo = messageRepo;
     this._channelRepo = channelRepo;
     this._userRepo = userRepo;
-    this._eventEmitter = eventEmitter;
   }
   
   // FIXME: oh no big messy
@@ -71,7 +70,7 @@ class SendMessageApplication extends Application
       this._messageRepo.save(newMessage),
       this._channelRepo.save(channel),
     ]);
-    this._eventEmitter.messageCreated(channel, message);
+    global._eventEmitter.messageCreated(channel, message);
 
     return this.ok();
   }

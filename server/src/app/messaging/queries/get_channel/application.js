@@ -28,7 +28,13 @@ class MarcoApplication extends Application
 
     let messages = await this._messagingView.findMessagesByChannelId(channel.id);
 
-    return this.ok({ messages });
+    return this.ok({
+      channel: {
+        id: channel.id,
+        type: channel.type,
+      },
+      messages,
+    });
   }
 }
 

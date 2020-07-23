@@ -23,6 +23,7 @@ router.post('/channel', (req, res) => messagingController.createDm.run(req, res)
 router.get('/channel', (req, res) => messagingController.getDms.run(req, res));
 router.post('/channel/messages', (req, res) => messagingController.sendMessage.run(req, res));
 router.get('/channel/messages', (req, res) => messagingController.getChannel.run(req, res));
-router.post('/channel/random', (req, res) => messagingController.joinPrivateChannel.run(req, res));
+router.post('/channel/private', (req, res) => messagingController.joinPrivateChannel.run(req, res));
+router.delete('/channel/private', (req, res) => messagingController.leavePrivateChannel.run(req, res));
 
 module.exports = router;

@@ -1,9 +1,9 @@
 import { GOT_DMS, OPENED_CHANNEL, CLOSED_CHANNEL, GOT_MESSAGE } from '../actions/channelActions';
 
 const initState = {
-  currentChannelId: null,
+  currentChannel: null,
   dms: [],
-  channels: {},
+  messages: {},
 };
 
 const channelReducer = (state = initState, action) =>
@@ -15,22 +15,23 @@ const channelReducer = (state = initState, action) =>
     case OPENED_CHANNEL:
       return {
         ...state,
-        currentChannelId: action.payload.channelId,
-        channels: { ...state.channels, [action.payload.channelId]: action.payload.messages
+        currentChannel: action.payload.channel,
+        messages: {
+          ...state.channels, [action.payload.channel.id]: action.payload.messages,
       }};
     case CLOSED_CHANNEL:
       return {
         ...state,
-        currentChannelId: null,
+        currentChannel: null,
       }
     case GOT_MESSAGE:
       const { message } = action.payload;
-      if (!state.channels[message.channelId]) return state;
+      if (!state.messages[message.channelId]) return state;
       return {
         ...state,
-        channels: {
+        messages: {
           ...state.channels,
-          [message.channelId]: [message, ...state.channels[message.channelId]], 
+          [message.channelId]: [message, ...state.messages[message.channelId]], 
         }
       }
     default:
