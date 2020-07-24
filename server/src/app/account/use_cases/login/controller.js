@@ -20,10 +20,9 @@ class LoginController extends Controller {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 12,
       };
-
-      this._res.cookie('jwt', data.token, options);
-  
-      return this.ok({ id: data.id });
+      const { token, ...rest } = data;
+      this._res.cookie('jwt', token, options);
+      return this.ok(rest);
     }
 
     // ERROR HANDLING

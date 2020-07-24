@@ -17,10 +17,11 @@ class MarcoApplication extends Application
   {
     Guard.againstNull(input.thisAccountId);
 
-    const account = await this._accountModel.findById(input.thisAccountId).select('_id');
-
+    const account = await this._accountModel.findById(input.thisAccountId).select('_id username displayName');
     return this.ok({
       id: account._id,
+      username: account.username,
+      displayName: account.displayName,
     });
   }
 }

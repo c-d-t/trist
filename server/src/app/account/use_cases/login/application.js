@@ -31,7 +31,12 @@ class LoginApplication extends Application
     }
 
     const token = jwt.encode({ id: foundAccount.id });
-    const responseJSON = { token, id: foundAccount.id };
+    const responseJSON = {
+      token,
+      id: foundAccount.id,
+      username: foundAccount.username.value,
+      displayName: foundAccount.displayName.value,
+    };
     return this.ok(responseJSON);
   }
 }

@@ -37,7 +37,7 @@ function loggedIn(data)
   initSocket();
   return {
     type: LOGGED_IN,
-    payload: { id: data.id },
+    payload: data,
   };
 }
 

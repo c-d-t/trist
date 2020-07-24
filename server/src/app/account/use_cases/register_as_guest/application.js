@@ -39,7 +39,12 @@ class RegisterAsGuestApplication extends Application
     await onAccountCreation.run(account.id);
     
     const token = jwt.encode({ id: account.id });
-    const responseJSON = { token, id: account.id };
+    const responseJSON = {
+      token,
+      id: account.id,
+      username: account.username.value,
+      displayName: account.displayName.value,
+    };
 
     return this.ok(responseJSON);  }
 }

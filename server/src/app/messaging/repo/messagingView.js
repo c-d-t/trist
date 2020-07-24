@@ -18,6 +18,9 @@ class MessagingView
           match: { _id: { $ne: userId } },
           select: 'username displayName',
         },
+        sort: {
+          lastActivity: -1,
+        },
         select: '-__v',
       });
 

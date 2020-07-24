@@ -28,7 +28,10 @@ class CreateDmApplication extends Application
     {
       return this.failed('A user with that id doesn\'t exist.');
     }
-    const newChannelResult = Channel.makeDm({ participantIds: [thisUser.id, otherUser.id] });
+    const newChannelResult = Channel.makeDm({
+      participantIds: [thisUser.id, otherUser.id],
+      timeCreated: Date.now(),
+    });
     if (newChannelResult.failed)
     {
       return this.failed(newChannelResult.error);

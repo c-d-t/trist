@@ -28,7 +28,7 @@ const UserList = () => {
         <input placeholder="Username"></input>
         <Friends />
       </DropDown>
-      <button>Make Group</button>
+      <button type="button" onClick={() => alert('Groups coming soon.')}>Make Group</button>
     </div>
     <div className="list-container">
       {!dms ? null : dms.map((dm, index) => (

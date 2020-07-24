@@ -11,7 +11,10 @@ const Friends = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getFriends());
+    if (friendList.length === 0)
+    {
+      dispatch(getFriends());
+    }
   }, []);
 
   const makeStartDM = (friendRequestId) => {
