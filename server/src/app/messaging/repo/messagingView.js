@@ -38,7 +38,7 @@ class MessagingView
     }
     catch(e)
     {
-      return null;
+      return [];
     }
   }
 

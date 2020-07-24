@@ -2,6 +2,7 @@ import { createAPIAction } from './apiActions';
 
 export const GET_DMS = 'channel:getDms';
 export const GOT_DMS = 'channel:gotDms';
+export const ADD_DM = 'channel:addDm';
 export const OPEN_CHANNEL = 'channel:open';
 export const OPENED_CHANNEL = 'channel:opened';
 export const CLOSED_CHANNEL = 'channel:closed';
@@ -84,5 +85,15 @@ export function leavePrivateChannel(channelId)
     url: '/channel/private',
     method: 'DELETE',
     data: { channelId },
+  });
+}
+
+export function createDm(otherAccountId)
+{
+  return createAPIAction({
+    url: '/channel',
+    method: 'POST',
+    data: { otherAccountId },
+    onSuccess: getDms,
   });
 }

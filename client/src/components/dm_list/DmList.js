@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDms, openChannel } from '../../redux/actions/channelActions';
 
 import DropDown from '../drop_down';
+import Friends from './friends';
 
 const UserList = () => {
   const dms = useSelector((state) => state.channel.dms)
@@ -22,9 +23,10 @@ const UserList = () => {
   return (
     <>
     <div className="action-buttons">
-      <DropDown buttonName="Add Friend">
-        <h1>Hellloooooo</h1>
-        
+      <DropDown buttonName="Start DM">
+        <h1>Choose A Friend</h1>
+        <input placeholder="Username"></input>
+        <Friends />
       </DropDown>
       <button>Make Group</button>
     </div>

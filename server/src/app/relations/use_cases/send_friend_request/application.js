@@ -21,7 +21,6 @@ class SendFriendRequestApplication extends Application
   async run(input)
   {
     Guard.againstNull(input.thisAccountId);
-
     const accountToSendRequest = await this._accountRepo.findByUsername(input.otherAccountUsername);
     if (!accountToSendRequest)
     {

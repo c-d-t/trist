@@ -28,7 +28,7 @@ class LeavePrivateChannelApplication extends Application
     if (!input.all)
     {
       const channel = await this._channelRepo.findById(input.channelId);
-      if (!channel || !channel.hasUserId(thisUser.id))
+      if (!channel || !channel.hasUserId(thisUser.id) || channel.type !== 2)
       {
         return this.failed('You are not in that channel.');
       }

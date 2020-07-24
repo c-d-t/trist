@@ -1,7 +1,6 @@
 const Application = require('../../../../core/Application');
 const Channel = require('../../domain/channel');
 const Guard = require('../../../../core/Guard');
-const CreateDmErrors = require('./errors');
 
 class CreateDmApplication extends Application
 {
@@ -27,26 +26,24 @@ class CreateDmApplication extends Application
     ]);
     if (!thisUser || !otherUser)
     {
-      return this.failed(CreateDmErrors.OtherUserDoesNotExist, 'A user with that id doesn\'t exist.');
+      return this.failed('A user with that id doesn\'t exist.');
     }
     const newChannelResult = Channel.makeDm({ participantIds: [thisUser.id, otherUser.id] });
     if (newChannelResult.failed)
     {
-      return this.failed(CreateDmErrors.InvalidFields, newChannelResult.error);
+      return this.failed(newChannelResult.error);
     }
     const newChannel = newChannelResult.value;
     const existingChannel = await this._channelRepo.findDmByParticipantIds(newChannel.participantIds);
     if (!!existingChannel === true)
     {
-      return this.failed(CreateDmErrors.DmAlreadyExists, 'You cannot have multiple DMs with the same account.');
+      return this.failed('You cannot have multiple DMs with the same account.');
     }
 
-    thisUser.addDmId(newChannel.id);
-
-    await Promise.all([
-      this._channelRepo.save(newChannel),
-      this._userRepo.save(thisUser),
-    ]);
+    const channel = await this._channelRepo.save(newChannel);
+    
+    thisUser.addDmId(channel.id);
+    await this._userRepo.save(thisUser);
 
     return this.ok();
   }

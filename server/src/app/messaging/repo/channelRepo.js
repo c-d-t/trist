@@ -24,7 +24,7 @@ class ChannelRepo extends Repo
 
   async findPrivateChannelsByUserId(userId)
   {
-    const found = await this._model.find({ participantIds: userId });
+    const found = await this._model.find({ type: 2, participantIds: userId });
     return found.map((persistent) => this._map.toDomain(persistent));
   }
 

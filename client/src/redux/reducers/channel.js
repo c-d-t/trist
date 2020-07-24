@@ -8,6 +8,7 @@ const initState = {
 
 const channelReducer = (state = initState, action) =>
 {
+  console.log(action)
   switch (action.type)
   {
     case GOT_DMS:

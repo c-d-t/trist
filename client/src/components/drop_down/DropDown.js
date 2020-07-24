@@ -10,7 +10,7 @@ const DropDown = ({ className, buttonName, children }) => {
   
   useEffect(() => {
     const clickListener = (e) => {
-      if (isOpen && !(ref.current).contains(e.target))
+      if (isOpen && ref.current && !(ref.current).contains(e.target))
       {
         setIsOpen(false);
       }
@@ -26,17 +26,16 @@ const DropDown = ({ className, buttonName, children }) => {
   }, [ref, isOpen]);
 
   return (
-    <button ref={buttonRef} className={`drop-down-container ${className}`} onClick={(e) => {
-      if (e.target === buttonRef.current)
-      {
-        setIsOpen(!isOpen);
-      }
-    }}>
-      {buttonName}
-      <div ref={ref} className={`drop-down ${isOpen ? 'open' : ''}`}>
-        {children}
-      </div>
-    </button>
+    <div className="drop-down-container">
+      <button type="button" className={`drop-down-button ${className}`} onClick={() => setIsOpen(!isOpen)}>
+        {buttonName}
+      </button>
+      {isOpen ? (
+        <div ref={ref} className="drop-down-content">
+          {children}
+        </div>
+      ) : null}
+    </div>
   );
 };
 

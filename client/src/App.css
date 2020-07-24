@@ -28,7 +28,7 @@
   margin: 15px 15px 1em 15px;
   display: flex;
 }
-.action-buttons > button, .action-buttons > a {
+.action-buttons > button, .action-buttons > a, .action-buttons > .drop-down-container > .drop-down-button {
   margin-right: 10px;
   padding: 6px;
   border-radius: 2px;
@@ -60,6 +60,9 @@
   margin-bottom: 5px;
   min-width: 100%;
   box-sizing: border-box;
+}
+.fade-hover:hover {
+  background-color: #f5f5f5;
 }
 .list-container > .sm > .img {
   background-color: brown;

@@ -8,7 +8,8 @@ class Controller
     }
     catch (e)
     {
-      console.error(e);
+      this.jsonResponse(404);
+      console.log(e);
     }
   }
 

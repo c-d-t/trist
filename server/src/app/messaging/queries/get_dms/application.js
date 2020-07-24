@@ -16,9 +16,7 @@ class GetDmsApplication extends Application
   async run(input)
   {
     Guard.againstNull(input.thisAccountId);
-
     const dms = await this._messagingView.findDmsByUserId(input.thisAccountId);
-    
     return this.ok({ dms });
   }
 }

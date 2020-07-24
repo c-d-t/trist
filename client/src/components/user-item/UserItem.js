@@ -2,9 +2,9 @@ import React from 'react';
 
 import WarningButton from '../warning_button';
 
-const UserItem = ({ pfp, name, secondary, buttonOne, buttonTwo }) => {
+const UserItem = ({ pfp, name, secondary, buttonOne, buttonTwo, className }) => {
   return (
-    <div className="sm">
+    <div className={`sm ${className}`}>
       <div className="img"></div>
       <div className="info">
         <div className="primary">{name}</div>
