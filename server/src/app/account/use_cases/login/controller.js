@@ -1,5 +1,4 @@
 const Controller = require('../../../../core/Controller');
-const LoginErrors = require('./errors');
 
 class LoginController extends Controller {
   constructor(login)
@@ -25,14 +24,7 @@ class LoginController extends Controller {
       return this.ok(rest);
     }
 
-    // ERROR HANDLING
-    switch(data.errorType)
-    {
-      case LoginErrors.InvalidCredentials:
-        return this.unauthorized();
-      default:
-        return this.failed('Could not login.');
-    }
+    this.handleError(data);
   }
 }
 

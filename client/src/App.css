@@ -72,9 +72,11 @@
   margin-right: 20px;
 }
 .list-container > .sm > .info > .primary {
+  text-align: start;
   font-weight: bold;
 }
 .list-container > .sm > .info > .secondary {
+  text-align: s;
   color: #888;
   font-size: 0.9em;
 }

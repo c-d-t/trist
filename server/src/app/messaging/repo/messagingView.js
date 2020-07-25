@@ -25,16 +25,16 @@ class MessagingView
       });
 
       const dms = dmIds.map((dm) => {
-        let title;
+        let name;
         if (dm.type === 0)
         {
-          title = dm.participantIds[0].username || dm.participantIds[0].displayName;
+          name = dm.participantIds[0].username || dm.participantIds[0].displayName;
         }
         else
         {
-          title = dm.title;
+          name = dm.title;
         }
-        return { id: dm._id, title };
+        return { id: dm._id, user: { id: dm.participantIds[0].id, name } };
       });
   
       return dms;

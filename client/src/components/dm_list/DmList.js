@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDms, openChannel } from '../../redux/actions/channelActions';
 
 import DropDown from '../drop_down';
-import Friends from './friends';
+import StartDm from './start_dm';
 
 const UserList = () => {
   const dms = useSelector((state) => state.channel.dms)
@@ -26,7 +26,7 @@ const UserList = () => {
       <DropDown buttonName="Start DM">
         <h1>Choose A Friend</h1>
         <input placeholder="Username"></input>
-        <Friends />
+        <StartDm />
       </DropDown>
       <button type="button" onClick={() => alert('Groups coming soon.')}>Make Group</button>
     </div>
@@ -40,8 +40,7 @@ const UserList = () => {
         >
           <div className="img"></div>
           <div className="info">
-            <div className="primary">{dm.title}</div>
-            <div className="secondary">test</div>
+            <div className="primary">{dm.user.name}</div>
           </div>
         </button>
       ))}

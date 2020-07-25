@@ -1,5 +1,4 @@
 const Controller = require('../../../../core/Controller');
-const RegisterAsGuestErrors = require('./errors');
 
 class RegisterAsGuestController extends Controller
 {
@@ -28,16 +27,7 @@ class RegisterAsGuestController extends Controller
       return this.ok(rest);
     }
 
-    // ERROR HANDLING
-    switch(data.errorType)
-    {
-      case RegisterAsGuestErrors.InvalidFields:
-        return this.invalidFields(data.message);
-      case RegisterAsGuestErrors.CouldNotMakeAccount:
-        return this.failed(data.message);
-      default:
-        return this.failed();
-    }
+    this.handleError(data);
   }
 }
 

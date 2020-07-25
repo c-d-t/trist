@@ -1,5 +1,4 @@
 const Controller = require('../../../../core/Controller');
-const RegisterErrors = require('./errors');
 
 class RegisterController extends Controller
 {
@@ -28,17 +27,7 @@ class RegisterController extends Controller
       return this.ok(rest);
     }
 
-    // ERROR HANDLING
-    switch(data.errorType)
-    {
-      case RegisterErrors.InvalidFields:
-        return this.invalidFields(data.message);
-      case RegisterErrors.UsernameAlreadyExists:
-      case RegisterErrors.EmailAlreadyExists:
-        return this.conflict(data.message);
-      default:
-        return this.failed();
-    }
+    return this.handleError(data);
   }
 }
 

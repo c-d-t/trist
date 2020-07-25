@@ -1,5 +1,4 @@
 const Application = require('../../../../core/Application');
-const LoginErrors = require('./errors');
 const jwt = require('../../services/jwt');
 
 class LoginApplication extends Application
@@ -27,7 +26,7 @@ class LoginApplication extends Application
 
     if (!foundAccount || !await foundAccount.password.compare(input.password))
     {
-      return this.failed(LoginErrors.InvalidCredentials);
+      return this.unauthorized();
     }
 
     const token = jwt.encode({ id: foundAccount.id });

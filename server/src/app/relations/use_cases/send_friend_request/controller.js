@@ -1,5 +1,4 @@
 const Controller = require('../../../../core/Controller');
-const SendFriendRequestErrors = require('./errors');
 
 class SendFriendRequestController extends Controller
 {
@@ -21,17 +20,7 @@ class SendFriendRequestController extends Controller
       return this.ok();
     }
 
-    switch (data.errorType)
-    {
-      case SendFriendRequestErrors.UsernameDoesNotExist:
-        return this.notFound(data.message);
-      case SendFriendRequestErrors.CouldNotMakeFriendRequest:
-        return this.failed(data.message);
-      case SendFriendRequestErrors.AlreadyInARelationship:
-        return this.conflict(data.message);
-      default:
-        return this.failed();
-    }
+    return this.handleError(data);
   }
 }
 

@@ -5,7 +5,6 @@ const Password = require("../../domain/password");
 const Email = require("../../domain/email");
 const DisplayName = require('../../domain/displayName');
 const Result = require("../../../../core/Result");
-const RegisterErrors = require("./errors");
 const onAccountCreation = require('../../services/onAccountCreation');
 const jwt = require('../../services/jwt');
 
@@ -37,7 +36,7 @@ class RegisterApplication extends Application
     });
     if (propsResult.failed)
     {
-      return this.failed(RegisterErrors.InvalidFields, propsResult.error);
+      return this.invalidFields(propsResult.error);
     }
     const username = usernameResult.value;
     const password = passwordResult.value;
@@ -59,12 +58,12 @@ class RegisterApplication extends Application
     
     if (!!await this._accountRepo.findByUsername(newAccount.username.value) === true)
     {
-      return this.failed(RegisterErrors.UsernameAlreadyExists, 'An account with that username already exists.');
+      return this.conflict('An account with that username already exists.');
     }
     
     if (!!await this._accountRepo.findByEmail(newAccount.email.value) === true)
     {
-      return this.failed(RegisterErrors.EmailAlreadyExists, 'An account with that email already exists.');
+      return this.conflict('An account with that email already exists.');
     }
 
     const account = await this._accountRepo.save(newAccount);

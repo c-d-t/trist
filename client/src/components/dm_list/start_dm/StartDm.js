@@ -6,8 +6,19 @@ import { createDm } from '../../../redux/actions/channelActions';
 
 import UserItem from  '../../user-item';
 
-const Friends = () => {
-  const friendList = useSelector((state) => state.users.friendList);
+const StartDm = () => {
+  const friendList = useSelector((state) => {
+    return state.users.friendList.filter((friend) => {
+      let hasDm = false;
+      state.channel.dms.forEach((dm) => {
+        if (dm.user.id === friend.user.id)
+        {
+          hasDm = true;;
+        }
+      });
+      return !hasDm;
+    });
+  });
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -38,4 +49,4 @@ const Friends = () => {
   );
 };
 
-export default Friends;
+export default StartDm;

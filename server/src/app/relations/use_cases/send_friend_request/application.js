@@ -1,7 +1,6 @@
 const Application = require('../../../../core/Application');
 const Relationship = require('../../domain/relationship');
 const Guard = require('../../../../core/Guard');
-const SendFriendRequestErrors = require('./errors');
 
 class SendFriendRequestApplication extends Application
 {
@@ -24,7 +23,7 @@ class SendFriendRequestApplication extends Application
     const accountToSendRequest = await this._accountRepo.findByUsername(input.otherAccountUsername);
     if (!accountToSendRequest)
     {
-      return this.failed(SendFriendRequestErrors.UsernameDoesNotExist, `An account with the username "${input.otherAccountUsername}" does not exist.`);
+      return this.notFound(`An account with the username "${input.otherAccountUsername}" does not exist.`);
     }
     const sentFriendRequestResult = Relationship.make({
       thisAccountId: input.thisAccountId,
@@ -33,7 +32,7 @@ class SendFriendRequestApplication extends Application
     });
     if (sentFriendRequestResult.failed)
     {
-      return this.failed(SendFriendRequestErrors.CouldNotMakeFriendRequest, 'You\'re already best friends with yourself.');
+      return this.failed('You\'re already best friends with yourself.');
     }
     
     const sentFriendRequest = sentFriendRequestResult.value;
@@ -56,7 +55,7 @@ class SendFriendRequestApplication extends Application
           message = 'You are already friends with that account.';
           break;
       }
-      return this.failed(SendFriendRequestErrors.AlreadyInARelationship, message);
+      return this.failed(message);
     }
 
     await this._relationshipRepo.save(sentFriendRequest);
