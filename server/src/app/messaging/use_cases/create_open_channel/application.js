@@ -35,7 +35,7 @@ class CreateOpenChannelApplication extends Application
 
     const newChannelResult = Channel.makeOpenChannel({
       title,
-      creatorId: input.thisUser.id,
+      creatorId: input.thisUserId,
     });
     if (newChannelResult.failed)
     {

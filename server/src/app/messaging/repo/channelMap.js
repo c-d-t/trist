@@ -20,8 +20,8 @@ function toPersistent(domain)
     _id: ObjectId(domain.id),
     type: domain.type,
     creatorId: !domain.creatorId ? undefined : ObjectId(domain.creatorId),
-    participantIds: domain.participantIds.map((participantId) => ObjectId(participantId)),
-    title: domain.title,
+    participantIds: !domain.participantIds ? undefined : domain.participantIds.map((participantId) => ObjectId(participantId)),
+    title: domain.title.value,
     lastActivity: domain.lastActivity,
   };
 }

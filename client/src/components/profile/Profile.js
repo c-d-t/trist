@@ -10,13 +10,15 @@ const Profile = () => {
   return (
     <div id="profile-container">
       <div id="header">
+        <div className="action-buttons">
+          <Link to="/profile/settings">Settings</Link>
+          <Link to="/profile/friends">Friends</Link>
+        </div>
         <div id="pfp"></div>
       </div>
-      <div className="action-buttons">
-        <Link to="/profile/settings">Settings</Link>
-        <Link to="/profile/friends">Friends</Link>
+      <div id="user-info">
+        <p id="name">{displayName ? displayName : username}<span className="username-link"> @{username}</span></p>
       </div>
-      <p id="name">{displayName ? displayName : username}<span className="username-link"> @{username}</span></p>
       <button type="button" id="new-post-button" onClick={() => alert('Making posts are disabled.')}>+</button>
     </div>
   );
