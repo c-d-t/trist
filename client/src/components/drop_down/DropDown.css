@@ -1,11 +1,11 @@
 .drop-down-container {
 }
 .drop-down-content {
-  width: 100%;
   box-sizing: border-box;
   background-color: #fff;
   border: 1px solid #eee;
-  left: 0;
+  left: 15px;
+  right: 15px;
   top: 50px;
   position: absolute;
   padding: 15px;
@@ -41,11 +41,13 @@
   }
 }
 
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 700px) {
   .drop-down-container {
     position: relative;
   }
   .drop-down-content {
+    left: 0;
+    right: 0;
     width: 20em;
   }
 }

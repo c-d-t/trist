@@ -14,6 +14,7 @@ const Friends = () => {
     {
       dispatch(getFriends());
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const makeOnRemoveFriend = (friendRequestId) => {
@@ -25,7 +26,10 @@ const Friends = () => {
   
   return (
     <div className="list-container">
-      {friendList.map((request, index) => {
+      <h2>Friends</h2>
+      {friendList.length === 0 ? (
+        <div className="sm">No friends rn. Go add some!</div>
+      ) : friendList.map((request, index) => {
         return <UserItem
           key={`request${index}`}
           name={request.user.username}

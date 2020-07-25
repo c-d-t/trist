@@ -10,10 +10,10 @@ const Discover = () => {
         <div className="img"><AiOutlineUserAdd /></div>
         <div className="primary">Random Chat</div>
       </Link>
-      <button type="button" className="md" onClick={() => alert('Open chat is coming soon.')}>
+      <Link to="/discover/open" className="md">
         <div className="img"><AiOutlineUsergroupAdd /></div>
         <div className="primary">Open Chat</div>
-      </button>
+      </Link>
     </div>
     </>
   );

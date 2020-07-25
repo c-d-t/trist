@@ -26,6 +26,7 @@ const StartDm = () => {
     {
       dispatch(getFriends());
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const makeStartDM = (friendRequestId) => {

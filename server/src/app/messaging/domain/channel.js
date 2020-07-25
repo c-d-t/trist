@@ -24,6 +24,11 @@ class Channel extends Entity
     return this._value.lastActivity;
   }
 
+  get creatorId()
+  {
+    return this._value.creatorId;
+  }
+
   updateLastActivity()
   {
     this._value.lastActivity = Date.now();
@@ -154,6 +159,24 @@ function makePrivateChannel(props)
 }
 
 /**
+ * @param {Object} props 
+ * @param {string} props.id
+ * @param {ChannelTitle} props.title
+ * @param {string} prop.creatorId
+ */
+function makeOpenChannel(props)
+{
+  Guard.againstNull([props.title]);
+
+  return Result.ok(new Channel({
+    id: props.id,
+    type: 3,
+    title: props.title,
+    creatorId: props.creatorId,
+  }));
+}
+
+/**
  * Creates a channel
  * @param {Object} props 
  * @param {string} props.id
@@ -177,6 +200,10 @@ function make(props)
       break;
     case 2:
       result = makePrivateChannel(props);
+      break;
+    case 3:
+      result = makeOpenChannel(props);
+      break;
   }
   return result;
 }
@@ -186,4 +213,5 @@ module.exports = {
   makeDm,
   makeGroupDm,
   makePrivateChannel,
+  makeOpenChannel,
 };

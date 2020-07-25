@@ -4,7 +4,6 @@ import './DropDown.css';
 
 const DropDown = ({ className, buttonName, children }) => {
   const ref = useRef(null);
-  const buttonRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
 
   

@@ -25,5 +25,6 @@ router.post('/channel/messages', (req, res) => messagingController.sendMessage.r
 router.get('/channel/messages', (req, res) => messagingController.getChannel.run(req, res));
 router.post('/channel/private', (req, res) => messagingController.joinPrivateChannel.run(req, res));
 router.delete('/channel/private', (req, res) => messagingController.leavePrivateChannel.run(req, res));
+router.post('/channel/open', (req, res) => messagingController.createOpenChannel.run(req, res));
 
 module.exports = router;

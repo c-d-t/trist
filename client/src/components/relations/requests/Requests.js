@@ -11,6 +11,7 @@ const Requests = () => {
 
   useEffect(() => {
     dispatch(getRequests());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const makeOnAcceptRequest = (friendRequestId) => {
@@ -29,7 +30,10 @@ const Requests = () => {
   
   return (
     <div className="list-container">
-      {requestList.map((request, index) => {
+      <h2>Friend Requests</h2>
+      {requestList.length === 0 ? (
+        <div className="sm">No requests rn</div>
+      ) : requestList.map((request, index) => {
         if (request.status === 0)
         {
           return <UserItem
