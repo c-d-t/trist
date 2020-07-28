@@ -21,7 +21,7 @@ function toPersistent(domain)
     type: domain.type,
     creatorId: !domain.creatorId ? undefined : ObjectId(domain.creatorId),
     participantIds: !domain.participantIds ? undefined : domain.participantIds.map((participantId) => ObjectId(participantId)),
-    title: domain.title.value,
+    title: !domain.title ? undefined : domain.title.value,
     lastActivity: domain.lastActivity,
   };
 }

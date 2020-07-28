@@ -1,11 +1,15 @@
 #landing-container {
   padding-top: 40px;
+  min-height: 100vh;
+  position: relative;
+  box-sizing: border-box;
+  padding-bottom: 13em;
 }
 
 header {
   position: fixed;
   top: 0;
-  height: 40px;
+  height: 3em;
   background-color: rgb(33, 226, 152);
   width: 100%;
   display: flex;
@@ -13,31 +17,40 @@ header {
   padding: 10px;
   box-sizing: border-box;
   align-items: center;
+  z-index: 2;
 }
-header > #logo {
+header #logo {
   font-family: 'Montserrat Alternates';
   color: #fff;
   font-size: 1.7em;
+  display: flex;
+  align-items: center;
 }
-header > #buttons {
+header #logo > img {
+  height: 1em;
+  margin-right: 10px;
 }
-header > #buttons > a {
-  padding: 7px 10px;
-  border-radius: 2px;
+header #buttons > a {
+  padding: 8px 10px;
+  border-radius: 20px;
   margin-left: 5px;
+  font-size: 0.9em;
 }
-header > #buttons > .login {
-  border: 1px solid #fff;
+header #buttons > .login {
   background: none;
   color: #fff;
 }
-header > #buttons > .register {
+header #buttons > .register {
   background-color: #fff;
-  color: rgb(33, 226, 152);
+  color: #222;
+  transition: all 500ms ease;
+}
+header #buttons > .register:hover {
+  color: rgb(18, 228, 112);
 }
 #landing-cover {
-  height: 30em;
   width: 100%;
+  padding-bottom: 4em;
   background-image: linear-gradient(180deg,rgb(33, 226, 152), rgb(33, 226, 152), rgb(92, 247, 208));
 }
 #landing-cover > .title {
@@ -51,18 +64,127 @@ header > #buttons > .register {
 #landing-cover > .subtitle {
   text-align: center;
   color: #fff;
-  margin-bottom: 4em;
+  margin: 0 auto;
+  margin-bottom: 2em;
+  font-size: 1.3em;
+  width: 75%;
 }
 #landing-cover > .call-of-action {
+  position: relative;
   text-align: center;
   display: block;
   font-size: 1.5em;
   width: 50%;
   max-width: 250px;
   background-color: #fff;
-  color: rgb(67, 241, 198);
-  font-weight: bold;
   margin: 0 auto;
   padding: 10px;
   border-radius: 25px;
+  transition: all 500ms ease;
+  overflow: hidden;
+}
+
+#landing-cover > .call-of-action > p {
+  color: rgb(18, 228, 112);
+  position: relative;
+  z-index: 1;
+  transition: all 500ms ease;
+}
+#landing-cover > .call-of-action:hover > p {
+  color: rgb(0, 83, 28);
+}
+#landing-cover > .call-of-action::after {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: rgb(196, 255, 222);
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-10px, -10px) scale(0);
+  transition: all 500ms ease;
+  border-radius: 50%;
+}
+#landing-cover > .call-of-action:hover {
+  box-shadow: rgba(42, 117, 52, 0.1) 0 0 10px 10px;
+}
+#landing-cover > .call-of-action:hover::after {
+  transform: translate(-10px, -10px) scale(20);
+}
+
+#features {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+#features > div {
+  width: 100%;
+  padding: 2em 0;
+  box-sizing: border-box;
+}
+#features > div > h2 {
+  color: rgb(18, 204, 101);
+  font-size: 1.4em;
+}
+#features > div > p {
+  font-size: 1.2em;
+  line-height: 1.8em;
+}
+
+#about {
+  padding-top: 3em;
+  padding-bottom: 3em;
+  background-color: #eee;
+  margin-top: 3em;
+}
+#open-source {
+  padding-top: 3em;
+  padding-bottom: 3em;
+  margin-top: 3em;
+}
+#about > h2, #open-source > h2 {
+  text-align: center;
+  font-size: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#about svg, #open-source svg {
+  margin-right: 5px;
+}
+#about > p, #open-source > p {
+  text-align: center;
+  font-size: 1.2em;
+  line-height: 1.8em;
+  margin-bottom: 2em;
+}
+
+footer {
+  width: 100%;
+  background-color: rgb(21, 21, 26);
+  color: #fff;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 5em 0 3em 0;
+  color: #aaa;
+  font-weight: bold;
+}
+footer > img {
+  height: 2.5em;
+  margin-bottom: 1em;
+}
+
+@media (min-width: 1025px) {
+  #features {
+    flex-direction: row;
+  }
+  #features > div {
+    width: 33.3%;
+    padding: 6em 1em;
+  }
 }

@@ -7,6 +7,11 @@
   box-sizing: border-box;
 }
 
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  box-sizing: border-box;
+}
 .header {
   background-color: rgb(33, 226, 152);
   font-weight: bold;
@@ -127,4 +132,18 @@
   color: #fff;
   padding: 5px 10px;
   border-radius: 2px;
+}
+
+@media (min-width: 1025px) {
+  .container {
+    padding-right: 10%;
+    padding-left: 10%;
+  }
+}
+@media (min-width: 2000px) {
+  .container {
+    padding-right: 30%;
+    padding-left: 30%;
+  
+  }
 }

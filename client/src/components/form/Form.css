@@ -7,13 +7,14 @@
   margin-bottom: 10px;
 }
 .form-container > button {
-  background-color: #444;
+  background-color: rgb(23, 196, 129);
   color: #fff;
   padding: 10px;
   border-radius: 1px;
   margin-top: 10px;
   font-weight: 700;
   transition: all 200ms ease;
+  width: 100%;
 }
 .form-error {
   font-size: 0.8em;
