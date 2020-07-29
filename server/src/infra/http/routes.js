@@ -4,6 +4,21 @@ const relationsController = require('../../app/relations/use_cases');
 const messagingController = require('../../app/messaging/use_cases');
 const middleware = require('./middleware');
 
+router.use(middleware.multerUploads);
+const imageService = require('../../services/image');
+router.post('/upload', async (req, res) => {
+  try {
+    const { publicId } = await imageService.upload(req.file);
+    console.log(publicId);
+    res.end();
+  }
+  catch (e)
+  {
+    console.log(e);
+    res.end();
+  }
+})
+
 router.post('/account/register', (req, res) => accountController.register.run(req, res));
 router.post('/account/login', (req, res) => accountController.login.run(req, res));
 router.post('/account/logout', (req, res) => accountController.logout.run(req, res));

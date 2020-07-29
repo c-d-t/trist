@@ -1,5 +1,4 @@
 const Controller = require('../../../../core/Controller');
-const SendMessageErrors = require('./errors');
 
 class CreateDmController extends Controller
 {
@@ -21,17 +20,7 @@ class CreateDmController extends Controller
       return this.ok();
     }
 
-    switch (data.errorType)
-    {
-      case SendMessageErrors.ChannelDoesNotExist:
-        return this.notFound(data.message);
-      case SendMessageErrors.DmsAreNotOpen:
-        return this.failed(data.message);
-      case SendMessageErrors.InvalidFields:
-        return this.invalidFields(data.message);
-      default:
-        return this.failed();
-    }
+    return this.handleError(data);
   }
 }
 

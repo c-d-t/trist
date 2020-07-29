@@ -3,7 +3,6 @@ const Username = require("../../domain/username");
 const Password = require("../../domain/password");
 const Email = require("../../domain/email");
 const Result = require("../../../../core/Result");
-const UpgradeErrors = require("./errors");
 
 class UpgradeApplication extends Application
 {
@@ -34,7 +33,7 @@ class UpgradeApplication extends Application
     });
     if (propsResult.failed)
     {
-      return this.failed(UpgradeErrors.InvalidFields, propsResult.error);
+      return this.failed(propsResult.error);
     }
     const username = usernameResult.value;
     const password = passwordResult.value;
@@ -43,11 +42,11 @@ class UpgradeApplication extends Application
     let newAccount = await this._accountRepo.findById(input.thisAccountId);
     if (!newAccount)
     {
-      return this.failed();
+      return this.notFound();
     }
     if (newAccount.status !== 0)
     {
-      return this.failed(UpgradeErrors.AlreadyRegistered, 'This account is already registered.');
+      return this.unauthorized({ account: 'This account is already registered.' });
     }
 
     newAccount.changeStatus(1);
@@ -57,12 +56,12 @@ class UpgradeApplication extends Application
     
     if (!!await this._accountRepo.findByUsername(newAccount.username.value) === true)
     {
-      return this.failed(UpgradeErrors.UsernameExists, 'An account with that username already exists.');
+      return this.conflict({ username: 'An account with that username already exists.' });
     }
     
     if (!!await this._accountRepo.findByEmail(newAccount.email.value) === true)
     {
-      return this.failed(UpgradeErrors.EmailExists, 'An account with that email already exists.');
+      return this.conflict({ email: 'An account with that email already exists.' });
     }
 
     await this._accountRepo.save(newAccount);

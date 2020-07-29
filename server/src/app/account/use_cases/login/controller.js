@@ -10,7 +10,7 @@ class LoginController extends Controller {
   async implementation(req)
   {
     const { usernameOrEmail, password } = req.body;
-
+    
     const result = await this._login.run({ usernameOrEmail, password });
     const { success, data } = result;
     if (success)
@@ -24,7 +24,7 @@ class LoginController extends Controller {
       return this.ok(rest);
     }
 
-    this.handleError(data);
+    return this.handleError(data);
   }
 }
 

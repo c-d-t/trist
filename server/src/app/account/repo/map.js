@@ -7,6 +7,7 @@ const DisplayName = require('../domain/displayName');
 
 function toDomain(persistent)
 {
+  persistent = persistent.toObject();
   let username;
   let password;
   let email;
@@ -18,7 +19,7 @@ function toDomain(persistent)
   }
   const displayName = DisplayName.make(persistent.displayName).value;
   return Account.make({
-    id: persistent._id.toString(),
+    id: persistent._id,
     username,
     password,
     email,
@@ -36,7 +37,7 @@ function toPersistent(domain)
     password: !domain.password ? undefined : domain.password.value,
     email: !domain.email ? undefined : domain.email.value,
     displayName: domain.displayName.value,
-    status: domain.status,
+    status: domain.status ? undefined : domain.status,
     timeCreated: domain.timeCreated,
   };
 }

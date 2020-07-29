@@ -38,14 +38,16 @@ const StartDm = () => {
   
   return (
     <div className="list-container" style={{ margin: '0' }}>
-      {friendList.map((friend, index) => {
+      {friendList.length > 0 ? friendList.map((friend, index) => {
         return <UserItem
           key={`request${index}`}
           className="fade-hover"
           name={friend.user.username}
           buttonOne={{ text: 'Start', onClick: makeStartDM(friend.user.id) }}
         />
-      })}
+      }) : (
+        <div className="sm">You're already talking to everyone you know!</div>
+      )}
     </div>
   );
 };

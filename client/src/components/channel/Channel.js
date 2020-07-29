@@ -61,7 +61,7 @@ const Channel = () => {
           type="button"
           onClick={closeDm}
         ><AiOutlineMenu /></button>
-        Berb
+        {!!currentChannel ? currentChannel.name : null}
       </div>
       <div id="message-history">
         {!messages ? null : (

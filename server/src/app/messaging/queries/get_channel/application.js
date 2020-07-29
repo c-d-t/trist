@@ -25,13 +25,15 @@ class MarcoApplication extends Application
     {
       return this.notFound('A channel with that ID could not be found.');
     }
-
-    let messages = await this._messagingView.findMessagesByChannelId(channel.id);
+    
+    const name = await this._messagingView.getDmName(channel.id, input.thisAccountId);
+    const messages = await this._messagingView.findMessagesByChannelId(channel.id);
 
     return this.ok({
       channel: {
         id: channel.id,
         type: channel.type,
+        name,
       },
       messages,
     });

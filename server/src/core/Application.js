@@ -24,6 +24,10 @@ class Application
     return this.makeError(2, message);
   }
   
+  forbidden(message)
+  {
+    return this.makeError(3, message);
+  }
   notFound(message)
   {
     return this.makeError(4, message)

@@ -48,7 +48,7 @@ const Relations = () => {
         <button type="button" style={{ backgroundColor: 'rgb(33, 226, 152)' }} onClick={() => { setFriendInputOpen(!friendInputOpen); dispatch(clearErrors()); } }>Add Friend</button> :
         <button type="button" onClick={() => setCurrentTab(0)}>Friends</button>
         }
-        <button style={currentTab === 1 ? { backgroundColor: 'rgb(33, 226, 152)' } : {}} onClick={() => { setCurrentTab(1); dispatch(clearErrors()); } }>Requests</button>
+        <button style={currentTab === 1 ? { backgroundColor: 'rgb(33, 226, 152)' } : {}} onClick={() => { setCurrentTab(1); dispatch(clearErrors()); setFriendInputOpen(false); } }>Requests</button>
         <button style={currentTab === 2 ? { backgroundColor: 'rgb(33, 226, 152)' } : {}} onClick={() => alert('Blocking will be coming soon.')}>Blocks</button>
       </div>
       {!errors ? null : Object.keys(errors).map((errorName, i) => (

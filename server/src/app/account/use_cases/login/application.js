@@ -33,6 +33,7 @@ class LoginApplication extends Application
     const responseJSON = {
       token,
       id: foundAccount.id,
+      status: foundAccount.status,
       username: foundAccount.username.value,
       displayName: foundAccount.displayName.value,
     };

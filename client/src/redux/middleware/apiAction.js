@@ -32,6 +32,7 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
     dispatch(onSuccess(data.data));
   })
   .catch((error) => {
+    console.log(error.response)
     if (!!error.response && error.response.status === 403) return dispatch({ type: LOGGED_OUT });
     if (!!error.response && !!error.response.data)
     {

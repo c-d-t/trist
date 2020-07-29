@@ -22,10 +22,9 @@ export function initSocket()
 
   socket.on('connection-created', (data) => {
     const { channel } = data;
-    console.log(channel.participants)
-    const { accountId } = store.getState().session;
+    const { account } = store.getState().session;
     const otherUser = channel.participants.filter((participant) => {
-      return participant.id !== accountId;
+      return participant.id !== account.id;
     })[0];
     store.dispatch({
       type: GOT_MESSAGE,

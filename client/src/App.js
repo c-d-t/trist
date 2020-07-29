@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useWindowDimensions } from './api/windowDimensions';
 
 import { marco } from './redux/actions/sessionActions';
+import { createNotification } from './redux/actions/notificationActions';
 
+import PopUpNotif from './components/pop_up_notif';
 import Loading from './pages/loading';
 import Landing from './pages/landing';
 import Mobile from './mobile';
@@ -13,7 +15,7 @@ import './App.css';
 
 function App() {
   const dispatch = useDispatch();
-  const [loggedIn, pageLoader] = useSelector((state) => [state.session.loggedIn, state.loaders.pageLoader]);
+  const [session, pageLoader] = useSelector((state) => [state.session, state.loaders.pageLoader]);
   const { width } = useWindowDimensions();
 
   useEffect(() => {
@@ -21,20 +23,40 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const warnGuest = () => {
+      dispatch(createNotification('You are using a guest account. Register to save it'));
+    };
+    let intervalId;
+    if (session.account && session.account.status === 0)
+    {
+      intervalId = setInterval(warnGuest, 1000 * 60 * 15); // every 15 minutes
+    }
+    return () => {
+      if (!!intervalId)
+      {
+        clearInterval(warnGuest);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [session])
+
+
   if (pageLoader)
   {
     return <Loading />
   }
 
-  if (!loggedIn)
+  if (!session.loggedIn)
   {
     return <Landing />
   }
 
   return (
-    <div id="app">
-      {width < 1024 ? <Mobile /> : <Desktop />}
-    </div>
+    <>
+    <PopUpNotif />
+    {width < 1024 ? <Mobile /> : <Desktop />}
+    </>
   );
 }
 

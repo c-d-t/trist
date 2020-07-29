@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './Profile.css';
 
 const Profile = () => {
-  const [username, displayName] = useSelector((state) => [state.session.username, state.session.displayName]);
+  const { username, displayName} = useSelector((state) => state.session.account);
 
   return (
     <div id="profile-container">
@@ -14,7 +14,7 @@ const Profile = () => {
           <Link to="/profile/settings">Settings</Link>
           <Link to="/profile/friends">Friends</Link>
         </div>
-        <div id="pfp"></div>
+        <img id="pfp" src="https://res.cloudinary.com/cdt/image/upload/v1596066208/xs5keynvtrv2m5lxnvqa.jpg" alt="pfp"></img>
       </div>
       <div id="user-info">
         <p id="name">{displayName ? displayName : username}<span className="username-link"> @{username}</span></p>

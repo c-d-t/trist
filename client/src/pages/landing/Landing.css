@@ -42,7 +42,7 @@ header #buttons > .login {
 }
 header #buttons > .register {
   background-color: #fff;
-  color: #222;
+  color: #444;
   transition: all 500ms ease;
 }
 header #buttons > .register:hover {

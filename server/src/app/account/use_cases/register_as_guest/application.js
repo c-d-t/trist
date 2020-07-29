@@ -41,6 +41,7 @@ class RegisterAsGuestApplication extends Application
     const responseJSON = {
       token,
       id: account.id,
+      status: account.status,
       username: account.username.value,
       displayName: account.displayName.value,
     };

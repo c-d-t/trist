@@ -5,6 +5,7 @@ import loadersReducer from './loaders';
 import errorsReducer from './errors';
 import channelReducer from './channel';
 import usersReducer from './users';
+import notificationReducer from './notifications';
 
 const appReducer = combineReducers({
   session: sessionReducer,
@@ -12,6 +13,7 @@ const appReducer = combineReducers({
   errors: errorsReducer,
   channel: channelReducer,
   users: usersReducer,
+  notifications: notificationReducer,
 });
 
 const rootReducer = (state, action) => {

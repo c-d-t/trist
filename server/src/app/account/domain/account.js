@@ -68,7 +68,7 @@ class Account extends Entity
  * @param {Password} props.password
  * @param {Email} props.email
  * @param {DisplayName} props.displayName
- * @param {boolean} props.status
+ * @param {Number} props.status
  * @param {Data} props.timeCreated
  */
 function make(props)

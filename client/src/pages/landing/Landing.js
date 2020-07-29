@@ -13,7 +13,7 @@ import './Landing.css';
 const MobileLanding = () => {
   return (
     <div id="landing-container">
-    <header class="container">
+    <header className="container">
       <Link to="/" id="logo"><img src={Logo} alt="Trist Logo" />trist</Link>
       <div id="buttons">
         <Link to="/login" className="login">Login</Link>
@@ -32,7 +32,7 @@ const MobileLanding = () => {
             <p>Start!</p>
           </Link>
         </div>
-        <div id="features" class="container">
+        <div id="features" className="container">
           <div>
             <h2>Meet People Safely</h2>
             <p>Our main priority is to provide a platform which users feel safe using and we provide the tools for you to do so.</p>
@@ -46,7 +46,7 @@ const MobileLanding = () => {
             <p>You don't need to register to use Trist. You can simply hop on and start using all the features as everyone else.</p>
           </div>
         </div>
-        <div id="about" class="container">
+        <div id="about" className="container">
           <h2><AiFillQuestionCircle style={{ color: '0d6' }} />What Trist Is</h2>
           <p>
             Every chatting app out there has the same problems. They are filled to the brim with degenerates, scammers, bots, and trolls.
@@ -58,7 +58,7 @@ const MobileLanding = () => {
             Trist isn't for dating or hooking up. There are millions of other places for doing that.
           </p>
         </div>
-        <div id="open-source" class="container">
+        <div id="open-source" className="container">
           <h2><AiFillCode style={{ color: '111' }} />Open Source</h2>
           <p>
             What does open source mean? It means all the code that makes Trist churn is completely public. You can go and see it 
@@ -66,7 +66,7 @@ const MobileLanding = () => {
             You can see exactly what we do with your data(nothing) and even add never-before-seen features if you want.
           </p>
         </div>
-        <footer class="container">
+        <footer className="container">
           <img src={Logo} alt="Trist logo" />
           2020 &copy; Trist
         </footer>

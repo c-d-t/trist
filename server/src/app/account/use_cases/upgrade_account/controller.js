@@ -1,5 +1,4 @@
 const Controller = require('../../../../core/Controller');
-const UpgradeErrors = require('./errors');
 
 class RegisterController extends Controller
 {
@@ -21,19 +20,7 @@ class RegisterController extends Controller
       return this.ok();
     }
 
-    // ERROR HANDLING
-    switch(data.errorType)
-    {
-      case UpgradeErrors.InvalidFields:
-        return this.invalidFields(data.message);
-      case UpgradeErrors.EmailExists:
-      case UpgradeErrors.UsernameExists:
-        return this.conflict(data.message);
-      case UpgradeErrors.AlreadyRegistered:
-        return this.forbidden(data.message);
-      default:
-        return this.failed();
-    }
+    return this.handleError(data);
   }
 }
 

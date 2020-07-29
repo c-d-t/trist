@@ -99,18 +99,11 @@ const Form = ({ title, buttonName, onSubmit, children }) => {
       <button
         type="button"
         onClick={submit}
-        style={formLoader ? loadingButton : null}
       >
         {formLoader ? 'loading' : buttonName}
       </button>
     </div>
   );
-};
-
-const loadingButton = {
-  transform: 'translate(10%, 0)',
-  backgroundColor: '#ddd',
-  color: '#333',
 };
 
 export default Form;

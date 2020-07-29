@@ -58,12 +58,12 @@ class RegisterApplication extends Application
     
     if (!!await this._accountRepo.findByUsername(newAccount.username.value) === true)
     {
-      return this.conflict('An account with that username already exists.');
+      return this.conflict({ username: 'An account with that username already exists.' });
     }
     
     if (!!await this._accountRepo.findByEmail(newAccount.email.value) === true)
     {
-      return this.conflict('An account with that email already exists.');
+      return this.conflict({ email: 'An account with that email already exists.' });
     }
 
     const account = await this._accountRepo.save(newAccount);
@@ -75,6 +75,7 @@ class RegisterApplication extends Application
     const responseJSON = {
       token,
       id: account.id,
+      status: account.status,
       username: account.username.value,
       displayName: account.displayName.value,
     };

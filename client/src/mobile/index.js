@@ -15,7 +15,7 @@ import './Mobile.css';
 
 const Mobile = () => {
   return (
-    <>
+    <div id="mobile-app">
     <Switch>
       <Route exact path="/messages" component={DmList} />
       <Route exact path="/discover" component={Discover} />
@@ -30,7 +30,7 @@ const Mobile = () => {
     </Switch>
     <Nav />
     <Channel />
-    </>
+    </div>
   );
 };
 

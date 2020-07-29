@@ -29,8 +29,10 @@ class Controller
     {
       case 0:
         return this.failed(data.message);
-      case 1:
+      case 2:
         return this.unauthorized(data.message);
+      case 3:
+        return this.forbidden(data.message);
       case 4:
         return this.notFound(data.message);
       case 9:
@@ -39,6 +41,8 @@ class Controller
         return this.invalidFields(data.message);
       case 29:
         return this.tooMany(data.message);
+      default:
+        return this.failed(data.message);
     }
   }
 

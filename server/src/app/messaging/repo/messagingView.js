@@ -16,10 +16,12 @@ class MessagingView
         populate: {
           path: 'participantIds',
           match: { _id: { $ne: userId } },
-          select: 'username displayName',
+          select: 'username displayName lastActivity',
         },
-        sort: {
-          lastActivity: -1,
+        options: {
+          sort: {
+            lastActivity: -1,
+          },
         },
         select: '-__v',
       });
@@ -34,7 +36,13 @@ class MessagingView
         {
           name = dm.title;
         }
-        return { id: dm._id, user: { id: dm.participantIds[0].id, name } };
+        return {
+          id: dm._id,
+          user: {
+            id: dm.participantIds[0].id,
+            name,
+          },
+        };
       });
   
       return dms;
@@ -42,6 +50,25 @@ class MessagingView
     catch(e)
     {
       return [];
+    }
+  }
+
+  async getDmName(channelId, thisAccountId)
+  {
+    try
+    {
+      const channel = await this._channelModel.findById(channelId).select('participantIds')
+      .populate({
+        path: 'participantIds',
+        match: { _id: { $ne: thisAccountId } },
+        select: 'username displayName lastActivity',
+      });
+
+      return channel.participantIds[0].displayName || channel.participantIds[0].username;
+    }
+    catch(e)
+    {
+      return null;
     }
   }
 

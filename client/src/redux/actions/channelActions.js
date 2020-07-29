@@ -60,7 +60,24 @@ export function sendMessage(channelId, text)
     url: '/channel/messages',
     method: 'POST',
     data: { channelId, text },
+    onFailure: makeSendMessageFailed(channelId),
   });
+}
+function makeSendMessageFailed(channelId)
+{
+  return function sendMessageFailed(data)
+  {
+    return {
+      type: GOT_MESSAGE,
+      payload: {
+        message: {
+          system: true,
+          channelId,
+          text: data.data,
+        },
+      },
+    }
+  }
 }
 
 export function joinPrivateChannel()

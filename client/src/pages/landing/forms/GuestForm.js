@@ -1,17 +1,18 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 
+import { registerAsGuest } from '../../../redux/actions/sessionActions';
 import validators from '../../../validators';
 
 import Form from '../../../components/form';
 import Input from '../../../components/form/input';
 
-const onSubmit = () => {
-  alert('Entering as a guest is currently disabled.');
-};
 
 const GuestForm = () => {
+  const dispatch = useDispatch();
+
   return (
-    <Form title="What should we call you?" buttonName="Begin" onSubmit={onSubmit}>
+    <Form title="What should we call you?" buttonName="Begin" onSubmit={(data) => dispatch(registerAsGuest(data))}>
       <Input name="displayName" placeholder="You can change your name at any time." type="text" validator={validators.displayName} />
     </Form>
   );

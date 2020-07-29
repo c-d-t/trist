@@ -1,7 +1,6 @@
 const Application = require('../../../../core/Application');
 const Guard = require('../../../../core/Guard');
 const relationshipService = require('../../services/relationshipService');
-const SendMessageErrors = require('./errors');
 const Message = require('../../domain/message');
 const MessageText = require('../../domain/messageText');
 
@@ -32,7 +31,7 @@ class SendMessageApplication extends Application
     ]);
     if (!channel || !channel.hasUserId(thisUser.id))
     {
-      return this.failed(SendMessageErrors.ChannelDoesNotExist, 'A channel with that id doesn\'t exist.');
+      return this.notFound('A channel with that id doesn\'t exist.');
     }
 
 
@@ -40,7 +39,7 @@ class SendMessageApplication extends Application
     const messageTextResult = MessageText.make(input.text);
     if (messageTextResult.failed)
     {
-      return this.failed(SendMessageErrors.InvalidFields, messageTextResult.error);
+      return this.invalidFields(messageTextResult.error);
     }
     const messageText = messageTextResult.value;
     const messageResult = Message.make({ authorId: thisUser.id, channelId: channel.id, text: messageText });
@@ -93,7 +92,7 @@ class SendMessageApplication extends Application
       if ((!bothDmsAreOpen && !await relationshipService.areFriends(allUsers[0], allUsers[1]))
       || await relationshipService.hasBlock(allUsers[0], allUsers[1]))
       {
-        return this.failed(SendMessageErrors.DmsAreNotOpen, 'Either you or your recipient don\'t allow dms from non-friends.');    
+        return this.unauthorized('Either you or your recipient don\'t allow dms from non-friends.');    
       }
     }
 

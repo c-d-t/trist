@@ -16,8 +16,7 @@
   position: absolute;
   height: 100px;
   width: 100px;
-  border-radius: 50px;
-  background-color: rgb(163, 45, 16);
+  border-radius: 20px;
   bottom: -32px;
   left: 50%;
   transform: translate(-50%, 0);

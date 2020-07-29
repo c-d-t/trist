@@ -7,7 +7,8 @@ export const GET_FRIENDS = 'relationships:getFriends';
 export const GOT_FRIENDS = 'relationships:gotFriends';
 export const GOT_REQUESTS = 'relationships:gotRequests';
 export const ACCEPTED_REQUEST = 'relationships:acceptedRequest';
-export const REMOVED_RELATIONSHIP = 'relationships:removed';
+export const DECLINED_REQUEST = 'relationships:declinedRequest';
+export const REMOVED_RELATIONSHIP = 'relationship:removed';
 
 export function getFriends()
 {
@@ -73,14 +74,18 @@ export function acceptRequest(friendRequestId)
     url: '/friends/accept',
     method: 'POST',
     data: { friendRequestId },
-    onSuccess: acceptedRequest,
+    onSuccess: makeAcceptedRequest(friendRequestId),
   });
 }
-function acceptedRequest()
+function makeAcceptedRequest(requestId)
 {
-  return {
-    type: ACCEPTED_REQUEST,
-  };
+  return function acceptedRequest()
+  {
+    return {
+      type: ACCEPTED_REQUEST,
+      payload: { requestId },
+    };
+  }
 }
 
 export function removeRelationship(relationshipId)
@@ -89,12 +94,36 @@ export function removeRelationship(relationshipId)
     url: '/friends',
     method: 'DELETE',
     data: { relationshipId },
-    onSuccess: removedRelationship,
+    onSuccess: makeRemoveRelationship(relationshipId),
   });
 }
-function removedRelationship()
+function makeRemoveRelationship(relationshipId)
 {
-  return {
-    type: REMOVED_RELATIONSHIP,
-  };
+  return function removedRelationship()
+  {
+    return {
+      type: REMOVED_RELATIONSHIP,
+      payload: { relationshipId },
+    };
+  }
+}
+
+export function declineRequest(requestId)
+{
+  return createAPIAction({
+    url: '/friends',
+    method: 'DELETE',
+    data: { relationshipId: requestId },
+    onSuccess: makeDeclinedRequest(requestId),
+  });
+}
+function makeDeclinedRequest(requestId)
+{
+  return function declinedRequest()
+  {
+    return {
+      type: DECLINED_REQUEST,
+      payload: { requestId },
+    };
+  }
 }

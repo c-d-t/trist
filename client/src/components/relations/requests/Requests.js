@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getRequests, acceptRequest, removeRelationship } from '../../../redux/actions/relationshipActions';
+import { getRequests, acceptRequest, declineRequest } from '../../../redux/actions/relationshipActions';
 
 import UserItem from  '../../user-item';
 
@@ -24,7 +24,7 @@ const Requests = () => {
   const makeOnDeclineRequest = (friendRequestId) => {
     return function()
     {
-      dispatch(removeRelationship(friendRequestId));
+      dispatch(declineRequest(friendRequestId));
     };
   };
   
