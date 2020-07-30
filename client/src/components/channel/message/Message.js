@@ -19,7 +19,7 @@ const Message = ({ messages, isActive }) => {
   const { name, pfp } = messages[0].author;
   return (
     <div className="message-container">
-      <img className="pfp" src="https://res.cloudinary.com/cdt/image/upload/v1596066208/xs5keynvtrv2m5lxnvqa.jpg" alt="pfp">{pfp}</img>
+      <img className="pfp" src={pfp} alt="pfp" />
       <h1>{name}</h1>
       {messages.map((message, index) => (
         <p key={`message${index}`}>{message.text}</p>

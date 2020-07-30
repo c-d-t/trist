@@ -1,6 +1,7 @@
 const Application = require('../../../../core/Application');
 const Account = require('../../domain/account');
 const DisplayName = require('../../domain/displayName');
+const Pfp = require('../../domain/pfp');
 const onAccountCreation = require('../../services/onAccountCreation');
 const jwt = require('../../services/jwt');
 
@@ -26,7 +27,8 @@ class RegisterAsGuestApplication extends Application
     }
 
     const displayName = displayNameResult.value;
-    const accountResult = Account.make({ displayName, status: 0 });
+    const pfp = Pfp.make().result;
+    const accountResult = Account.make({ displayName, pfp, status: 0 });
     if (accountResult.failed)
     {
       return this.failed(accountResult.error);
@@ -44,6 +46,7 @@ class RegisterAsGuestApplication extends Application
       status: account.status,
       username: account.username.value,
       displayName: account.displayName.value,
+      pfp: !account.pfp ? null : account.pfp.url,
     };
 
     return this.ok(responseJSON);  }

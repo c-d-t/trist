@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-import { GOT_MESSAGE } from '../redux/actions/channelActions';
+import { GOT_MESSAGE, getDms } from '../redux/actions/channelActions';
 
 let socket = null;
 let store = null;
@@ -17,6 +17,17 @@ export function initSocket()
   if (!!socket) return;
   socket = io();
   socket.on('message-created', (data) => {
+    let hasDm = false;
+    store.getState().channel.dms.forEach((dm) => {
+      if (dm.id === data.channelId)
+      {
+        hasDm = true;
+      }
+    });
+    if (!hasDm)
+    {
+      store.dispatch(getDms());
+    }
     store.dispatch({ type: GOT_MESSAGE, payload: data });
   });
 

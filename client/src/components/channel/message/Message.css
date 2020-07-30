@@ -32,10 +32,12 @@
 }
 .message-container > p {
   line-height: 1.5em;
+  transition: all 50ms ease;
+  border-radius: 2px;
 }
 .message-container > p:hover {
   background-color: rgb(238, 238, 238);
-  font-size: 1.2em;
   padding-left: 5px;
   box-sizing: border-box;
+  transform: translate(10px, 0));
 }

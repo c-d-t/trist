@@ -34,6 +34,11 @@ class Account extends Entity
     return this._value.timeCreated;
   }
 
+  get pfp()
+  {
+    return this._value.pfp;
+  }
+
   changeUsername(newUsername)
   {
     this._value.username = newUsername;
@@ -70,6 +75,7 @@ class Account extends Entity
  * @param {DisplayName} props.displayName
  * @param {Number} props.status
  * @param {Data} props.timeCreated
+ * @param {Object} props.pfp
  */
 function make(props)
 {
@@ -79,7 +85,7 @@ function make(props)
   }
   else
   {
-    Guard.againstNullBulk([ props.username, props.password, props.email, props.displayName, props.status ]);
+    Guard.againstNullBulk([ props.pfp, props.username, props.password, props.email, props.displayName, props.status ]);
   }
 
   if (props.status === 0 && props.displayName.isEmpty)

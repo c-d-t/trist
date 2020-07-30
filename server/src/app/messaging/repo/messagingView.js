@@ -16,7 +16,7 @@ class MessagingView
         populate: {
           path: 'participantIds',
           match: { _id: { $ne: userId } },
-          select: 'username displayName lastActivity',
+          select: 'username displayName lastActivity pfp',
         },
         options: {
           sort: {
@@ -39,6 +39,7 @@ class MessagingView
         return {
           id: dm._id,
           user: {
+            pfp: dm.participantIds[0].pfp.url,
             id: dm.participantIds[0].id,
             name,
           },
@@ -61,7 +62,7 @@ class MessagingView
       .populate({
         path: 'participantIds',
         match: { _id: { $ne: thisAccountId } },
-        select: 'username displayName lastActivity',
+        select: 'username displayName',
       });
 
       return channel.participantIds[0].displayName || channel.participantIds[0].username;
@@ -79,7 +80,7 @@ class MessagingView
       let messages = await this._messageModel.find({ channelId })
       .populate({
         path: 'authorId',
-        select: 'username displayName',
+        select: 'username displayName pfp',
       }).sort({ timeCreated: -1 }).skip(startingPoint || 0).limit(20); 
 
       messages = messages.map((message) => {
@@ -88,6 +89,7 @@ class MessagingView
           author: {
             id: message.authorId._id,
             name: message.authorId.displayName || message.authorId.username,
+            pfp: message.authorId.pfp.url,
           },
           timeCreated: message.timeCreated,
           text: message.text,
@@ -109,7 +111,7 @@ class MessagingView
       let message = await this._messageModel.findById(messageId)
       .populate({
         path: 'authorId',
-        select: 'username displayName',
+        select: 'username displayName pfp',
       });
   
       message = {
@@ -118,6 +120,7 @@ class MessagingView
         author: {
           id: message.authorId._id,
           name: message.authorId.displayName || message.authorId.username,
+          pfp: !message.authorId.pfp ? null : message.authorId.pfp.url,
         },
         timeCreated: message.timeCreated,
         text: message.text,

@@ -5,7 +5,11 @@ const AccountSchema = mongoose.Schema({
   username: String,
   password: String,
   email: String,
-  type: Number, // -1=deleted 0=guest 1=registered 2=emailVerified
+  pfp: {
+    url: String,
+    public_key: String,
+  },
+  status: Number, // -1=deleted 0=guest 1=registered 2=emailVerified
   timeCreated: Date,
 });
 

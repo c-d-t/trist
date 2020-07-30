@@ -1,5 +1,6 @@
 const Application = require("../../../../core/Application");
 const Account = require("../../domain/account");
+const Pfp = require('../../domain/pfp');
 const Username = require("../../domain/username");
 const Password = require("../../domain/password");
 const Email = require("../../domain/email");
@@ -42,12 +43,14 @@ class RegisterApplication extends Application
     const password = passwordResult.value;
     const email = emailResult.value;
     const displayName = DisplayName.make().value;
+    const pfp = Pfp.make().value;
 
     const newAccountResult = Account.make({
       username,
       password,
       email,
       displayName,
+      pfp,
       status: 1,
     });
     if (newAccountResult.failed)
@@ -78,6 +81,7 @@ class RegisterApplication extends Application
       status: account.status,
       username: account.username.value,
       displayName: account.displayName.value,
+      pfp: !account.pfp ? null : account.pfp.url,
     };
 
     return this.ok(responseJSON);

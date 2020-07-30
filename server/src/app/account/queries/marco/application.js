@@ -24,6 +24,7 @@ class MarcoApplication extends Application
       status: account.status,
       username: account.username,
       displayName: account.displayName,
+      pfp: !account.pfp ? null : account.pfp.url,
     });
   }
 }

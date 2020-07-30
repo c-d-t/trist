@@ -1,5 +1,6 @@
 const { ObjectId } = require('mongoose').Types;
 const Account = require('../domain/account');
+const Pfp = require('../domain/pfp');
 const Username = require('../domain/username');
 const Password = require('../domain/password');
 const Email = require('../domain/email');
@@ -17,13 +18,16 @@ function toDomain(persistent)
     password = Password.make(persistent.password).value;
     email = Email.make(persistent.email).value;
   }
+  const pfp = Pfp.make(persistent.pfp).value;
   const displayName = DisplayName.make(persistent.displayName).value;
+
   return Account.make({
     id: persistent._id,
     username,
     password,
     email,
     displayName,
+    pfp,
     status: persistent.status,
     timeCreated: persistent.timeCreated,
   }).value;
@@ -37,8 +41,9 @@ function toPersistent(domain)
     password: !domain.password ? undefined : domain.password.value,
     email: !domain.email ? undefined : domain.email.value,
     displayName: domain.displayName.value,
-    status: domain.status ? undefined : domain.status,
+    status: !domain.status ? undefined : domain.status,
     timeCreated: domain.timeCreated,
+    pfp: domain.pfp.value,
   };
 }
 

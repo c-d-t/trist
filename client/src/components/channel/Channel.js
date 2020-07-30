@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineMenu } from 'react-icons/ai';
@@ -10,6 +10,7 @@ import Message from './message';
 import './Channel.css';
 
 const Channel = () => {
+  const inputRef = useRef(null);
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
   const [formattedMessages, setFormattedMessages] = useState([]);
@@ -29,10 +30,20 @@ const Channel = () => {
         history.go(1);
       } 
     }
+
+    const keyDown = () => {
+      inputRef.current.focus();
+    }
+
     window.addEventListener("popstate", preventBack);
+    if (!!currentChannel)
+    {
+      window.addEventListener('keydown', keyDown);
+    }
 
     return () => {
       window.removeEventListener("popstate", preventBack);
+      window.removeEventListener("keydown", keyDown);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChannel]);
@@ -103,6 +114,7 @@ const Channel = () => {
           onClick={() => alert('Adding images is disabled.')}
         >+</button>
         <input
+          ref={inputRef}
           placeholder="Message Benjo"
           type="text"
           value={input}
