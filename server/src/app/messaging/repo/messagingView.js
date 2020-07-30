@@ -81,7 +81,7 @@ class MessagingView
       .populate({
         path: 'authorId',
         select: 'username displayName pfp',
-      }).sort({ timeCreated: -1 }).skip(startingPoint || 0).limit(20); 
+      }).sort({ timeCreated: -1 }).skip(startingPoint || 0).limit(50); 
 
       messages = messages.map((message) => {
         return {

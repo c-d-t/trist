@@ -1,4 +1,3 @@
-const jwt = require('../../app/account/services/jwt');
 const multer = require('multer');
 const mkdirp = require('mkdirp');
 mkdirp.sync('./uploads/resized');
@@ -20,25 +19,4 @@ const filter = (_req, file, cb) => {
 };
 const multerUploads = multer({ storage, filter }).single('image');
 
-function authenticated()
-{
-  return async function auth(req, res, next)
-  {
-    const data = jwt.decode(req.cookies.jwt);
-    if (!data || data.id === null || data.id === undefined)
-    {
-      return res.status(403).end();
-    }
-  
-    req.thisAccount = data;
-    next();
-  }
-}
-
-
-
-module.exports = {
-  authenticated,
-  multerUploads,
-};
-
+module.exports = multerUploads;

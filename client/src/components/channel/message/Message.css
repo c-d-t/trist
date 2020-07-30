@@ -20,21 +20,31 @@
   font-weight: normal;
   transform: translate(0, -100%);
 }
+.message-container > h1:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
 .message-container > .pfp {
   position: absolute;
   top: 0;
   left: 0;
-  transform: translate(-60%, -60%);
+  transform: scale(1) translate(-60%, -60%);
   border: 4px solid white;
   width: 35px;
   height: 35px;
   border-radius: 50%;
+  transition: all 100ms ease;
+}
+.message-container > .pfp:hover {
+  cursor: pointer;
+  transform: translate(-60%, -60%) scale(1.1);
 }
 .message-container > p {
   line-height: 1.5em;
   transition: all 50ms ease;
   border-radius: 2px;
 }
+
 .message-container > p:hover {
   background-color: rgb(238, 238, 238);
   padding-left: 5px;

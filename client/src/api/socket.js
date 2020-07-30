@@ -19,7 +19,7 @@ export function initSocket()
   socket.on('message-created', (data) => {
     let hasDm = false;
     store.getState().channel.dms.forEach((dm) => {
-      if (dm.id === data.channelId)
+      if (dm.id === data.message.channelId)
       {
         hasDm = true;
       }

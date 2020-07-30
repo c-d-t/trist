@@ -72,6 +72,10 @@ function makeSendMessageFailed(channelId)
     {
       text = 'Your conversation has ended.'
     }
+    if (response.status === 429)
+    {
+      text = 'Slow down there, tiger.'
+    }
     return {
       type: GOT_MESSAGE,
       payload: {

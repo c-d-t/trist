@@ -5,24 +5,17 @@ const messagingController = require('../../app/messaging/use_cases');
 const middleware = require('./middleware');
 
 router.use(middleware.multerUploads);
-const imageService = require('../../services/image');
-router.post('/upload', async (req, res) => {
-  try {
-    const { publicId } = await imageService.upload(req.file);
-    console.log(publicId);
-    res.end();
-  }
-  catch (e)
-  {
-    console.log(e);
-    res.end();
-  }
-})
 
-router.post('/account/register', (req, res) => accountController.register.run(req, res));
-router.post('/account/login', (req, res) => accountController.login.run(req, res));
+router.post('/account/register',
+  middleware.rateLimiter(1, 15),
+  (req, res) => accountController.register.run(req, res));
+router.post('/account/login',
+  middleware.rateLimiter(1, 1),
+  (req, res) => accountController.login.run(req, res));
 router.post('/account/logout', (req, res) => accountController.logout.run(req, res));
-router.post('/account/register-as-guest', (req, res) => accountController.registerAsGuest.run(req, res));
+router.post('/account/register-as-guest',
+  middleware.rateLimiter(1, 10),
+  (req, res) => accountController.registerAsGuest.run(req, res));
 
 router.use(middleware.authenticated());
 router.get('/account/marco', (req, res) => accountController.marco.run(req, res));
@@ -36,7 +29,9 @@ router.post('/friends/accept', (req, res) => relationsController.acceptFriendReq
 
 router.post('/channel', (req, res) => messagingController.createDm.run(req, res));
 router.get('/channel', (req, res) => messagingController.getDms.run(req, res));
-router.post('/channel/messages', (req, res) => messagingController.sendMessage.run(req, res));
+router.post('/channel/messages',
+  middleware.rateLimiter(6, 5),
+  (req, res) => messagingController.sendMessage.run(req, res));
 router.get('/channel/messages', (req, res) => messagingController.getChannel.run(req, res));
 router.post('/channel/private', (req, res) => messagingController.joinPrivateChannel.run(req, res));
 router.delete('/channel/private', (req, res) => messagingController.leavePrivateChannel.run(req, res));

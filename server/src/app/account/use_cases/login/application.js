@@ -30,7 +30,7 @@ class LoginApplication extends Application
     }
 
     const token = jwt.encode({ id: foundAccount.id });
-    console.log(foundAccount.pfp)
+
     const responseJSON = {
       token,
       id: foundAccount.id,

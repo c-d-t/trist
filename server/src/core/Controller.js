@@ -8,8 +8,8 @@ class Controller
     }
     catch (e)
     {
-      this.jsonResponse(400);
       console.log(e);
+      return this.jsonResponse(400);
     }
   }
 
@@ -28,37 +28,48 @@ class Controller
     switch (data.errorType)
     {
       case 0:
-        return this.failed(data.message);
+        this.failed(data.message);
+        break
       case 2:
-        return this.unauthorized(data.message);
+        this.unauthorized(data.message);
+        break;
       case 3:
-        return this.forbidden(data.message);
+        this.forbidden(data.message);
+        break;
       case 4:
-        return this.notFound(data.message);
+        this.notFound(data.message);
+        break;
       case 9:
-        return this.conflict(data.message);
+        this.conflict(data.message);
+        break;
       case 22:
-        return this.invalidFields(data.message);
+        this.invalidFields(data.message);
+        break;
       case 29:
-        return this.tooMany(data.message);
+        this.tooMany(data.message);
+        break;
       default:
-        return this.failed(data.message);
+        this.failed(data.message);
     }
   }
 
   jsonResponse(code, data)
   {
+    if (this._res.headersSent)
+    {
+      console.log('?')
+      return;
+    }
     if (!this._res)
     {
       return;
     }
 
-    this._res.status(code);
     if (!data)
     {
-      return this._res.end();
+      return this._res.status(code).end();
     }
-    this._res.json({ data });
+    return this._res.status(code).json({ data });
   }
 
   ok(data)

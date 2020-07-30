@@ -1,5 +1,4 @@
 const Controller = require('../../../../core/Controller');
-
 class GetDmsController extends Controller
 {
   constructor(getDms)
@@ -11,12 +10,12 @@ class GetDmsController extends Controller
   async implementation(req)
   {
     const { thisAccount } = req;
-
+    
     const result = await this._getDms.run({ thisAccountId: thisAccount.id });
     const { success, data } = result;
     if (success)
     {
-      return this.ok(data);
+      this.ok(data);
     }
   }
 }

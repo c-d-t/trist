@@ -15,6 +15,8 @@ class LeavePrivateChannelController extends Controller
 
     const result = await this._leavePrivateChannel.run({ thisAccountId: thisAccount.id, channelId, all });
     const { success, data } = result;
+    if (!this._res) return; // deletes on socket disconnect so no need to use res
+    
     if (success)
     {
       return this.ok();

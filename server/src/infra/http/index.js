@@ -22,7 +22,6 @@ function startServer()
   app.use('/', routes);
   
   app.use((err, req, res, next) => {
-    console.error(err);
     res.status(400).json({ data: "Something went wrong." });
     next();
   });
