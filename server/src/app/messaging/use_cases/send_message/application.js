@@ -29,11 +29,10 @@ class SendMessageApplication extends Application
       this._userRepo.findById(input.thisAccountId),
       this._channelRepo.findById(input.channelId),
     ]);
-    if (!channel || !channel.hasUserId(thisUser.id))
+    if (!channel || (channel.type === 0 && !channel.hasUserId(thisUser.id)))
     {
       return this.notFound('A channel with that id doesn\'t exist.');
     }
-
 
     // create message
     const messageTextResult = MessageText.make(input.text);

@@ -21,12 +21,25 @@ class MarcoApplication extends Application
     Guard.againstNull(input.thisAccountId);
 
     const channel = await this._channelRepo.findById(input.channelId);
-    if (!channel || !channel.hasUserId(input.thisAccountId))
+    if (!channel)
     {
       return this.notFound('A channel with that ID could not be found.');
     }
     
-    const name = await this._messagingView.getDmName(channel.id, input.thisAccountId);
+    let name;
+    if (channel.type === 0)
+    {
+      if (!channel.hasUserId(input.thisAccountId))
+      {
+        return this.notFound('A channel with that ID could not be found.');
+      }
+      name = await this._messagingView.getDmName(channel.id, input.thisAccountId);
+    }
+    else if (channel.type === 3)
+    {
+      name = channel.title.value;
+    }
+
     const messages = await this._messagingView.findMessagesByChannelId(channel.id);
 
     return this.ok({

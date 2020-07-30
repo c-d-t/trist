@@ -4,16 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AiOutlineMenu } from 'react-icons/ai';
 
 import { closeChannel, leavePrivateChannel, sendMessage } from '../../redux/actions/channelActions';
+import { getSocket } from '../../api/socket';
 
 import Message from './message';
 
 import './Channel.css';
+import { Socket } from 'socket.io-client';
 
 const Channel = () => {
   const inputRef = useRef(null);
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
   const [formattedMessages, setFormattedMessages] = useState([]);
+  const socket = getSocket();
 
   const [currentChannel, messages] = useSelector((state) => {
     return [
@@ -85,6 +88,7 @@ const Channel = () => {
     {
       dispatch(leavePrivateChannel(currentChannel.id));
     }
+    socket.emit('leave-channel', { channelId: currentChannel.id });
     dispatch(closeChannel());
   };
 

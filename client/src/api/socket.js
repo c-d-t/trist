@@ -76,3 +76,8 @@ export function setStore(_store)
 {
   store = _store;
 }
+
+export function getSocket()
+{
+  return socket;
+}

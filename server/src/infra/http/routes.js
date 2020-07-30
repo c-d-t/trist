@@ -30,5 +30,6 @@ router.get('/channel/messages', (req, res) => messagingController.getChannel.run
 router.post('/channel/private', (req, res) => messagingController.joinPrivateChannel.run(req, res));
 router.delete('/channel/private', (req, res) => messagingController.leavePrivateChannel.run(req, res));
 router.post('/channel/open', (req, res) => messagingController.createOpenChannel.run(req, res));
+router.get('/channel/open', (req, res) => messagingController.getOpenChannels.run(req, res));
 
 module.exports = router;

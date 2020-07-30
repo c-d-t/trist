@@ -8,6 +8,7 @@ export const OPENED_CHANNEL = 'channel:opened';
 export const CLOSED_CHANNEL = 'channel:closed';
 export const GOT_MESSAGE = 'channel:gotMessage';
 export const SENT_MESSAGE = 'channel:sentMessage';
+export const GOT_OPEN_CHANNELS = 'channel:gotOpenChannels';
 
 export function getDms()
 {
@@ -23,6 +24,22 @@ function gotDms(response)
   return {
     type: GOT_DMS,
     payload: response.data.dms,
+  };
+}
+
+export function getOpenChannels()
+{
+  return createAPIAction({
+    url: '/channel/open',
+    method: 'GET',
+    onSuccess: gotOpenChannels,
+  });
+}
+function gotOpenChannels(response)
+{
+  return {
+    type: GOT_OPEN_CHANNELS,
+    payload: response.data.channels,
   };
 }
 

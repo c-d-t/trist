@@ -5,6 +5,7 @@ const leavePrivateChannel = require('./leave_private_channel');
 const createOpenChannel = require('./create_open_channel');
 
 const getDms = require('../queries/get_dms');
+const getOpenChannels = require('../queries/get_open_channels');
 const getChannel = require('../queries/get_channel');
 
 module.exports = {
@@ -15,4 +16,5 @@ module.exports = {
   createOpenChannel,
   getDms,
   getChannel,
+  getOpenChannels,
 };

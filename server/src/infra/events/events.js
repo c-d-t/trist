@@ -53,6 +53,11 @@ class EventEmitter
       this.io.to(accountId).emit(event, data);
     });
   }
+  
+  emitEventToRoom(roomId, event, data)
+  {
+    this.io.to(roomId).emit(event, data);
+  }
 
   async messageCreated(channel, message)
   {
@@ -63,7 +68,7 @@ class EventEmitter
     }
     else
     {
-      this.emitEventToAccount(channel.id, 'message-created', { message: messageToSend });
+      this.emitEventToRoom(channel.id, 'message-created', { message: messageToSend });
     }
   }
 

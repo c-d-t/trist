@@ -54,6 +54,18 @@ class MessagingView
     }
   }
 
+  async findOpenChannels()
+  {
+    try {
+      const channels = await this._channelModel.find({ type: 3 });
+      return channels;
+    }
+    catch (e)
+    {
+      return [];
+    }
+  }
+
   async getDmName(channelId, thisAccountId)
   {
     try
