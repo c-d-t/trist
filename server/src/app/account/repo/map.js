@@ -41,7 +41,7 @@ function toPersistent(domain)
     password: !domain.password ? undefined : domain.password.value,
     email: !domain.email ? undefined : domain.email.value,
     displayName: domain.displayName.value,
-    status: !domain.status ? undefined : domain.status,
+    status: (domain.status === null || domain.status === undefined) ? undefined : domain.status,
     timeCreated: domain.timeCreated,
     pfp: domain.pfp.value,
   };

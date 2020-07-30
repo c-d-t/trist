@@ -74,6 +74,7 @@ export function registerAsGuest({ displayName })
   return createAPIAction({
     url: '/account/guest',
     method: 'POST',
+    data: { displayName },
     onSuccess: loggedIn,
     onFailure: makeFormError(),
     label: REGISTER_AS_GUEST,

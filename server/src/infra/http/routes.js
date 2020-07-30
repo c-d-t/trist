@@ -6,16 +6,10 @@ const middleware = require('./middleware');
 
 router.use(middleware.multerUploads);
 
-router.post('/account/register',
-  middleware.rateLimiter(1, 15),
-  (req, res) => accountController.register.run(req, res));
-router.post('/account/login',
-  middleware.rateLimiter(1, 1),
-  (req, res) => accountController.login.run(req, res));
+router.post('/account/register', (req, res) => accountController.register.run(req, res));
+router.post('/account/login', (req, res) => accountController.login.run(req, res));
 router.post('/account/logout', (req, res) => accountController.logout.run(req, res));
-router.post('/account/register-as-guest',
-  middleware.rateLimiter(1, 10),
-  (req, res) => accountController.registerAsGuest.run(req, res));
+router.post('/account/guest', (req, res) => accountController.registerAsGuest.run(req, res));
 
 router.use(middleware.authenticated());
 router.get('/account/marco', (req, res) => accountController.marco.run(req, res));

@@ -22,7 +22,7 @@ class MarcoApplication extends Application
     return this.ok({
       id: account._id,
       status: account.status,
-      username: account.username,
+      username: !account.username ? null : account.username,
       displayName: account.displayName,
       pfp: !account.pfp ? null : account.pfp.url,
     });

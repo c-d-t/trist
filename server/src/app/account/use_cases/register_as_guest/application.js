@@ -27,7 +27,7 @@ class RegisterAsGuestApplication extends Application
     }
 
     const displayName = displayNameResult.value;
-    const pfp = Pfp.make().result;
+    const pfp = Pfp.make().value;
     const accountResult = Account.make({ displayName, pfp, status: 0 });
     if (accountResult.failed)
     {
@@ -44,7 +44,7 @@ class RegisterAsGuestApplication extends Application
       token,
       id: account.id,
       status: account.status,
-      username: account.username.value,
+      username: !account.username ? null : account.username.value,
       displayName: account.displayName.value,
       pfp: !account.pfp ? null : account.pfp.url,
     };

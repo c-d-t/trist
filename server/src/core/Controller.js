@@ -57,7 +57,6 @@ class Controller
   {
     if (this._res.headersSent)
     {
-      console.log('?')
       return;
     }
     if (!this._res)

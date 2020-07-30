@@ -40,6 +40,7 @@ class Repo
         savedPersistent = await this._model.create(persistent);
       }
     }
+
     return this._map.toDomain(savedPersistent);
   }
 }

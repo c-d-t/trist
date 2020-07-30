@@ -35,7 +35,7 @@ class LoginApplication extends Application
       token,
       id: foundAccount.id,
       status: foundAccount.status,
-      username: foundAccount.username.value,
+      username: !foundAccount.username ? null : foundAccount.username.value,
       displayName: foundAccount.displayName.value,
       pfp: !foundAccount.pfp ? null : foundAccount.pfp.url,
     };
