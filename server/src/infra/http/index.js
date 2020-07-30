@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes');
 const cronJobs = require('../cron_jobs');
+const cors = require('cors');
 require('../events');
 
 function startServer()
@@ -17,6 +18,7 @@ function startServer()
 
   app.use(express.json());
   app.use(helmet());
+  app.use(cors());
   app.use(cookieParser());
   
   app.use('/', routes);

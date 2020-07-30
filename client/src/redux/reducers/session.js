@@ -1,4 +1,4 @@
-import { LOGGED_IN, LOGGED_OUT } from '../actions/sessionActions';
+import { LOGGED_IN, LOGGED_OUT, CHANGED_DISPLAY_NAME } from '../actions/sessionActions';
 
 const initState = {
   account: {
@@ -6,6 +6,7 @@ const initState = {
     status: null,
     username: null,
     displayName: null,
+    pfp: null,
   },
   loggedIn: false,
 };
@@ -14,10 +15,12 @@ const sessionReducer = (state = initState, action) => {
   switch (action.type)
   {
     case LOGGED_IN:
-      const { id, status, username, displayName } = action.payload;
-      return { account: { id, status, username, displayName }, loggedIn: true };
+      const { id, status, username, displayName, pfp } = action.payload;
+      return { account: { id, status, username, displayName, pfp }, loggedIn: true };
     case LOGGED_OUT:
       return { account: null, loggedIn: false };
+    case CHANGED_DISPLAY_NAME:
+      return { ...state, account: { ...state.account, displayName: action.payload.displayName } };
     default:
       return state;
   }

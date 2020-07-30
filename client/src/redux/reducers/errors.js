@@ -9,7 +9,7 @@ const errorsReducer = (state = initState, action) => {
   switch (action.type)
   {
     case SENT_FRIEND_REQUEST_FAILED:
-      return { ...state, formErrors: action.data };
+      return { ...state, formErrors: action.payload };
     case CLEAR_ERRORS:
       return initState;
     case FORM_ERROR:

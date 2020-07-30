@@ -85,9 +85,11 @@ function makeSendMessageFailed(channelId)
   return function sendMessageFailed(response)
   {
     let text = response.data.data;
-    if (response.status === 404)
+    if (response.status === 404 || response.status === 400)
     {
-      text = 'Your conversation has ended.'
+      return {
+        type: 'nothing'
+      };
     }
     if (response.status === 429)
     {

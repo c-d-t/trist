@@ -9,6 +9,7 @@ export const LOGGED_IN = 'session:loginSuccess';
 export const LOGOUT = 'session:logout';
 export const LOGGED_OUT = 'sesion:logoutSuccess';
 export const MARCO = 'session:marco';
+export const CHANGED_DISPLAY_NAME = 'session:changedDisplayName';
 
 export function marco()
 {
@@ -79,4 +80,24 @@ export function registerAsGuest({ displayName })
     onFailure: makeFormError(),
     label: REGISTER_AS_GUEST,
   });
+}
+
+export function changeDisplayName(displayName)
+{
+  return createAPIAction({
+    url: '/account/displayName',
+    method: 'PUT',
+    data: { displayName },
+    onSuccess: makeChangedDisplayName(displayName),
+  });
+}
+function makeChangedDisplayName(displayName)
+{
+  return function changedDisplayName(response)
+  {
+    return {
+      type: CHANGED_DISPLAY_NAME,
+      payload: { displayName },
+    }
+  }
 }

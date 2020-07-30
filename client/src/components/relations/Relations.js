@@ -15,7 +15,7 @@ const Relations = () => {
   const [friendInputOpen, setFriendInputOpen] = useState(false);
   const errors = useSelector((state) => state.errors.formErrors);
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     return () => {
       dispatch(clearErrors());

@@ -23,12 +23,14 @@
   width: 100%;
 }
 #name > .displayName {
+  background: none;
   font-weight: bold;
   font-size: 1.5em;
   color: #fff;
   text-overflow: ellipsis;
   overflow: hidden;
   width: 100%;
+  text-align: center;
 }
 #name > .username {
   font-size: 0.9em;

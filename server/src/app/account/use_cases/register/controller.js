@@ -27,7 +27,7 @@ class RegisterController extends Controller
       return this.ok(rest);
     }
 
-    return this.handleError(data);
+    this.handleError(data);
   }
 }
 

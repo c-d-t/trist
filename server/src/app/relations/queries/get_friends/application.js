@@ -20,7 +20,7 @@ class GetFriendsApplication extends Application
     const rawFriends = await this._relationshipModel.find({ status: 2, thisAccountId: input.thisAccountId }, '-__v -thisAccountId -status')
     .populate({
       path: 'otherAccountId',
-      select: 'username',
+      select: 'username displayName',
     });
 
     const friends = rawFriends.map((friendship) => {
@@ -28,7 +28,7 @@ class GetFriendsApplication extends Application
         id: friendship._id,
         user: {
           id: friendship.otherAccountId._id,
-          username: friendship.otherAccountId.username,
+          username: friendship.otherAccountId.username || friendship.otherAccountId.displayName,
         },
       };
     })

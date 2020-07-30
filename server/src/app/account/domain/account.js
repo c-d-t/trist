@@ -39,6 +39,11 @@ class Account extends Entity
     return this._value.pfp;
   }
 
+  get isGuest()
+  {
+    return this._value.status === 0;
+  }
+
   changeUsername(newUsername)
   {
     this._value.username = newUsername;
@@ -56,6 +61,10 @@ class Account extends Entity
 
   changeDisplayName(newDisplayName)
   {
+    if (newDisplayName.isEmpty && this.isGuest)
+    {
+      throw new Error('ERR_GUEST_NEEDS_DISPLAY_NAME');
+    }
     this._value.displayName = newDisplayName;
   }
 

@@ -17,7 +17,11 @@ class MarcoApplication extends Application
   {
     Guard.againstNull(input.thisAccountId);
 
-    let account = await this._accountModel.findById(input.thisAccountId).select('_id username displayName status');
+    let account = await this._accountModel.findById(input.thisAccountId).select('_id username displayName status pfp');
+    if (!account)
+    {
+      return this.forbidden();
+    }
     account = account.toObject();
     return this.ok({
       id: account._id,
