@@ -12,6 +12,7 @@ import './Channel.css';
 const Channel = () => {
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
+  const [formattedMessages, setFormattedMessages] = useState([]);
 
   const [currentChannel, messages] = useSelector((state) => {
     return [
@@ -35,6 +36,28 @@ const Channel = () => {
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChannel]);
+
+  useEffect(() => {
+    if (!messages)
+    {
+      return;
+    }
+
+    const msgs = [];
+    messages.forEach((message) => {
+      const lastIndex = msgs.length - 1;
+      if (!!msgs[0] && !message.system && !!msgs[lastIndex][0].author && msgs[lastIndex][0].author.id === message.author.id)
+      {
+        msgs[lastIndex].push(message);
+        return;
+      }
+
+      msgs.push([message]);
+      return;
+      });
+
+    setFormattedMessages(msgs);
+  }, [messages]);
 
   const onSendMessage = () => {
     const toSend = input.trim();
@@ -64,24 +87,12 @@ const Channel = () => {
         {!!currentChannel ? currentChannel.name : null}
       </div>
       <div id="message-history">
-        {!messages ? null : (
-          messages.map((message, index) => {
-            if (message.system)
-            {
-              return (
-                <div
-                  key={`channelMessage${index}`}
-                  id={index === 0 ? 'active-system-message' : ''}
-                  className="system-message"
-                >
-                  {message.text}
-                </div>
-              );
-            }
+        {!formattedMessages ? null : (
+          formattedMessages.map((message, index) => {
             return <Message
               key={`channelMessage${index}`}
-              name={message.author.name}
-              text={message.text}
+              messages={message}
+              isActive={index === 0}
             />;
           })
         )}

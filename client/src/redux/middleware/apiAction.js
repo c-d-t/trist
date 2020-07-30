@@ -29,15 +29,14 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
     [dataOrParams]: data,
   })
   .then(({ data }) => {
-    dispatch(onSuccess(data.data));
+    dispatch(onSuccess(data));
   })
   .catch((error) => {
-    console.log(error.response)
     if (!!error.response && error.response.status === 403) return dispatch({ type: LOGGED_OUT });
     if (!!error.response && !!error.response.data)
     {
-      dispatch(apiError(error.response.data));
-      dispatch(onFailure(error.response.data));
+      dispatch(apiError(error.response));
+      dispatch(onFailure(error.response));
     }
   })
   .finally(() => {

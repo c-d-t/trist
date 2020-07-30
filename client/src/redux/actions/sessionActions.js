@@ -32,12 +32,12 @@ export function login({ usernameOrEmail, password })
     label: LOGIN,
   });
 }
-function loggedIn(data)
+function loggedIn(response)
 {
   initSocket();
   return {
     type: LOGGED_IN,
-    payload: data,
+    payload: response.data,
   };
 }
 

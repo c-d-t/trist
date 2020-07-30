@@ -18,11 +18,11 @@ export function getDms()
     label: GET_DMS,
   });
 }
-function gotDms(data)
+function gotDms(response)
 {
   return {
     type: GOT_DMS,
-    payload: data.dms,
+    payload: response.data.dms,
   };
 }
 
@@ -36,13 +36,13 @@ export function openChannel(channelId)
     label: OPEN_CHANNEL,
   });
 }
-function openedChannel(data)
+function openedChannel(response)
 {
   return {
     type: OPENED_CHANNEL,
     payload: {
-      channel: data.channel,
-      messages: data.messages
+      channel: response.data.channel,
+      messages: response.data.messages
     },
   };
 }
@@ -65,15 +65,20 @@ export function sendMessage(channelId, text)
 }
 function makeSendMessageFailed(channelId)
 {
-  return function sendMessageFailed(data)
+  return function sendMessageFailed(response)
   {
+    let text = response.data.data;
+    if (response.status === 404)
+    {
+      text = 'Your conversation has ended.'
+    }
     return {
       type: GOT_MESSAGE,
       payload: {
         message: {
           system: true,
           channelId,
-          text: data.data,
+          text,
         },
       },
     }
@@ -88,11 +93,11 @@ export function joinPrivateChannel()
     onSuccess: openedPrivateChannel,
   });
 }
-function openedPrivateChannel(data)
+function openedPrivateChannel(response)
 {
   return {
     type: OPENED_CHANNEL,
-    payload: { channel: { id: data.channelId, type: 2 }, messages: [{ system: true, text: 'waiting for someone...' }] },
+    payload: { channel: { id: response.data.channelId, type: 2 }, messages: [{ system: true, text: 'waiting for someone...' }] },
   };
 }
 

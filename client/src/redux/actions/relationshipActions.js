@@ -19,11 +19,11 @@ export function getFriends()
     label: GET_FRIENDS,
   });
 }
-function gotFriends(data)
+function gotFriends(response)
 {
   return {
     type: GOT_FRIENDS,
-    payload: data.friends,
+    payload: response.data.friends,
   };
 }
 
@@ -35,11 +35,11 @@ export function getRequests()
     onSuccess: gotRequests,
   });
 }
-function gotRequests(data)
+function gotRequests(response)
 {
   return {
     type: GOT_REQUESTS,
-    payload: data.requests,
+    payload: response.data.requests,
   };
 }
 
@@ -53,18 +53,18 @@ export function sendFriendRequest(username)
     onFailure: sentFriendRequestFailed,
   });
 }
-function sentFriendRequest(data)
+function sentFriendRequest(response)
 {
   return {
     type: SENT_FRIEND_REQUEST,
-    data,
+    payload: response.data,
   };
 }
-function sentFriendRequestFailed(data)
+function sentFriendRequestFailed(response)
 {
   return {
     type: SENT_FRIEND_REQUEST_FAILED,
-    data,
+    payload: response.data,
   };
 }
 
