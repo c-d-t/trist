@@ -3,11 +3,11 @@ Minimal social network utilizing (some) domain driven design.
 
 -----
 
-<img src="img/Trist-Thumbnail.png" width="100%" />
+<img src="img/thumbnail.png" width="100%" />
 <div style="display: flex">
-  <img src="img/trist_channel_mobile.png" width="33%"/>
-  <img src="img/trist_profile_mobile.png" width="33%"/>
-  <img src="img/trist_friends_mobile.png" width="33%"/>
+  <img src="img/channel_mobile.png" width="33%"/>
+  <img src="img/profile_mobile.png" width="33%"/>
+  <img src="img/random_mobile.png" width="33%"/>
 </div>
 
 -----
