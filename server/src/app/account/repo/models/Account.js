@@ -7,7 +7,7 @@ const AccountSchema = mongoose.Schema({
   email: String,
   pfp: {
     url: String,
-    public_key: String,
+    publicId: String,
   },
   status: Number, // -1=deleted 0=guest 1=registered 2=emailVerified
   timeCreated: Date,

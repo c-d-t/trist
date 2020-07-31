@@ -72,6 +72,11 @@ class Account extends Entity
   {
     this._value.status = newStatus;
   }
+
+  changePfp(newPfp)
+  {
+    this._value.pfp = newPfp;
+  }
 }
 
 /**

@@ -13,6 +13,10 @@ class ImageService
 
   async upload(file)
   {
+    if (!file)
+    {
+      return;
+    }
     try {
       await sharp(file.path)
         .resize(256, 256)
@@ -32,6 +36,11 @@ class ImageService
       fs.unlinkSync(path.resolve(file.destination, file.filename));
       throw new Error('uh oh');
     }
+  }
+
+  async delete(publicKey)
+  {
+    await this._uploader.destroy(publicKey);
   }
 }
 

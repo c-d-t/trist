@@ -10,6 +10,8 @@ export const LOGOUT = 'session:logout';
 export const LOGGED_OUT = 'sesion:logoutSuccess';
 export const MARCO = 'session:marco';
 export const CHANGED_DISPLAY_NAME = 'session:changedDisplayName';
+export const CHANGE_PFP = 'session:changePfp';
+export const CHANGED_PFP = 'session:changedPfp';
 
 export function marco()
 {
@@ -93,11 +95,32 @@ export function changeDisplayName(displayName)
 }
 function makeChangedDisplayName(displayName)
 {
-  return function changedDisplayName(response)
+  return function changedDisplayName()
   {
     return {
       type: CHANGED_DISPLAY_NAME,
       payload: { displayName },
     }
+  }
+}
+
+export function changePfp(file)
+{
+  const fileData = new FormData();
+  fileData.append('image', file);
+  return createAPIAction({
+    url: '/account/pfp',
+    method: 'PUT',
+    file: true,
+    data: fileData,
+    label: CHANGE_PFP,
+    onSuccess: changedPfp,
+  })
+}
+function changedPfp(response)
+{
+  return {
+    type: CHANGED_PFP,
+    payload: { pfp: response.data.pfp },
   }
 }

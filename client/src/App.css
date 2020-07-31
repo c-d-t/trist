@@ -125,6 +125,19 @@
   border-radius: 2px;
 }
 
+.loader {
+  border: 8px solid #333; /* Light grey */
+  border-top: 8px solid #3cff87; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 700ms linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 @media (min-width: 1025px) {
   .container {
     padding-right: 10%;

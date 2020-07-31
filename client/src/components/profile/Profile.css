@@ -3,19 +3,39 @@
   width: 100%;
   align-items: center;
 }
-#profile-container > #header {
+#profile-header {
   padding: 1em 10px 3em 10px;
   position: relative;
   box-sizing: border-box;
   width: 100%;
   background-image: linear-gradient(145deg, rgb(28, 231, 119), rgb(0, 222, 230));
 }
-#profile-container > #header > #pfp {
+#profile-header > #pfp{
+  position: relative;
+  width: max-content;
+  margin: 0 auto;
+}
+#profile-header > #pfp > img {
   display: block;
   height: 100px;
   width: 100px;
   border-radius: 50px;
   margin: 0 auto;
+}
+#profile-header > #pfp:hover > img {
+  filter: brightness(.8);
+  cursor: pointer;
+}
+#profile-header > #pfp > .loader {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  left: 29px;
+  top: 29px;
+  z-index: 1;
+}
+#profile-header > #pfp > .loader + img {
+  filter: brightness(0.7);
 }
 #name {
   text-align: center;
@@ -31,6 +51,9 @@
   overflow: hidden;
   width: 100%;
   text-align: center;
+}
+#name > .displayName:hover {
+  cursor: pointer;
 }
 #name > .username {
   font-size: 0.9em;

@@ -14,6 +14,7 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
     onSuccess = () => { return { type: 'nothing' } },
     onFailure = (err) => { console.log(err); return { type: 'do_nothing' }; },
     label,
+    file,
   } = action.payload;
 
   if (label)
@@ -27,6 +28,7 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
     url,
     method,
     [dataOrParams]: data,
+    headers: !file ? undefined : { 'Content-Type': 'multipart/form-data' },
   })
   .then(({ data }) => {
     dispatch(onSuccess(data));

@@ -15,17 +15,26 @@ class Pfp extends ValueObject
 
   get publicKey()
   {
-    return this._value.public_key;
+    return this._value.publicId;
+  }
+
+  get isDefault()
+  {
+    if (this._value.publicId === -1)
+    {
+      return true;
+    }
+    return false;
   }
 
   _equals(other)
   {
-    return other.value.public_key === this._value.public_key;
+    return other.value.publicId === this._value.publicId;
   }
 
   default()
   {
-    if (this._value.public_key === -1)
+    if (this._value.publicId === -1)
     {
       return true;
     }
@@ -33,17 +42,22 @@ class Pfp extends ValueObject
   }
 }
 
+/**
+ * 
+ * @param {Object} pfp
+ * @param {string} pfp.url
+ * @param {string} pfp.publicId 
+ */
 function make(pfp) {
-
-  if (!pfp || !pfp.url || !pfp.public_key)
+  if (!pfp || !pfp.url || !pfp.publicId)
   {
     return Result.ok(new Pfp({
       url: 'https://res.cloudinary.com/cdt/image/upload/v1596066208/xs5keynvtrv2m5lxnvqa.jpg',
-      public_key: -1,
+      publicId: -1,
     }));
   }
-  const { url, public_key } = pfp;
-  return Result.ok(new Pfp({ url, public_key }));
+  const { url, publicId } = pfp;
+  return Result.ok(new Pfp({ url, publicId }));
 }
 
 module.exports = {
