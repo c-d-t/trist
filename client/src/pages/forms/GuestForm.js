@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { registerAsGuest } from '../../../redux/actions/sessionActions';
-import validators from '../../../validators';
+import { registerAsGuest } from '../../redux/actions/sessionActions';
+import validators from '../../validators';
 
-import Form from '../../../components/form';
-import Input from '../../../components/form/input';
+import Form from '../../components/form';
+import Input from '../../components/form/input';
 
 
 const GuestForm = () => {

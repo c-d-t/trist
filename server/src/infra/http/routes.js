@@ -16,6 +16,7 @@ router.get('/account/marco', (req, res) => accountController.marco.run(req, res)
 router.put('/account/upgrade', (req, res) => accountController.upgrade.run(req, res));
 router.put('/account/displayname', (req, res) => accountController.changeDisplayname.run(req, res));
 router.put('/account/pfp', (req, res) => accountController.changePfp.run(req, res));
+router.delete('/account', (req, res) => accountController.deleteAcconut.run(req, res));
 
 router.get('/friends', (req, res) => relationsController.getFriends.run(req, res));
 router.delete('/friends', (req, res) => relationsController.removeRelationship.run(req, res));

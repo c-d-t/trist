@@ -31,6 +31,12 @@ function make(string) {
   return Result.ok(new DisplayName(string));
 }
 
+function makeDeleted()
+{
+  return new DisplayName('deleted_account');
+}
+
 module.exports = {
   make,
+  makeDeleted,
 };

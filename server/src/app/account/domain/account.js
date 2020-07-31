@@ -77,6 +77,17 @@ class Account extends Entity
   {
     this._value.pfp = newPfp;
   }
+
+  delete({ username, password, email, displayName })
+  {
+    Guard.againstNullBulk([username, password, email, displayName]);
+
+    this._value.status = -1;
+    this._value.username = username;
+    this._value.password = password;
+    this._value.email = email;
+    this._value.displayName = displayName;
+  }
 }
 
 /**

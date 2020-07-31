@@ -4,9 +4,9 @@ import { AiFillQuestionCircle, AiFillCode, AiFillCloseCircle } from 'react-icons
 
 import Logo from '../../imgs/trist_logo.svg';
 
-import LoginForm from './forms/LoginForm';
-import GuestForm from './forms/GuestForm';
-import RegisterForm from './forms/RegisterForm';
+import LoginForm from '../forms/LoginForm';
+import GuestForm from '../forms/GuestForm';
+import RegisterForm from '../forms/RegisterForm';
 
 import './Landing.css';
 

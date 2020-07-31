@@ -45,7 +45,13 @@ async function makeHashed(string)
   return Result.ok(new Password(hashedString));
 }
 
+function makeDeleted()
+{
+  return new Password('del');
+}
+
 module.exports = {
   make,
   makeHashed,
+  makeDeleted,
 };

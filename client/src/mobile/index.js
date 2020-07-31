@@ -10,6 +10,7 @@ import Settings from '../components/settings';
 import Relations from '../components/relations';
 import RandomChatPreferences from '../components/random_chat_preferences';
 import OpenChatPreferences from '../components/open_chat_preferences';
+import UpgradeAccount from '../pages/forms/UpgradeForm';
 
 import './Mobile.css';
 
@@ -17,6 +18,7 @@ const Mobile = () => {
   return (
     <div id="mobile-app">
     <Switch>
+      <Route exact path="/upgrade" component={UpgradeAccount} />
       <Route exact path="/messages" component={DmList} />
       <Route exact path="/discover" component={Discover} />
       <Route exact path="/discover/random" component={RandomChatPreferences} />

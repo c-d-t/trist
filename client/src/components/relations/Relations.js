@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { getFriends, getRequests, sendFriendRequest } from '../../redux/actions/relationshipActions';
+import { sendFriendRequest } from '../../redux/actions/relationshipActions';
 import { clearErrors } from '../../redux/actions/errorActions';
 
 import Requests from './requests';

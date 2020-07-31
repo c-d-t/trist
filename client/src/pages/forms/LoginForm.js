@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import { login } from '../../../redux/actions/sessionActions';
+import { login } from '../../redux/actions/sessionActions';
 
-import Form from '../../../components/form';
-import Input from '../../../components/form/input';
+import Form from '../../components/form';
+import Input from '../../components/form/input';
 
 const LoginForm = () => {
   const dispatch = useDispatch();

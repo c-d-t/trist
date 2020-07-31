@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { register } from '../../../redux/actions/sessionActions';
-import validators from '../../../validators';
+import { register } from '../../redux/actions/sessionActions';
+import validators from '../../validators';
 
-import Form from '../../../components/form';
-import Input from '../../../components/form/input';
+import Form from '../../components/form';
+import Input from '../../components/form/input';
 
 const RegisterForm = () => {
   const dispatch = useDispatch();

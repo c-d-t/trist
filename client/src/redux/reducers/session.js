@@ -15,8 +15,7 @@ const sessionReducer = (state = initState, action) => {
   switch (action.type)
   {
     case LOGGED_IN:
-      const { id, status, username, displayName, pfp } = action.payload;
-      return { account: { id, status, username, displayName, pfp }, loggedIn: true };
+      const { id, status, username, displayName, pfp } = action.payload;      return { account: { ...state.account, id, status, username, displayName, pfp: pfp || state.account.pfp }, loggedIn: true };
     case LOGGED_OUT:
       return { account: null, loggedIn: false };
     case CHANGED_DISPLAY_NAME:

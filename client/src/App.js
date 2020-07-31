@@ -25,12 +25,12 @@ function App() {
 
   useEffect(() => {
     const warnGuest = () => {
-      dispatch(createNotification('You are using a guest account. Register to save it'));
+      dispatch(createNotification('You are using a guest account. Keep your account by upgrading it. Profile>Settings>Account>Upgrade'));
     };
     let intervalId;
     if (session.account && session.account.status === 0)
     {
-      intervalId = setInterval(warnGuest, 1000 * 60 * 15); // every 15 minutes
+      intervalId = setInterval(warnGuest, 1000 * 60 * 15 ); // every 15 minutes
     }
     return () => {
       if (!!intervalId)

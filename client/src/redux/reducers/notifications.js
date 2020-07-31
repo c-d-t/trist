@@ -9,7 +9,7 @@ const errorsReducer = (state = initState, action) => {
   switch (action.type)
   {
     case CREATE_NOTIFICATION:
-      return { id: action.payload.id, message: action.payload.message + action.payload.id };
+      return { id: action.payload.id, message: action.payload.message };
     case CLEAR_NOTIFICATION:
       if (!!action.payload.any || state.id === action.payload.id)
       {

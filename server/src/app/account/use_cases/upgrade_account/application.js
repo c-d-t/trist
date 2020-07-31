@@ -39,36 +39,40 @@ class UpgradeApplication extends Application
     const password = passwordResult.value;
     const email = emailResult.value;
     
-    let newAccount = await this._accountRepo.findById(input.thisAccountId);
-    if (!newAccount)
+    let account = await this._accountRepo.findById(input.thisAccountId);
+    if (!account)
     {
       return this.notFound();
     }
-    if (newAccount.status !== 0)
+    if (account.status !== 0)
     {
       return this.unauthorized({ account: 'This account is already registered.' });
     }
 
-    newAccount.changeStatus(1);
-    newAccount.changeUsername(username);
-    newAccount.changePassword(password);
-    newAccount.changeEmail(email);
+    account.changeStatus(1);
+    account.changeUsername(username);
+    account.changePassword(password);
+    account.changeEmail(email);
     
-    if (!!await this._accountRepo.findByUsername(newAccount.username.value) === true)
+    if (!!await this._accountRepo.findByUsername(account.username.value) === true)
     {
       return this.conflict({ username: 'An account with that username already exists.' });
     }
     
-    if (!!await this._accountRepo.findByEmail(newAccount.email.value) === true)
+    if (!!await this._accountRepo.findByEmail(account.email.value) === true)
     {
       return this.conflict({ email: 'An account with that email already exists.' });
     }
 
-    await this._accountRepo.save(newAccount);
+    await this._accountRepo.save(account);
     
     // send email verification
-
-    return this.ok();
+    const responseJSON = {
+      status: account.status,
+      username: account.username.value,
+      displayName: account.displayName.value,
+    };
+    return this.ok(responseJSON);
   }
 }
 

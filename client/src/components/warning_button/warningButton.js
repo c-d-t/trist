@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const WarningButton = ({ text, className, onClick }) => {
+const WarningButton = ({ text, className, warning, onClick }) => {
   const ref = useRef(null);
   const [isActive, setIsActive] = useState(false);
 
@@ -37,7 +37,7 @@ const WarningButton = ({ text, className, onClick }) => {
       className={className}
       onClick={click}
     >
-    {isActive ? 'Are you sure?' : text}
+    {isActive ? warning || 'Are you sure?' : text}
     </button>
   );
 };

@@ -5,6 +5,7 @@ const registerAsGuest = require('./register_as_guest');
 const upgrade = require('./upgrade_account');
 const changeDisplayname = require('./change_displayName');
 const changePfp = require('./change_pfp');
+const deleteAcconut = require('./delete_account');
 
 const marco = require('../queries/marco');
 
@@ -17,4 +18,5 @@ module.exports = {
   marco,
   changeDisplayname,
   changePfp,
+  deleteAcconut,
 };

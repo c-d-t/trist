@@ -9,6 +9,7 @@ export const LOGGED_IN = 'session:loginSuccess';
 export const LOGOUT = 'session:logout';
 export const LOGGED_OUT = 'sesion:logoutSuccess';
 export const MARCO = 'session:marco';
+export const UPGRADE = 'session:upgrade';
 export const CHANGED_DISPLAY_NAME = 'session:changedDisplayName';
 export const CHANGE_PFP = 'session:changePfp';
 export const CHANGED_PFP = 'session:changedPfp';
@@ -84,6 +85,18 @@ export function registerAsGuest({ displayName })
   });
 }
 
+export function upgradeAccount({ username, email, password })
+{
+  return createAPIAction({
+    url: '/account/upgrade',
+    method: 'PUT',
+    data: { username, email, password },
+    onSuccess: loggedIn,
+    onFailure: makeFormError(),
+    label: UPGRADE,
+  });
+}
+
 export function changeDisplayName(displayName)
 {
   return createAPIAction({
@@ -123,4 +136,13 @@ function changedPfp(response)
     type: CHANGED_PFP,
     payload: { pfp: response.data.pfp },
   }
+}
+
+export function deleteAccount()
+{
+  return createAPIAction({
+    url: '/account',
+    method: 'DELETE',
+    onSuccess: loggedOut,
+  })
 }

@@ -14,7 +14,7 @@ export function makeFormError(defaultError)
   {
     return {
       type: FORM_ERROR,
-      errors: !defaultError ? response.data : { error: defaultError },
+      errors: !defaultError ? response.data.data : { error: defaultError },
     };
   };
 }

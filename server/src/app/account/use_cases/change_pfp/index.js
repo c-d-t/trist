@@ -1,9 +1,9 @@
 const { accountRepo } = require('../../repo');
-const ChangeDisplayNameController = require('./controller');
-const ChangeDisplayNameApplication = require('./application');
+const ChangePfpController = require('./controller');
+const ChangePfpApplication = require('./application');
 const imageService = require('../../../../services/image');
 
-const changeDisplayNameUseCase = new ChangeDisplayNameApplication(accountRepo, imageService);
-const changeDisplayName = new ChangeDisplayNameController(changeDisplayNameUseCase);
+const changePfpUseCase = new ChangePfpApplication(accountRepo, imageService);
+const changePfp = new ChangePfpController(changePfpUseCase);
 
-module.exports = changeDisplayName;
+module.exports = changePfp;

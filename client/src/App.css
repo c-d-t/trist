@@ -36,10 +36,11 @@
 .list-container {
   max-height: 90%;
   overflow-y: scroll;
-  margin: 15px;
+  padding: 15px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  box-sizing: border-box;
 }
 .list-container > h1 {
   width: 100%;
@@ -54,16 +55,25 @@
 }
 .list-container > .sm {
   display: flex;
+  color: #333;
   align-items: center;
   background-color: #fff;
-  padding: 10px 5px;
+  padding: 10px;
   border-radius: 2px;
   margin-bottom: 5px;
   min-width: 100%;
   box-sizing: border-box;
 }
+.list-container > .sm.danger {
+  margin-top: 2em;
+  color: #f00;
+}
 .fade-hover:hover {
   background-color: #f5f5f5;
+}
+.list-container > .active {
+  color: #fff;
+  background-image: linear-gradient(90deg, rgb(33, 226, 152), rgb(33, 226, 152));
 }
 .list-container > .sm > .img {
   background-color: brown;
@@ -117,13 +127,7 @@
   padding: 10px 15px;
   border-radius: 2px;
 }
-.danger-button {
-  background-color: #f33;
-  font-weight: bold;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 2px;
-}
+
 
 .loader {
   border: 8px solid #333; /* Light grey */

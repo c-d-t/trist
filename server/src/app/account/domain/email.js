@@ -30,6 +30,12 @@ function make(string)
   return Result.ok(new Email(string));
 }
 
+function makeDeleted()
+{
+  return new Email('deleted@account.com');
+}
+
 module.exports = {
-  make
+  make,
+  makeDeleted,
 };

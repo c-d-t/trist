@@ -1,0 +1,25 @@
+#settings {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  transition: left 200ms ease;
+}
+#settings.active {
+  left: -100%;
+}
+
+#settings > .list-container {
+  width: 100vw;
+}
+#settings > .content {
+  width: 100vw;
+  box-sizing: border-box;
+}
+#settings > .content > .back-button {
+  margin: 1em 0 0 1em;
+  display: flex;
+  align-items: center;
+  background: none;
+  color: rgb(43, 216, 95);
+}

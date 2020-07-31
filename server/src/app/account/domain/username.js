@@ -29,6 +29,11 @@ function make(string) {
   return Result.ok(new Username(string));
 }
 
+function makeDeleted() {
+  return new Username(`deleted_${Math.floor(Math.random() * 9999)}`);
+}
+
 module.exports = {
   make,
+  makeDeleted,
 };
