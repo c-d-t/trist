@@ -7,6 +7,7 @@ export const OPEN_CHANNEL = 'channel:open';
 export const OPENED_CHANNEL = 'channel:opened';
 export const CLOSED_CHANNEL = 'channel:closed';
 export const GOT_MESSAGE = 'channel:gotMessage';
+export const SEND_MESSAGE = 'channel:sendMessage';
 export const SENT_MESSAGE = 'channel:sentMessage';
 export const GOT_OPEN_CHANNELS = 'channel:gotOpenChannels';
 
@@ -78,6 +79,7 @@ export function sendMessage(channelId, text)
     method: 'POST',
     data: { channelId, text },
     onFailure: makeSendMessageFailed(channelId),
+    label: SEND_MESSAGE,
   });
 }
 function makeSendMessageFailed(channelId)
@@ -114,6 +116,7 @@ export function joinPrivateChannel()
     url: '/channel/private',
     method: 'POST',
     onSuccess: openedPrivateChannel,
+    label: OPENED_CHANNEL,
   });
 }
 function openedPrivateChannel(response)
@@ -141,4 +144,17 @@ export function createDm(otherAccountId)
     data: { otherAccountId },
     onSuccess: getDms,
   });
+}
+
+export function createSystemMessage(text)
+{
+  return {
+    type: GOT_MESSAGE,
+    payload: {
+      message: {
+        system: true,
+        text,
+      }
+    }
+  };
 }

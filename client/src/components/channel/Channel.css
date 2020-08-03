@@ -10,19 +10,41 @@
   background-color: #fff;
   transition: transform 120ms ease;
 }
+.header {
+  background-color: rgb(33, 226, 152);
+  font-weight: bold;
+  color: #fff;
+  font-size: 1.5em;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
 #message-history {
   position: absolute;
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: flex-start;
   top: 2.7em;
   bottom: 70px;
-  overflow: scroll;
   width: 100%;
-  padding-top: 2em;
   box-sizing: border-box;
 }
-#message-history > :last-child {
+#message-history > div {
+  overflow: scroll;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 2em;
+}
+#message-history > div > div {
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  padding: 0 0 0 3%;
+  flex-direction: column-reverse;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  
+}
+#message-history > div > div > :last-child {
   margin-top: auto;
 }
 #channel-input {
@@ -38,6 +60,9 @@
   transition: all 100ms linear;
   margin: 0 3%;
 }
+#channel-input.sending {
+  background-image: linear-gradient(145deg, rgb(154, 187, 171), rgb(151, 196, 197));
+}
 #channel-input > button {
   background: #444;
   margin: 0 10px;
@@ -49,6 +74,14 @@
   text-align: center;
   font-size: 15px;
   line-height: 20px;
+}
+#channel-input > .skip {
+  height: max-content;
+  width: max-content;
+  padding: 5px;
+}
+#channel-input > .send-button > svg {
+  height: 30px;
 }
 #channel-input > input {
   background: none;
@@ -80,5 +113,12 @@
   }
   50% {
     transform: translate(0, 2px);
+  }
+}
+
+@media (min-width: 1025px) {
+  #channel-container {
+    position: relative;
+    max-width: 45%;
   }
 }

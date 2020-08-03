@@ -23,3 +23,18 @@
   background: none;
   color: rgb(43, 216, 95);
 }
+
+@media (min-width: 1025px) {
+  #settings > .list-container {
+    background-color: #fff;
+    height: 100vh;
+    width: 40vw;
+  }
+  #settings > .list-container {
+    padding-left: 20vw;
+    width: min-content;
+  }
+  #settings > .content {
+    width: 60vw;
+  }
+}

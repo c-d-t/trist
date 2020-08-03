@@ -16,7 +16,7 @@ class MessagingView
         populate: {
           path: 'participantIds',
           match: { _id: { $ne: userId } },
-          select: 'username displayName lastActivity pfp',
+          select: 'username lastActivity pfp',
         },
         options: {
           sort: {
@@ -30,7 +30,7 @@ class MessagingView
         let name;
         if (dm.type === 0)
         {
-          name = dm.participantIds[0].username || dm.participantIds[0].displayName;
+          name = dm.participantIds[0].username;
         }
         else
         {
@@ -74,10 +74,10 @@ class MessagingView
       .populate({
         path: 'participantIds',
         match: { _id: { $ne: thisAccountId } },
-        select: 'username displayName',
+        select: 'username status',
       });
 
-      return channel.participantIds[0].displayName || channel.participantIds[0].username;
+      return channel.participantIds[0].username;
     }
     catch(e)
     {
@@ -92,7 +92,7 @@ class MessagingView
       let messages = await this._messageModel.find({ channelId })
       .populate({
         path: 'authorId',
-        select: 'username displayName pfp',
+        select: 'username pfp',
       }).sort({ timeCreated: -1 }).skip(startingPoint || 0).limit(50); 
 
       messages = messages.map((message) => {
@@ -100,7 +100,7 @@ class MessagingView
           id: message._id,
           author: {
             id: message.authorId._id,
-            name: message.authorId.displayName || message.authorId.username,
+            name: message.authorId.username,
             pfp: message.authorId.pfp.url,
           },
           timeCreated: message.timeCreated,
@@ -123,7 +123,7 @@ class MessagingView
       let message = await this._messageModel.findById(messageId)
       .populate({
         path: 'authorId',
-        select: 'username displayName pfp',
+        select: 'username pfp',
       });
   
       message = {
@@ -131,8 +131,8 @@ class MessagingView
         channelId: message.channelId,
         author: {
           id: message.authorId._id,
-          name: message.authorId.displayName || message.authorId.username,
-          pfp: !message.authorId.pfp ? null : message.authorId.pfp.url,
+          name: message.authorId.username,
+          pfp: message.authorId.pfp.url,
         },
         timeCreated: message.timeCreated,
         text: message.text,
@@ -153,7 +153,7 @@ class MessagingView
       let channel = await this._channelModel.findById(channelId)
       .populate({
         path: 'participantIds',
-        select: 'username displayName'
+        select: 'username'
       });
       
       channel = {
@@ -161,7 +161,7 @@ class MessagingView
         participants: channel.participantIds.map((participantId) => {
           return {
             id: participantId.id,
-            name: participantId.displayName || participantId.username,
+            name: participantId.username,
           };
         }),
       };

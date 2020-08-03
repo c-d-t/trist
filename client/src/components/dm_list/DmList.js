@@ -38,7 +38,7 @@ const UserList = () => {
           className="sm"
           onClick={() => openDm(dm.id)}
         >
-          <div className="img"></div>
+          <img src={dm.user.pfp} alt="pfp" className="img" />
           <div className="info">
             <div className="primary">{dm.user.name}</div>
           </div>

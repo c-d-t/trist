@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getOpenChannels, openChannel } from '../../redux/actions/channelActions';
 import { getSocket } from '../../api/socket';
 
+import './OpenChatPreferences.css';
 
 const RandomChatPreferences = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const RandomChatPreferences = () => {
   };
 
   return (
-    <div className="list-container">
+    <div id="open-channel-container" className="list-container">
       <h1>Open Channels</h1>
       {channels.map((channel, index) => (
         <button key={`openChannels${index}`} className="sm" onClick={() => makeOpenChannel(channel.id)}>

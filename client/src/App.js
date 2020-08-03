@@ -8,6 +8,7 @@ import { createNotification } from './redux/actions/notificationActions';
 import PopUpNotif from './components/pop_up_notif';
 import Loading from './pages/loading';
 import Landing from './pages/landing';
+import EmailConfirmation from './pages/email_confirmation';
 import Mobile from './mobile';
 import Desktop from './desktop';
 
@@ -45,6 +46,11 @@ function App() {
   if (pageLoader)
   {
     return <Loading />
+  }
+
+  if (session.confirmingEmail)
+  {
+    return <EmailConfirmation />
   }
 
   if (!session.loggedIn)

@@ -1,0 +1,15 @@
+.main-tab {
+  width: 31%;
+  display: inline-block;
+  margin: 0 1%;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 0;
+  transition: all 100ms ease-in;
+  font-size: 1.5em;
+  display: inline-flex;
+  align-content: center;
+  justify-content: center;
+  background: none;
+  box-sizing: border-box;
+}

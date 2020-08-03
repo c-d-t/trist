@@ -17,7 +17,7 @@ class MarcoApplication extends Application
   {
     Guard.againstNull(input.thisAccountId);
 
-    let account = await this._accountModel.findById(input.thisAccountId).select('_id username displayName status pfp');
+    let account = await this._accountModel.findById(input.thisAccountId).select('_id username status pfp');
     if (!account)
     {
       return this.forbidden();
@@ -26,9 +26,8 @@ class MarcoApplication extends Application
     return this.ok({
       id: account._id,
       status: account.status,
-      username: !account.username ? null : account.username,
-      displayName: account.displayName,
-      pfp: !account.pfp ? null : account.pfp.url,
+      username: account.username,
+      pfp: account.pfp.url,
     });
   }
 }

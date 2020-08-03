@@ -13,7 +13,7 @@
 #profile-header > #pfp{
   position: relative;
   width: max-content;
-  margin: 0 auto;
+  margin: 1em auto 0 auto;
 }
 #profile-header > #pfp > img {
   display: block;
@@ -42,7 +42,7 @@
   margin-top: 1em;
   width: 100%;
 }
-#name > .displayName {
+#name > .username {
   background: none;
   font-weight: bold;
   font-size: 1.5em;
@@ -54,11 +54,6 @@
 }
 #name > .displayName:hover {
   cursor: pointer;
-}
-#name > .username {
-  font-size: 0.9em;
-  font-weight: normal;
-  text-align: center;
 }
 #new-post-button {
   display: block;

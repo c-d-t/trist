@@ -12,21 +12,21 @@ class LoginApplication extends Application
   /**
    * Checks if a user exists with username/email and password
    * @param {Object} input
-   * @param {string} input.usernameOrEmail
+   * @param {string} input.email
    * @param {string} input.password
    */
   async run(input)
   {
-    let foundAccount = null;
-    foundAccount = await this._accountRepo.findByUsername(input.usernameOrEmail);
-    if (!foundAccount) // login via email
-    {
-      foundAccount = await this._accountRepo.findByEmail(input.usernameOrEmail);
-    }
+    const foundAccount = await this._accountRepo.findByEmail(input.email);
 
     if (!foundAccount || !await foundAccount.password.compare(input.password))
     {
-      return this.unauthorized();
+      return this.unauthorized({ fields: 'Email or password is incorrect.' });
+    }
+
+    if (!foundAccount.isVerified)
+    {
+      return this.unauthorized({ account: 'You need to confirm your email address before logging in.'})
     }
 
     const token = jwt.encode({ id: foundAccount.id });
@@ -35,9 +35,8 @@ class LoginApplication extends Application
       token,
       id: foundAccount.id,
       status: foundAccount.status,
-      username: !foundAccount.username ? null : foundAccount.username.value,
-      displayName: foundAccount.displayName.value,
-      pfp: !foundAccount.pfp ? null : foundAccount.pfp.url,
+      username: foundAccount.username.value,
+      pfp: foundAccount.pfp.url,
     };
     return this.ok(responseJSON);
   }

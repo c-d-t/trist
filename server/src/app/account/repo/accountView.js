@@ -7,7 +7,7 @@ class AccountView
 
   async getProfile(userId)
   {
-    return this._accountModel.findById(userId).select('displayName username');
+    return this._accountModel.findById(userId).select('username');
   }
 }
 

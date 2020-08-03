@@ -13,7 +13,7 @@ const GuestForm = () => {
 
   return (
     <Form title="What should we call you?" buttonName="Begin" onSubmit={(data) => dispatch(registerAsGuest(data))}>
-      <Input name="displayName" placeholder="You can change your name at any time." type="text" validator={validators.displayName} />
+      <Input name="username" placeholder="You can change your name at any time." type="text" validator={validators.username} />
     </Form>
   );
 };

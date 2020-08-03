@@ -6,15 +6,20 @@ const middleware = require('./middleware');
 
 router.use(middleware.multerUploads);
 
-router.post('/account/register', (req, res) => accountController.register.run(req, res));
+router.post('/account/register',
+  middleware.rateLimiter(1, 5),
+  (req, res) => accountController.register.run(req, res));
 router.post('/account/login', (req, res) => accountController.login.run(req, res));
 router.post('/account/logout', (req, res) => accountController.logout.run(req, res));
 router.post('/account/guest', (req, res) => accountController.registerAsGuest.run(req, res));
+router.post('/verify', (req, res) => accountController.verifyAccount.run(req, res));
 
 router.use(middleware.authenticated());
 router.get('/account/marco', (req, res) => accountController.marco.run(req, res));
-router.put('/account/upgrade', (req, res) => accountController.upgrade.run(req, res));
-router.put('/account/displayname', (req, res) => accountController.changeDisplayname.run(req, res));
+router.put('/account/upgrade',
+  middleware.rateLimiter(1, 10),
+  (req, res) => accountController.upgrade.run(req, res));
+router.put('/account/username', (req, res) => accountController.changeUsername.run(req, res));
 router.put('/account/pfp', (req, res) => accountController.changePfp.run(req, res));
 router.delete('/account', (req, res) => accountController.deleteAcconut.run(req, res));
 

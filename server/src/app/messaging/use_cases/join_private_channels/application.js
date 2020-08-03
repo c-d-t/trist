@@ -22,7 +22,6 @@ class JoinRandomChatApplication extends Application
     {
       return this.notFound('A user with that Id doesn\'t exist.');
     }
-
     // find match
     const waitingChannel = await this._channelRepo.findWaitingPrivateChannel();
     if (!!waitingChannel === true)
@@ -37,7 +36,6 @@ class JoinRandomChatApplication extends Application
       global._eventEmitter.connectionCreated(waitingChannel);
       return this.ok({ channelId: waitingChannel.id });
     }
-
     // make a new channel
     const newChannelResult = Channel.makePrivateChannel({ participantIds: [thisUser.id], lastActivity: Date.now() });
     if (newChannelResult.failed)

@@ -9,9 +9,9 @@ class LoginController extends Controller {
 
   async implementation(req)
   {
-    const { usernameOrEmail, password } = req.body;
+    const { email, password } = req.body;
     
-    const result = await this._login.run({ usernameOrEmail, password });
+    const result = await this._login.run({ email, password });
     const { success, data } = result;
     if (success)
     {

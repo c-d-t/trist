@@ -6,7 +6,8 @@
   color: #777;
 }
 #tags-container > #tags-input-container {
-  padding: 5px;
+  border: 1px solid #ddd;
+  margin-top: 5px;
   background-color: #fff;
   width: 100%;
   display: flex;
@@ -37,4 +38,7 @@
   background: none;
   flex-grow: 1;
   width: 5em;
+}
+.in-conversation {
+  background-image: linear-gradient(90deg, #333, #333);
 }

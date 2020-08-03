@@ -20,7 +20,7 @@ class GetRequestsApplication extends Application
     const rawRequests = await this._relationshipModel.find({ status: { $in: [0, 1] }, thisAccountId: input.thisAccountId }, '-__v -thisAccountId')
     .populate({
       path: 'otherAccountId',
-      select: 'username',
+      select: 'username pfp',
     });
 
     const requests = rawRequests.map((request) => {
@@ -30,6 +30,7 @@ class GetRequestsApplication extends Application
         user: {
           id: request.otherAccountId._id,
           username: request.otherAccountId.username,
+          pfp: request.otherAccountId.pfp.url,
         },
       };
     })

@@ -6,12 +6,13 @@ const MessageText = require('../../domain/messageText');
 
 class SendMessageApplication extends Application
 {
-  constructor(messageRepo, channelRepo, userRepo)
+  constructor(messageRepo, channelRepo, userRepo, makeNotification)
   {
     super();
     this._messageRepo = messageRepo;
     this._channelRepo = channelRepo;
     this._userRepo = userRepo;
+    this._makeNotification = makeNotification;
   }
   
   // FIXME: oh no big messy

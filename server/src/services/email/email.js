@@ -1,23 +1,39 @@
-const config = require('../../../../config');
+const config = require('../../../src/config');
+const nodemailer = require('nodemailer');
+const hbs = require('nodemailer-express-handlebars');
+const path = require('path');
 
 class EmailService
 {
-  constructor(nodemailer)
+  constructor()
   {
     this._transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: config.GMAIL,
     });
+    this._transporter.use('compile', hbs({
+      viewEngine: {
+        extname: '.hbs',
+        layoutsDir: path.join(__dirname, 'templates'),
+        defaultLayout:  'confirmEmail',
+      },
+      viewPath: path.join(__dirname, 'templates'),
+      extName: '.hbs'
+    }));
   }
 
-  async emailConfirmation()
+  async emailConfirmation(url, username)
   {
-    await this._transporter.sendMail({
+    this._transporter.sendMail({
       from: '"Trist" <donotreply@trist.com>', // sender address
       to: "casey.tai@icloud.com", // list of receivers
       subject: "Welcome", // Subject line
       text: "Hello world?", // plain text body
-      html: "<b>Hello world?</b>", // html body
+      template: 'confirmEmail', // html body
+      context: {
+        username,
+        url,
+      },
     });
   }
 }

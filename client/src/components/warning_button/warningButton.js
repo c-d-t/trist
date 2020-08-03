@@ -10,6 +10,7 @@ const WarningButton = ({ text, className, warning, onClick }) => {
       setIsActive(true);
       return;
     }
+    setIsActive(false);
     onClick();
   }
 

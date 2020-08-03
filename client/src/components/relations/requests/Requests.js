@@ -39,6 +39,7 @@ const Requests = () => {
           return <UserItem
             key={`request${index}`}
             name={request.user.username}
+            pfp={request.user.pfp}
             secondary="friend request sent..."
             buttonOne={{ text: 'cancel', onClick: makeOnDeclineRequest(request.id)}}
           />

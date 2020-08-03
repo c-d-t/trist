@@ -15,7 +15,7 @@ const RegisterForm = () => {
     <>
     <Form title="Register" onSubmit={(data) => dispatch(register(data))}>
       <Input name="username" type="text" validator={validators.username} />
-      <Input name="email" type="text" validator={validators.email} />
+      <Input name="email" placeholder="email (No one but you will be able to see this)" type="text" validator={validators.email} />
       <Input name="password" type="password" validator={validators.password} />
     </Form>
     <p className="form-text">Already have an account or want to join as a guest? <Link to="/login">login</Link> or join as a <Link to="/guest">guest</Link></p>

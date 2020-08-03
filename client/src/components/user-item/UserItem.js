@@ -5,7 +5,7 @@ import WarningButton from '../warning_button';
 const UserItem = ({ pfp, name, secondary, buttonOne, buttonTwo, className }) => {
   return (
     <div className={`sm ${className}`}>
-      <div className="img"></div>
+      <img src={pfp} alt="pfp" className="img"></img>
       <div className="info">
         <div className="primary">{name}</div>
         <div className="secondary">{secondary}</div>

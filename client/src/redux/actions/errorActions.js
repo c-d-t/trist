@@ -8,13 +8,13 @@ export function clearErrors()
   };
 }
 
-export function makeFormError(defaultError)
+export function makeFormError()
 {
   return function(response)
   {
     return {
       type: FORM_ERROR,
-      errors: !defaultError ? response.data.data : { error: defaultError },
+      errors: response.data.data,
     };
   };
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { joinPrivateChannel } from '../../redux/actions/channelActions';
 
@@ -9,6 +9,7 @@ const RandomChatPreferences = () => {
   const dispatch = useDispatch();
   const [tagInput, setTagInput] = useState('');
   const [tags, setTags] = useState([]);
+  const [channelLoader, currentChannel] = useSelector((state) => [state.loaders.channelLoader, state.channel.currentChannel]);
 
   const onChooseTag = () => {
     setTagInput('');
@@ -51,13 +52,21 @@ const RandomChatPreferences = () => {
           />
         </div>
       </div>
-      <button
-        type="button"
-        className="main-button"
-        onClick={onStart}
-      >
-        Start
-      </button>
+      {channelLoader || (currentChannel && currentChannel.type === 2) ? (
+        <div
+          className="main-button in-conversation"
+        >
+          In Conversation
+        </div>
+      ) : (
+        <button
+          type="button"
+          className="main-button"
+          onClick={onStart}
+        >
+          Start
+        </button>
+      )}
     </div>
   );
 };

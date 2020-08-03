@@ -19,11 +19,6 @@ class Account extends Entity
     return this._value.email;
   }
 
-  get displayName()
-  {
-    return this._value.displayName;
-  }
-
   get status()
   {
     return this._value.status;
@@ -44,6 +39,11 @@ class Account extends Entity
     return this._value.status === 0;
   }
 
+  get isVerified()
+  {
+    return this._value.status === 2;
+  }
+
   changeUsername(newUsername)
   {
     this._value.username = newUsername;
@@ -59,15 +59,6 @@ class Account extends Entity
     this._value.email = newEmail;
   }
 
-  changeDisplayName(newDisplayName)
-  {
-    if (newDisplayName.isEmpty && this.isGuest)
-    {
-      throw new Error('ERR_GUEST_NEEDS_DISPLAY_NAME');
-    }
-    this._value.displayName = newDisplayName;
-  }
-
   changeStatus(newStatus)
   {
     this._value.status = newStatus;
@@ -78,15 +69,22 @@ class Account extends Entity
     this._value.pfp = newPfp;
   }
 
-  delete({ username, password, email, displayName })
+  upgrade()
   {
-    Guard.againstNullBulk([username, password, email, displayName]);
+    if (this._value.status === 1)
+    {
+      this._value.status = 2;
+    }
+  }
+
+  delete({ username, password, email })
+  {
+    Guard.againstNullBulk([username, password, email]);
 
     this._value.status = -1;
     this._value.username = username;
     this._value.password = password;
     this._value.email = email;
-    this._value.displayName = displayName;
   }
 }
 
@@ -97,25 +95,17 @@ class Account extends Entity
  * @param {Username} props.username
  * @param {Password} props.password
  * @param {Email} props.email
- * @param {DisplayName} props.displayName
  * @param {Number} props.status
  * @param {Data} props.timeCreated
  * @param {Object} props.pfp
  */
 function make(props)
 {
-  if (props.status === 0)
-  {
-    Guard.againstNullBulk([ props.displayName, props.status]);
-  }
-  else
-  {
-    Guard.againstNullBulk([ props.pfp, props.username, props.password, props.email, props.displayName, props.status ]);
-  }
+  Guard.againstNullBulk([props.status]);
 
-  if (props.status === 0 && props.displayName.isEmpty)
+  if (props.status !== 0)
   {
-    return Result.fail('A guest account must have a display name.');
+    Guard.againstNullBulk([ props.pfp, props.username, props.password, props.email, props.status ]);
   }
 
   if (props.timeCreated === null || props.timeCreated === undefined)

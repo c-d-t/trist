@@ -7,6 +7,7 @@ import Logo from '../../imgs/trist_logo.svg';
 import LoginForm from '../forms/LoginForm';
 import GuestForm from '../forms/GuestForm';
 import RegisterForm from '../forms/RegisterForm';
+import Confirm from './Confirm';
 
 import './Landing.css';
 
@@ -21,6 +22,7 @@ const MobileLanding = () => {
       </div>
     </header>
     <Switch>
+      <Route path="/confirm/:token" component={Confirm} />
       <Route path="/login" component={LoginForm} />
       <Route path="/guest" component={GuestForm} />
       <Route path="/register" component={RegisterForm} />

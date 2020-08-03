@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      background-color: #f4f4f4;
+    }
+    .container {
+      width: 60%;
+      margin: 50px auto;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    header {
+      background-color: rgb(181, 255, 220);
+      padding: 50px 20px 100px 20px;
+      box-sizing: border-box;
+      width: 100%;
+      text-align: center;
+      margin-bottom: -80px;
+    }
+    .content {
+      background-color: #fff;
+      padding: 20px 20px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h2 {
+      font-size: 2em;
+    }
+    a {
+      text-decoration: none;
+      margin: 50px 0 20px 0;
+      font-size: 1.1em;
+      border: none;
+      font-weight: bold;
+      background-color: rgb(26, 228, 134);
+      padding: 20px;
+      border-radius: 1px;
+      color: #fff;
+    }
+    footer {
+      background-color: #fff;
+      padding: 10px;
+      padding-top: 20px;
+      margin: 0;
+      border-top: 1px solid #bbb;
+    }
+    p {
+      font-size: 0.8em;
+      text-align: center;
+    }
+    @media (max-width: 700px) {
+      header {
+        display: none;
+      }
+      .container {
+        width: 100%;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+  </header>
+  <div class="container">
+    <div class="content">
+      <h2>Welcome to Trist, Berbo</h2>
+      <a href={{ url }}>Confirm Email</a>
+    </div>
+    <footer>
+      <p>Trist will never ask for your password.</p>
+      <p>&copy; 2020 Trist Chat</p>
+    </footer>
+  </div>
+  <p>If you didn't sign up for trist, you can ignore this email.</p>
+</body>
+</html>

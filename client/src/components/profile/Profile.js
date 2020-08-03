@@ -3,25 +3,27 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AiTwotoneSetting } from 'react-icons/ai';
 import { FaUserFriends } from 'react-icons/fa'
+import { useWindowDimensions } from '../../api/windowDimensions';
 
-import { changeDisplayName, changePfp } from '../../redux/actions/sessionActions';
+import { changeUsername, changePfp } from '../../redux/actions/sessionActions';
 
 import './Profile.css';
 
 const Profile = () => {
   const pfpRef = useRef(null);
   const dispatch = useDispatch();
-  const [{ username, displayName, pfp }, pfpLoader] = useSelector((state) => [state.session.account, state.loaders.pfpLoader]);
-  const [displayNameInput, setDisplayNameInput] = useState('');
+  const [{ username, pfp }, pfpLoader] = useSelector((state) => [state.session.account, state.loaders.pfpLoader]);
+  const [usernameInput, setUsernameInput] = useState('');
+  const { width } = useWindowDimensions();
 
-  const onChangeDisplayName = () => {
-    if (displayNameInput === displayName)
+  const onChangeUsername = () => {
+    if (usernameInput === username)
     {
       return;
     }
     
-    setDisplayNameInput(displayName);
-    dispatch(changeDisplayName(displayNameInput));
+    setUsernameInput(username);
+    dispatch(changeUsername(usernameInput));
   }
 
   const onChangePfp = (e) => {
@@ -30,16 +32,19 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    setDisplayNameInput(!!displayName ? displayName : username);
-  }, [displayName, username]);
+    setUsernameInput(username);
+    // TODO 
+  }, [username]);
 
   return (
     <div id="profile-container">
       <div id="profile-header">
-        <div id="profile-buttons" className="container">
-          <Link to="/profile/settings"><AiTwotoneSetting /><p>Settings</p></Link>
-          <Link to="/profile/friends"><FaUserFriends /><p>Friends</p></Link>
-        </div>
+        {width < 1025 ? (
+          <div id="profile-buttons" className="container">
+            <Link to="/profile/settings"><AiTwotoneSetting /><p>Settings</p></Link>
+            <Link to="/profile/friends"><FaUserFriends /><p>Friends</p></Link>
+          </div>
+        ) : null}
         <div id="pfp">
           {pfpLoader ? <div className="loader"></div> : null}
           <img src={pfp} alt="pfp" onClick={() => !pfpLoader ? pfpRef.current.click() : null}></img>
@@ -53,13 +58,12 @@ const Profile = () => {
         />
         <div id="name" className="container">
           <input
-            className="displayName"
+            className="username"
             spellCheck="false"
-            value={displayNameInput}
-            onChange={(e) => setDisplayNameInput(e.target.value)}
-            onKeyDown={(e) => e.keyCode === 13 ? onChangeDisplayName() : null}
+            value={usernameInput}
+            onChange={(e) => setUsernameInput(e.target.value)}
+            onKeyDown={(e) => e.keyCode === 13 ? onChangeUsername() : null}
           />
-          <div className="username">{username ? username : 'guest_account'}</div>
         </div>
       </div>
         <button type="button" id="new-post-button" onClick={() => alert('Making posts are disabled.')}>+</button>

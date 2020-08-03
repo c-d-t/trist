@@ -1,6 +1,6 @@
 const Application = require('../../../../core/Application');
 const Account = require('../../domain/account');
-const DisplayName = require('../../domain/displayName');
+const Username = require('../../domain/username');
 const Pfp = require('../../domain/pfp');
 const onAccountCreation = require('../../services/onAccountCreation');
 const jwt = require('../../services/jwt');
@@ -16,19 +16,19 @@ class RegisterAsGuestApplication extends Application
   /**
    * Registers a guest account
    * @param {Object} input 
-   * @param {string} input.displayName
+   * @param {string} input.username
    */
   async run(input)
   {
-    const displayNameResult = DisplayName.make(input.displayName);
-    if (displayNameResult.failed)
+    const usernameResult = Username.make(input.username);
+    if (usernameResult.failed)
     {
-      return this.invalidFields(displayNameResult.error);
+      return this.invalidFields({ username: usernameResult.error });
     }
 
-    const displayName = displayNameResult.value;
+    const username = usernameResult.value;
     const pfp = Pfp.make().value;
-    const accountResult = Account.make({ displayName, pfp, status: 0 });
+    const accountResult = Account.make({ username, pfp, status: 0 });
     if (accountResult.failed)
     {
       return this.failed(accountResult.error);
@@ -44,9 +44,8 @@ class RegisterAsGuestApplication extends Application
       token,
       id: account.id,
       status: account.status,
-      username: !account.username ? null : account.username.value,
-      displayName: account.displayName.value,
-      pfp: !account.pfp ? null : account.pfp.url,
+      username: account.username.value,
+      pfp: account.pfp.url,
     };
 
     return this.ok(responseJSON);  }

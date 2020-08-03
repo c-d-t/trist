@@ -4,7 +4,6 @@ const Pfp = require('../../domain/pfp');
 const Username = require("../../domain/username");
 const Password = require("../../domain/password");
 const Email = require("../../domain/email");
-const DisplayName = require('../../domain/displayName');
 const Result = require("../../../../core/Result");
 const onAccountCreation = require('../../services/onAccountCreation');
 const jwt = require('../../services/jwt');
@@ -42,14 +41,12 @@ class RegisterApplication extends Application
     const username = usernameResult.value;
     const password = passwordResult.value;
     const email = emailResult.value;
-    const displayName = DisplayName.make().value;
     const pfp = Pfp.make().value;
 
     const newAccountResult = Account.make({
       username,
       password,
       email,
-      displayName,
       pfp,
       status: 1,
     });
@@ -58,11 +55,6 @@ class RegisterApplication extends Application
       return this.failed();
     }
     const newAccount = newAccountResult.value;
-    
-    if (!!await this._accountRepo.findByUsername(newAccount.username.value) === true)
-    {
-      return this.conflict({ username: 'An account with that username already exists.' });
-    }
     
     if (!!await this._accountRepo.findByEmail(newAccount.email.value) === true)
     {
@@ -73,18 +65,12 @@ class RegisterApplication extends Application
 
     await onAccountCreation.run(account.id);
 
-    // make token
-    const token = jwt.encode({ id: account.id });
-    const responseJSON = {
-      token,
-      id: account.id,
-      status: account.status,
-      username: account.username.value,
-      displayName: account.displayName.value,
-      pfp: !account.pfp ? null : account.pfp.url,
-    };
+    // make email token
+    const token = jwt.encodeEmail({ id: account.id });
+    const url = 'http://localhost:3000/confirm/' + token;
+    await this._emailService.emailConfirmation(url, account.username.value);
 
-    return this.ok(responseJSON);
+    return this.ok();
   }
 }
 

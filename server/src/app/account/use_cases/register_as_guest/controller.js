@@ -10,9 +10,9 @@ class RegisterAsGuestController extends Controller
 
   async implementation(req)
   {
-    const { displayName } = req.body;
+    const { username } = req.body;
     
-    const result = await this._registerAsGuest.run({ displayName });
+    const result = await this._registerAsGuest.run({ username });
     const { success, data } = result;
     if (success)
     {

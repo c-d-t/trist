@@ -1,28 +1,35 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineMenu, AiFillCloseCircle } from 'react-icons/ai';
+import { useWindowDimensions } from '../../api/windowDimensions';
 
-import { closeChannel, leavePrivateChannel, sendMessage } from '../../redux/actions/channelActions';
+import { closeChannel, leavePrivateChannel, joinPrivateChannel, sendMessage } from '../../redux/actions/channelActions';
 import { getSocket } from '../../api/socket';
 
+import WarningButton from '../warning_button';
 import Message from './message';
 
 import './Channel.css';
-import { Socket } from 'socket.io-client';
 
 const Channel = () => {
-  const inputRef = useRef(null);
+  const messageHistoryRef = useRef(null)
   const [input, setInput] = useState('');
+  const [isAtBottom, setIsAtBottom] = useState(true);
   const dispatch = useDispatch();
   const [formattedMessages, setFormattedMessages] = useState([]);
   const socket = getSocket();
+  const {width} = useWindowDimensions();
 
-  const [currentChannel, messages] = useSelector((state) => {
+  const [currentChannel, messages, lastChannel, messageLoader, channelLoader] = useSelector((state) => {
     return [
-    state.channel.currentChannel,
-    !state.channel.currentChannel ? null : state.channel.messages[state.channel.currentChannel.id]
-  ]});
+      state.channel.currentChannel,
+      !state.channel.currentChannel ? null : state.channel.messages[state.channel.currentChannel.id],
+      state.channel.lastChannel,
+      state.loaders.messageLoader,
+      state.loaders.channelLoader,
+    ]
+  });
   const history = useHistory();
 
   useEffect(() => {
@@ -34,27 +41,29 @@ const Channel = () => {
       } 
     }
 
-    const keyDown = () => {
-      inputRef.current.focus();
+    if (lastChannel && lastChannel.type === 2)
+    {
+      dispatch(leavePrivateChannel(lastChannel.id));
     }
 
     window.addEventListener("popstate", preventBack);
-    if (!!currentChannel)
-    {
-      window.addEventListener('keydown', keyDown);
-    }
 
     return () => {
       window.removeEventListener("popstate", preventBack);
-      window.removeEventListener("keydown", keyDown);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentChannel]);
+  }, [currentChannel, lastChannel]);
 
   useEffect(() => {
     if (!messages)
     {
       return;
+    }
+
+    if (messageHistoryRef.current.scrollTop + messageHistoryRef.current.clientHeight === messageHistoryRef.current.scrollHeight) {
+      setIsAtBottom(true);
+    } else {
+      setIsAtBottom(false);
     }
 
     const msgs = [];
@@ -73,7 +82,18 @@ const Channel = () => {
     setFormattedMessages(msgs);
   }, [messages]);
 
+  useEffect(() => {
+    if (isAtBottom) {
+      messageHistoryRef.current.scrollTop = messageHistoryRef.current.scrollHeight;
+    }
+  }, [formattedMessages]);
+
   const onSendMessage = () => {
+    if (!currentChannel)
+    {
+      setInput('');
+      return;
+    }
     const toSend = input.trim();
     if (toSend.length === 0)
     {
@@ -84,6 +104,10 @@ const Channel = () => {
   };
 
   const closeDm = () => {
+    if (!currentChannel)
+    {
+      return;
+    }
     if (currentChannel.type === 2)
     {
       dispatch(leavePrivateChannel(currentChannel.id));
@@ -93,16 +117,21 @@ const Channel = () => {
   };
 
   return (
-    <div id="channel-container" className={!currentChannel ? 'channel-hidden' : ''}>
+    <div id="channel-container" className={currentChannel || channelLoader ? '' : 'channel-hidden'}>
       <div className="header">
         <button
           type="button"
           onClick={closeDm}
-        ><AiOutlineMenu /></button>
+        >{width > 1025 ? <AiFillCloseCircle /> : <AiOutlineMenu />}</button>
         {!!currentChannel ? currentChannel.name : null}
       </div>
       <div id="message-history">
-        {!formattedMessages ? null : (
+        <div ref={messageHistoryRef}>
+        <div>
+        {channelLoader ? (
+          <div>Loading...</div>
+        ) :
+        !formattedMessages ? null : (
           formattedMessages.map((message, index) => {
             return <Message
               key={`channelMessage${index}`}
@@ -111,18 +140,23 @@ const Channel = () => {
             />;
           })
         )}
+        </div>
+        </div>
       </div>
-      <div id="channel-input">
-        <button
-          type="button"
-          onClick={() => alert('Adding images is disabled.')}
-        >+</button>
+      <div id="channel-input" className={messageLoader ? 'sending' : ''}>
+        {currentChannel && currentChannel.type === 2 ? (
+          <WarningButton className="skip" text="Skip" onClick={() => dispatch(joinPrivateChannel())} />
+        ) : (
+          <button
+            type="button"
+            onClick={() => alert('Adding images is disabled.')}
+          >+</button>
+        )}
         <input
-          ref={inputRef}
-          placeholder="Message Benjo"
+          placeholder={messageLoader ? "Sending..." : "Type something..."}
           type="text"
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={(e) => !messageLoader ? setInput(e.target.value) : null}
           onKeyDown={(e) => e.keyCode === 13 ? onSendMessage() : null}
         />
       </div>

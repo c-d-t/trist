@@ -22,7 +22,7 @@ button {
 button:hover {
   cursor: pointer;
 }
-a {
+a, .button-link {
   color: rgb(9, 136, 119);
   text-decoration: none;
 }

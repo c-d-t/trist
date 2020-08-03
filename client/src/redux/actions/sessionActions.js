@@ -4,15 +4,17 @@ import { initSocket, closeSocket } from '../../api/socket';
 
 export const REGISTER_AS_GUEST = 'session:guest';
 export const REGISTER = 'session:register';
+export const REGISTERED = 'session:registered';
 export const LOGIN = 'session:login';
 export const LOGGED_IN = 'session:loginSuccess';
 export const LOGOUT = 'session:logout';
 export const LOGGED_OUT = 'sesion:logoutSuccess';
 export const MARCO = 'session:marco';
 export const UPGRADE = 'session:upgrade';
-export const CHANGED_DISPLAY_NAME = 'session:changedDisplayName';
+export const CHANGED_USERNAME = 'session:changedDisplayName';
 export const CHANGE_PFP = 'session:changePfp';
 export const CHANGED_PFP = 'session:changedPfp';
+export const CONFIRMED_EMAIL = 'session:confirmedEmail';
 
 export function marco()
 {
@@ -25,14 +27,14 @@ export function marco()
     label: MARCO,
   });
 }
-export function login({ usernameOrEmail, password })
+export function login({ email, password })
 {
   return createAPIAction({
     url: '/account/login',
     method: 'POST',
-    data: { usernameOrEmail, password },
+    data: { email, password },
     onSuccess: loggedIn,
-    onFailure: makeFormError('Username or password is incorrect.'),
+    onFailure: makeFormError(),
     label: LOGIN,
   });
 }
@@ -67,22 +69,44 @@ export function register({ username, email, password })
     url: '/account/register',
     method: 'POST',
     data: { username, email, password },
-    onSuccess: loggedIn,
+    onSuccess: registered,
     onFailure: makeFormError(),
     label: REGISTER,
   });
 }
+function registered()
+{
+  return {
+    type: REGISTERED,
+  }
+}
 
-export function registerAsGuest({ displayName })
+export function registerAsGuest({ username })
 {
   return createAPIAction({
     url: '/account/guest',
     method: 'POST',
-    data: { displayName },
+    data: { username },
     onSuccess: loggedIn,
     onFailure: makeFormError(),
     label: REGISTER_AS_GUEST,
   });
+}
+
+export function confirmEmail(token)
+{
+  return createAPIAction({
+    url: '/verify',
+    method: 'POST',
+    data: { token },
+    onSuccess: confirmedEmail,
+  });
+}
+function confirmedEmail()
+{
+  return {
+    type: CONFIRMED_EMAIL,
+  };
 }
 
 export function upgradeAccount({ username, email, password })
@@ -97,22 +121,22 @@ export function upgradeAccount({ username, email, password })
   });
 }
 
-export function changeDisplayName(displayName)
+export function changeUsername(username)
 {
   return createAPIAction({
-    url: '/account/displayName',
+    url: '/account/username',
     method: 'PUT',
-    data: { displayName },
-    onSuccess: makeChangedDisplayName(displayName),
+    data: { username },
+    onSuccess: makeChangedUsername(username),
   });
 }
-function makeChangedDisplayName(displayName)
+function makeChangedUsername(username)
 {
-  return function changedDisplayName()
+  return function changedUsername()
   {
     return {
-      type: CHANGED_DISPLAY_NAME,
-      payload: { displayName },
+      type: CHANGED_USERNAME,
+      payload: { username },
     }
   }
 }

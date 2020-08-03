@@ -1,7 +1,6 @@
 const Application = require("../../../../core/Application");
 const Pfp = require('../../domain/pfp');
 const Username = require('../../domain/username');
-const DisplayName = require('../../domain/displayName');
 const Password = require('../../domain/password');
 const Email = require('../../domain/email');
 
@@ -36,10 +35,9 @@ class DeleteAccountApplication extends Application
     }
 
     const username = Username.makeDeleted();
-    const displayName = DisplayName.makeDeleted();
     const email = Email.makeDeleted();
     const password = Password.makeDeleted();
-    account.delete({ username, displayName, email, password });
+    account.delete({ username, email, password });
 
     await this._accountRepo.save(account);
 

@@ -8,13 +8,15 @@ class EventEmitter
   constructor(messagingView)
   {
     this._messagingView = messagingView;
+    this._reconnections = {};
   }
 
   init(http)
   {
-    this.io = socketIo(http);
+    this.io = socketIo(http, { wsEngine: 'ws' });
     this.io.use(cookieParser());
     this.io.on('connect', (socket) => {
+      // get jwt token
       const token = socket.request.cookies.jwt;
       const data = jwt.decode(token);
       if (!data)
@@ -28,6 +30,15 @@ class EventEmitter
       }
       socket.join(accountId);
 
+      // reconnect
+      socket.on('socket:reconnected', () => {
+        if (this._reconnections[accountId])
+        {
+          delete this._reconnections[accountId];
+        }
+      })
+
+      // events
       socket.on('join-channel', ({ channelId }) => {
         socket.join(channelId);
       });
@@ -36,8 +47,16 @@ class EventEmitter
         socket.leave(channelId);
       });
 
-      socket.on('disconnect', async () => {
-        await messagingController.leavePrivateChannel.run({ thisAccount: { id: accountId }, query: { all: true } });
+      socket.on('disconnect', () => {
+        this._reconnections[accountId] = true;
+        setTimeout(async () => {
+          if (this._reconnections[accountId])
+          {
+            await messagingController.leavePrivateChannel.run({ thisAccount: { id: accountId }, query: { all: true } });
+            delete this._reconnections[accountId];
+            socket.emit('socket:disconnected');
+          }
+        }, 5000);
       });
     });
   }

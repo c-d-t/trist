@@ -17,17 +17,14 @@ class UpgradeApplication extends Application
    * 
    * @param {Object} input
    * @param {string} input.thisAccountId
-   * @param {string} input.username
    * @param {string} input.password
    * @param {string} input.email 
    */
   async run(input)
   {
-    const usernameResult = Username.make(input.username);
     const passwordResult = await Password.makeHashed(input.password);
     const emailResult = Email.make(input.email);
     const propsResult = Result.combine({
-      username: usernameResult,
       password: passwordResult,
       email: emailResult,
     });
@@ -35,7 +32,6 @@ class UpgradeApplication extends Application
     {
       return this.failed(propsResult.error);
     }
-    const username = usernameResult.value;
     const password = passwordResult.value;
     const email = emailResult.value;
     
@@ -50,14 +46,8 @@ class UpgradeApplication extends Application
     }
 
     account.changeStatus(1);
-    account.changeUsername(username);
     account.changePassword(password);
     account.changeEmail(email);
-    
-    if (!!await this._accountRepo.findByUsername(account.username.value) === true)
-    {
-      return this.conflict({ username: 'An account with that username already exists.' });
-    }
     
     if (!!await this._accountRepo.findByEmail(account.email.value) === true)
     {
@@ -69,8 +59,6 @@ class UpgradeApplication extends Application
     // send email verification
     const responseJSON = {
       status: account.status,
-      username: account.username.value,
-      displayName: account.displayName.value,
     };
     return this.ok(responseJSON);
   }

@@ -18,12 +18,8 @@ function make(string) {
     return Result.fail('A username is required.');
   }
 
-  if (string.length < 3 || string.length > 20) {
-    return Result.fail('A username must be between 3 and 20 characters.');
-  }
-
-  if (/[^\w]/.test(string)) {
-    return Result.fail('A username can only contain alphanumeric characters and underscores.');
+  if (string.length < 1 || string.length > 30) {
+    return Result.fail('A username must be between 1 and 30 characters.');
   }
 
   return Result.ok(new Username(string));
