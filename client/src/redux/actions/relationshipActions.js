@@ -43,12 +43,12 @@ function gotRequests(response)
   };
 }
 
-export function sendFriendRequest(id)
+export function sendFriendRequest(accountId)
 {
   return createAPIAction({
     url: '/friends/request',
     method: 'POST',
-    data: { otherAccountId: id },
+    data: { accountId },
     onSuccess: sentFriendRequest,
     onFailure: sentFriendRequestFailed,
   });

@@ -1,8 +1,8 @@
 const Application = require("../../../../core/Application");
-const Username = require("../../domain/username");
 const Password = require("../../domain/password");
 const Email = require("../../domain/email");
 const Result = require("../../../../core/Result");
+const jwt = require('../../services/jwt');
 
 class UpgradeApplication extends Application
 {
@@ -56,7 +56,11 @@ class UpgradeApplication extends Application
 
     await this._accountRepo.save(account);
     
-    // send email verification
+    // make email token
+    const token = jwt.encodeEmail({ id: account.id });
+    const url = 'http://localhost:3000/confirm/' + token;
+    await this._emailService.emailConfirmation(url, account.username.value);
+    
     const responseJSON = {
       status: account.status,
     };

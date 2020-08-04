@@ -1,8 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './Message.css';
 
 const Message = ({ messages, isActive }) => {
+
+
   if (messages[0].system)
   {
     const message = messages[0];
@@ -16,10 +19,12 @@ const Message = ({ messages, isActive }) => {
     );
   }
 
-  const { name, pfp } = messages[0].author;
+  const { id, name, pfp } = messages[0].author;
   return (
     <div className="message-container">
-      <img className="pfp" src={pfp} alt="pfp" />
+      <Link to={`/profile/${id}`} className="pfp">
+        <img src={pfp} alt="pfp" />
+      </Link>
       <h1>{name}</h1>
       {messages.map((message, index) => (
         <p key={`message${index}`}>{message.text}</p>

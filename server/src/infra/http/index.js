@@ -21,7 +21,7 @@ function startServer()
   app.use(cors());
   app.use(cookieParser());
   
-  app.use('/', routes);
+  app.use('/api', routes);
   
   app.use((err, req, res, next) => {
     res.status(400).json({ data: "Something went wrong." });

@@ -1,20 +1,32 @@
 import React, { useEffect } from 'react';
+import { Redirect, Switch, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useWindowDimensions } from './api/windowDimensions';
 
 import { marco } from './redux/actions/sessionActions';
 import { createNotification } from './redux/actions/notificationActions';
 
+import Confirm from './pages/confirm';
 import PopUpNotif from './components/pop_up_notif';
 import Loading from './pages/loading';
 import Landing from './pages/landing';
-import EmailConfirmation from './pages/email_confirmation';
 import Mobile from './mobile';
-import Desktop from './desktop';
+import Desktop from './desktop'; 
 
 import './App.css';
 
-function App() {
+const App = () => {
+  return (
+    <Switch>
+      <Route exact path="/confirm/:token" component={Confirm} />
+      <Route path="/">
+        <Base />
+      </Route>
+    </Switch>
+  )
+}
+
+const Base = () => {
   const dispatch = useDispatch();
   const [session, pageLoader] = useSelector((state) => [state.session, state.loaders.pageLoader]);
   const { width } = useWindowDimensions();
@@ -42,20 +54,19 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session])
 
-
   if (pageLoader)
   {
     return <Loading />
   }
 
-  if (session.confirmingEmail)
-  {
-    return <EmailConfirmation />
-  }
-
   if (!session.loggedIn)
   {
     return <Landing />
+  }
+
+  if (session.confirmingEmail)
+  {
+    return <Redirect to="/" />;
   }
 
   return (

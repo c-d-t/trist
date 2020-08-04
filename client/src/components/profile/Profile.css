@@ -89,3 +89,13 @@
 #profile-buttons > a:nth-child(1) {
 
 }
+#befriend-button {
+  width: max-content;
+  font-size: 0.8em;
+  display: block;
+  border-radius: 1px;
+  padding: 5px;
+  background-color: #333;
+  color: #fff;
+  margin: 0 auto;
+}

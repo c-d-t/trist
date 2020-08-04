@@ -92,7 +92,7 @@ class MessagingView
       let messages = await this._messageModel.find({ channelId })
       .populate({
         path: 'authorId',
-        select: 'username pfp',
+        select: '_id username pfp',
       }).sort({ timeCreated: -1 }).skip(startingPoint || 0).limit(50); 
 
       messages = messages.map((message) => {

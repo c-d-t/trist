@@ -20,7 +20,7 @@ class Pfp extends ValueObject
 
   get isDefault()
   {
-    if (this._value.publicId === -1)
+    if (this._value.publicId === '-1')
     {
       return true;
     }
@@ -34,7 +34,7 @@ class Pfp extends ValueObject
 
   default()
   {
-    if (this._value.publicId === -1)
+    if (this._value.publicId === '-1')
     {
       return true;
     }
@@ -53,7 +53,7 @@ function make(pfp) {
   {
     return Result.ok(new Pfp({
       url: 'https://res.cloudinary.com/cdt/image/upload/v1596066208/xs5keynvtrv2m5lxnvqa.jpg',
-      publicId: -1,
+      publicId: '-1',
     }));
   }
   const { url, publicId } = pfp;

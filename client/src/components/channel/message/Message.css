@@ -34,10 +34,14 @@
   height: 35px;
   border-radius: 50%;
   transition: all 100ms ease;
+  overflow: hidden;
 }
 .message-container > .pfp:hover {
   cursor: pointer;
   transform: translate(-60%, -60%) scale(1.1);
+}
+.message-container > .pfp > img {
+  height: 100%;
 }
 .message-container > p {
   line-height: 1.5em;

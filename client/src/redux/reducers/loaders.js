@@ -1,6 +1,7 @@
 import { API_START, API_END } from '../actions/apiActions';
 import { MARCO, LOGIN, CHANGE_PFP } from '../actions/sessionActions';
 import { SEND_MESSAGE, OPEN_CHANNEL } from '../actions/channelActions';
+import { GET_PROFILE } from '../actions/usersActions';
 
 const initState = {
   pageLoader: false,
@@ -8,6 +9,7 @@ const initState = {
   channelLoader: false,
   pfpLoader: false,
   messageLoader: null,
+  profileLoader: false,
 };
 
 const loadersReducer = (state = initState, action) => {
@@ -37,6 +39,8 @@ const loadersReducer = (state = initState, action) => {
       return { ...state, messageLoader: isLoading };
     case OPEN_CHANNEL:
       return { ...state, channelLoader: isLoading };
+    case GET_PROFILE:
+      return { ...state, profileLoader: isLoading };
     default:
       return state;
   }

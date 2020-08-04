@@ -26,9 +26,6 @@ const Relations = () => {
         <button type="button" style={currentTab === 1 ? { backgroundColor: 'rgb(33, 226, 152)' } : {}} onClick={() => setCurrentTab(1)}>Requests</button>
         <button type="button" style={currentTab === 2 ? { backgroundColor: 'rgb(33, 226, 152)' } : {}} onClick={() => alert('Blocking will be coming soon.')}>Blocks</button>
       </div>
-      {!errors ? null : Object.keys(errors).map((errorName, i) => (
-        <div key={`formError${i}`} className="add-friend-error">{errors[errorName]}</div>
-      ))}
 
       {renderContent()}
     </>

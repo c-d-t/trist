@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AiOutlineMessage, AiOutlineHome, AiOutlineUser, AiOutlineRight } from 'react-icons/ai';
 
@@ -11,6 +12,7 @@ import './Header.css';
 
 const Header = () => {
   const [activeTab, setActiveTab] = useState(1);
+  const accountId = useSelector((state) => state.session.account.id);
 
   return (
     <nav>
@@ -35,7 +37,7 @@ const Header = () => {
             case 2:
               return (
                 <div className="list-container">
-                  <Link to="/profile" className="sm"><p>Profile</p><AiOutlineRight className="action-buttons" /></Link>
+                  <Link to={`/profile/${accountId}`} className="sm"><p>Profile</p><AiOutlineRight className="action-buttons" /></Link>
                   <Link to="/profile/friends" className="sm"><p>Friends</p><AiOutlineRight className="action-buttons" /></Link>
                   <Link to="/profile/settings" className="sm"><p>Settings</p><AiOutlineRight className="action-buttons" /></Link>
                 </div>

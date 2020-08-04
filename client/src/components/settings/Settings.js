@@ -29,7 +29,7 @@ const Settings = () => {
     const onEscape = () => {
       if (width > 1025)
       {
-        history.push('/');
+        history.goBack();
       }
     };
 

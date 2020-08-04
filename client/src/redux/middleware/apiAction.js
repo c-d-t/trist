@@ -15,6 +15,7 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
     onFailure = (err) => { return { type: 'do_nothing' }; },
     label,
     file,
+    external,
   } = action.payload;
 
   if (label)
@@ -25,7 +26,7 @@ const apiAction = ({ dispatch }) => (next) => (action) => {
   const dataOrParams = ["GET", "DELETE"].includes(method) ? "params" : "data";
 
   axios.request({
-    url,
+    url: external ? url : '/api' + url,
     method,
     [dataOrParams]: data,
     headers: !file ? undefined : { 'Content-Type': 'multipart/form-data' },

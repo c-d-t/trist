@@ -4,6 +4,6 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
-#open-channel-container > :nth-last-child(2) {
+#open-channel-container > :nth-child(2) {
   border-top: 1px solid #ddd;
 }

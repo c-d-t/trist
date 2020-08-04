@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Switch, Route, Link } from 'react-router-dom';
 import { AiFillQuestionCircle, AiFillCode, AiFillCloseCircle } from 'react-icons/ai';
 
@@ -7,11 +8,17 @@ import Logo from '../../imgs/trist_logo.svg';
 import LoginForm from '../forms/LoginForm';
 import GuestForm from '../forms/GuestForm';
 import RegisterForm from '../forms/RegisterForm';
-import Confirm from './Confirm';
+import EmailConfirmation from '../email_confirmation';
 
 import './Landing.css';
 
 const MobileLanding = () => {
+  const session = useSelector((state) => state.session);
+  if (session.confirmingEmail)
+  {
+    return <EmailConfirmation />
+  }
+
   return (
     <div id="landing-container">
     <header className="container">
@@ -22,7 +29,6 @@ const MobileLanding = () => {
       </div>
     </header>
     <Switch>
-      <Route path="/confirm/:token" component={Confirm} />
       <Route path="/login" component={LoginForm} />
       <Route path="/guest" component={GuestForm} />
       <Route path="/register" component={RegisterForm} />

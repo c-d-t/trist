@@ -23,11 +23,11 @@ const Mobile = () => {
       <Route exact path="/discover" component={Discover} />
       <Route exact path="/discover/random" component={RandomChatPreferences} />
       <Route exact path="/discover/open" component={OpenChatPreferences} />
-      <Route exact path="/profile" component={Profile} />
       <Route exact path="/profile/settings" component={Settings} />
       <Route exact path="/profile/friends" component={Relations} />
       <Route exact path="/profile/requests" component={null} />
       <Route exact path="/profile/blocks" component={null} />
+      <Route exact path="/profile/:accountId" component={Profile} />
       <Redirect to="/discover" />
     </Switch>
     <Nav />

@@ -26,7 +26,7 @@ class DeleteAccountApplication extends Application
     {
       return this.notFound('An account with that id does not exist.');
     }
-
+    
     if (!account.pfp.isDefault)
     {
       await this._imageService.delete(account.pfp.publicKey);
@@ -38,7 +38,6 @@ class DeleteAccountApplication extends Application
     const email = Email.makeDeleted();
     const password = Password.makeDeleted();
     account.delete({ username, email, password });
-
     await this._accountRepo.save(account);
 
     return this.ok();

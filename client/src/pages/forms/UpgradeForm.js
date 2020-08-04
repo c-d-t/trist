@@ -18,13 +18,12 @@ const UpgradeForm = () => {
   }
 
   return (
-    <>
-    <Form title="Register" onSubmit={(data) => dispatch(upgradeAccount(data))}>
-      <Input name="username" type="text" validator={validators.username} />
-      <Input name="email" type="text" validator={validators.email} />
+    <div style={{ width: '100%' }}>
+    <Form title="Upgrade" onSubmit={(data) => dispatch(upgradeAccount(data))}>
+      <Input name="email" placeholder="email (No one but you will be able to see this)" type="text" validator={validators.email} />
       <Input name="password" type="password" validator={validators.password} />
     </Form>
-    </>
+    </div>
   );
 };
 

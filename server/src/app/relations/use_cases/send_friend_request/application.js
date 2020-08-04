@@ -15,15 +15,15 @@ class SendFriendRequestApplication extends Application
    * Creates a friend request
    * @param {Object} input 
    * @param {string} input.thisAccountId
-   * @param {string} input.otherAccountUsername
+   * @param {string} input.otherAccountId
    */
   async run(input)
   {
     Guard.againstNull(input.thisAccountId);
-    const accountToSendRequest = await this._accountRepo.findByUsername(input.otherAccountUsername);
+    const accountToSendRequest = await this._accountRepo.findById(input.otherAccountId);
     if (!accountToSendRequest)
     {
-      return this.notFound(`An account with the username "${input.otherAccountUsername}" does not exist.`);
+      return this.notFound();
     }
     const sentFriendRequestResult = Relationship.make({
       thisAccountId: input.thisAccountId,
@@ -59,7 +59,7 @@ class SendFriendRequestApplication extends Application
     }
 
     await this._relationshipRepo.save(sentFriendRequest);
-
+    
     return this.ok({ otherAccountId: sentFriendRequest.otherAccountId });
   }
 }

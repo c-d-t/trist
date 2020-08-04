@@ -11,6 +11,7 @@ import Profile from '../components/profile';
 import Channel from '../components/channel';
 import Relations from '../components/relations';
 import DmList from '../components/dm_list';
+import UpgradeAccount from '../pages/forms/UpgradeForm';
 
 
 import './Desktop.css';
@@ -19,6 +20,7 @@ const Desktop = () => {
   return (
     <div id="desktop-container">
       <Switch>
+        <Route exact path="/upgrade" component={UpgradeAccount} />
         <Route exact path="/profile/settings" component={Settings} />
         <Route path="/">
           <Nav />
@@ -26,8 +28,8 @@ const Desktop = () => {
             <Switch>
               <Route exact path="/discover/random" component={RandomChatPreferences} />
               <Route exact path="/discover/open" component={OpenChatPreferences} />
-              <Route exact path="/profile" component={Profile} />
               <Route exact path="/profile/friends" component={Relations} />
+              <Route exact path="/profile/:accountId" component={Profile} />
               <Route exact path="/messages" component={DmList} />
               <Route path="/"><Redirect to="/discover/random" /></Route>
             </Switch>

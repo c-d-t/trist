@@ -15,6 +15,7 @@ router.post('/account/guest', (req, res) => accountController.registerAsGuest.ru
 router.post('/verify', (req, res) => accountController.verifyAccount.run(req, res));
 
 router.use(middleware.authenticated());
+router.get('/account', (req, res) => accountController.getProfile.run(req, res));
 router.get('/account/marco', (req, res) => accountController.marco.run(req, res));
 router.put('/account/upgrade',
   middleware.rateLimiter(1, 10),

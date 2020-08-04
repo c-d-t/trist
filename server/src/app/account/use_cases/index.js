@@ -9,6 +9,7 @@ const changeUsername = require('./change_username');
 const verifyAccount = require('./verify_account');
 
 const marco = require('../queries/marco');
+const getProfile = require('../queries/get_profile');
 
 module.exports = {
   register,
@@ -16,9 +17,10 @@ module.exports = {
   logout,
   registerAsGuest,
   upgrade,
-  marco,
   changePfp,
   deleteAcconut,
   changeUsername,
   verifyAccount,
+  marco,
+  getProfile,
 };

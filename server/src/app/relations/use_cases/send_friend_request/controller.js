@@ -10,14 +10,14 @@ class SendFriendRequestController extends Controller
   async implementation(req)
   {
     const { thisAccount } = req;
-    const { otherAccountUsername } = req.body;
+    const { accountId } = req.body;
 
-    const result = await this._sendFriendRequest.run({ thisAccountId: thisAccount.id, otherAccountUsername });
+    const result = await this._sendFriendRequest.run({ thisAccountId: thisAccount.id, otherAccountId: accountId });
     const { success, data } = result;
     if (success)
     {
       global._eventEmitter.emitEventToAccount(data.otherAccountId, 'friend:receive', { accountId: data.otherAccountId });
-      return this.ok();
+      return this.ok(data);
     }
 
     return this.handleError(data);
