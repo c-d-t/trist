@@ -58,7 +58,7 @@ class UpgradeApplication extends Application
     
     // make email token
     const token = jwt.encodeEmail({ id: account.id });
-    const url = 'http://localhost:3000/confirm/' + token;
+    const url = 'https://tristchat.herokuapp.com/confirm/' + token;
     await this._emailService.emailConfirmation(account.email.value, url, account.username.value);
     
     const responseJSON = {
