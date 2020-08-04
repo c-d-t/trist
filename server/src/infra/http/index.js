@@ -22,12 +22,12 @@ function startServer()
   app.use(cors());
   app.use(cookieParser());
   
-  app.use('/*', express.static(path.join(__dirname, '../../../../client/build')));
+  app.use('/api', routes);
+
+  app.use(express.static(path.join(__dirname, '../../../../client/build')));
   app.get('*', (_req, res) => {
     res.sendFile(path.resolve(__dirname, '../../../../client/build/index.html'));
   });
-
-  app.use('/api', routes);
   
   app.use((err, req, res, next) => {
     res.status(400).json({ data: "Something went wrong." });
