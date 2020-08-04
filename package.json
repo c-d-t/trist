@@ -1,0 +1,21 @@
+{
+  "name": "trist2",
+  "version": "1.0.0",
+  "description": "Minimal social network utilizing (some) domain driven design.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./server/src",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/c-d-t/trist.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/c-d-t/trist/issues"
+  },
+  "homepage": "https://github.com/c-d-t/trist#readme"
+}

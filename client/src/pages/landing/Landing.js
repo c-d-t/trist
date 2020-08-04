@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Switch, Route, Link } from 'react-router-dom';
-import { AiFillQuestionCircle, AiFillCode, AiFillCloseCircle } from 'react-icons/ai';
+import { AiFillQuestionCircle, AiFillCode } from 'react-icons/ai';
 
 import Logo from '../../imgs/trist_logo.svg';
 
@@ -55,23 +55,17 @@ const MobileLanding = () => {
           </div>
         </div>
         <div id="about" className="container">
-          <h2><AiFillQuestionCircle style={{ color: '0d6' }} />What Trist Is</h2>
+          <h2><AiFillQuestionCircle style={{ color: '0df' }} />What Is Trist?</h2>
           <p>
-            Every chatting app out there has the same problems. They are filled to the brim with degenerates, scammers, bots, and trolls.
-            Despite this, you will always be able to find a minority of people who put up with these issues to be able to chat with each other.
-            Trist was made for that minority who just want to chat without dealing with the thousands of people who make chatting apps bad.
-          </p>
-          <h2><AiFillCloseCircle style={{ color: 'f55' }} />What Trist Isn't</h2>
-          <p>
-            Trist isn't for dating or hooking up. There are millions of other places for doing that.
+            Trist is a anonymous social network. There is no way to identify you other than your username which doesn't have to be unique.
+            It is similar to sites like Omegle, but with a few more features to better your experience.
           </p>
         </div>
         <div id="open-source" className="container">
           <h2><AiFillCode style={{ color: '111' }} />Open Source</h2>
           <p>
             What does open source mean? It means all the code that makes Trist churn is completely public. You can go and see it 
-            <a href="https://github.com/c-d-t/trist"> right now </a> if you wanted to.
-            You can see exactly what we do with your data(nothing) and even add never-before-seen features if you want.
+            <a href="https://github.com/c-d-t/trist"> right now </a> if you're curious at how Trist is made.
           </p>
         </div>
         <footer className="container">

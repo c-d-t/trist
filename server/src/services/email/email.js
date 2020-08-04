@@ -22,11 +22,11 @@ class EmailService
     }));
   }
 
-  async emailConfirmation(url, username)
+  async emailConfirmation(to, url, username)
   {
     this._transporter.sendMail({
       from: '"Trist" <donotreply@trist.com>', // sender address
-      to: "casey.tai@icloud.com", // list of receivers
+      to, // receiver
       subject: "Welcome", // Subject line
       text: "Hello world?", // plain text body
       template: 'confirmEmail', // html body

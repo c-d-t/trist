@@ -11,6 +11,7 @@ const config = {
   SEND_IN_BLUE: {
     apiKey: process.env.SEND_IN_BLUE_API_KEY,
   },
+  DB_URL: process.env.DB_URL,
 };
 
 module.exports = config;
