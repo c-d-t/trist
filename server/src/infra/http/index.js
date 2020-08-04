@@ -23,6 +23,9 @@ function startServer()
   app.use(cookieParser());
   
   app.use('/*', express.static(path.join(__dirname, '../../../../client/build')));
+  app.get('*', (_req, res) => {
+    res.sendFile(path.resolve(__dirname, '../../../../client/build/index.html'));
+  });
 
   app.use('/api', routes);
   
