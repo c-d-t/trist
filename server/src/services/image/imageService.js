@@ -34,7 +34,7 @@ class ImageService
     {
       fs.unlinkSync(path.resolve(file.destination, 'resized', file.filename));
       fs.unlinkSync(path.resolve(file.destination, file.filename));
-      throw new Error('uh oh');
+      throw new Error('imageService', e);
     }
   }
 

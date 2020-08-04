@@ -8,8 +8,10 @@ const config = {
     user: process.env.GMAIL_USERNAME,
     pass: process.env.GMAIL_PASSWORD,
   },
-  SEND_IN_BLUE: {
-    apiKey: process.env.SEND_IN_BLUE_API_KEY,
+  CLOUDINARY: {
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_KEY,
+    api_secret: process.env.CLOUDINARY_SECRET,
   },
   DB_URL: process.env.DB_URL,
 };
