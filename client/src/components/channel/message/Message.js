@@ -25,7 +25,9 @@ const Message = ({ messages, isActive }) => {
       <Link to={`/profile/${id}`} className="pfp">
         <img src={pfp} alt="pfp" />
       </Link>
-      <h1>{name}</h1>
+      <Link to={`/profile/${id}`} className="name">
+        {name}
+      </Link>
       {messages.map((message, index) => (
         <p key={`message${index}`}>{message.text}</p>
       ))}

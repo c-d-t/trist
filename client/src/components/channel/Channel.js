@@ -21,13 +21,14 @@ const Channel = () => {
   const socket = getSocket();
   const {width} = useWindowDimensions();
 
-  const [currentChannel, messages, lastChannel, messageLoader, channelLoader] = useSelector((state) => {
+  const [currentChannel, messages, lastChannel, messageLoader, channelLoader, connection] = useSelector((state) => {
     return [
       state.channel.currentChannel,
       !state.channel.currentChannel ? null : state.channel.messages[state.channel.currentChannel.id],
       state.channel.lastChannel,
       state.loaders.messageLoader,
       state.loaders.channelLoader,
+      state.connection,
     ]
   });
   const history = useHistory();
@@ -89,7 +90,7 @@ const Channel = () => {
   }, [formattedMessages]);
 
   const onSendMessage = () => {
-    if (!currentChannel)
+    if (!currentChannel || !connection.connected || messageLoader)
     {
       setInput('');
       return;
@@ -117,7 +118,7 @@ const Channel = () => {
   };
 
   return (
-    <div id="channel-container" className={currentChannel || channelLoader ? '' : 'channel-hidden'}>
+    <div id="channel-container" className={currentChannel.id || channelLoader ? '' : 'channel-hidden'}>
       <div className="header">
         <button
           type="button"
@@ -153,10 +154,10 @@ const Channel = () => {
           >+</button>
         )}
         <input
-          placeholder={messageLoader ? "Sending..." : "Type something..."}
+          placeholder={messageLoader ? "Sending..." : connection.connected ? "Type something..." : "Reconnecting..."}
           type="text"
           value={input}
-          onChange={(e) => !messageLoader ? setInput(e.target.value) : null}
+          onChange={(e) => !messageLoader && connection.connected ? setInput(e.target.value) : null}
           onKeyDown={(e) => e.keyCode === 13 ? onSendMessage() : null}
         />
       </div>

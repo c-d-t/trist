@@ -12,7 +12,7 @@
   box-sizing: border-box;
   flex-shrink: 0;
 }
-.message-container > h1 {
+.message-container > .name {
   color: rgb(107, 204, 175);
   position: absolute;
   top: 0;
@@ -20,7 +20,7 @@
   font-weight: normal;
   transform: translate(0, -100%);
 }
-.message-container > h1:hover {
+.message-container > .name:hover {
   cursor: pointer;
   text-decoration: underline;
 }

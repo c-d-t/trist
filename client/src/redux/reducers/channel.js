@@ -2,7 +2,9 @@ import { GOT_DMS, GOT_OPEN_CHANNELS, OPENED_CHANNEL, CLOSED_CHANNEL, GOT_MESSAGE
 
 const initState = {
   lastChannel: null,
-  currentChannel: null,
+  currentChannel: {
+    id: null,
+  },
   dms: [],
   openChannels: [],
   messages: {},
@@ -28,7 +30,9 @@ const channelReducer = (state = initState, action) =>
       return {
         ...state,
         lastChannel: null,
-        currentChannel: null,
+        currentChannel: {
+          id: null,
+        },
       }
     case GOT_MESSAGE:
       let channelMessages;

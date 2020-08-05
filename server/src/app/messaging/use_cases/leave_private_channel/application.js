@@ -47,8 +47,8 @@ class LeavePrivateChannelApplication extends Application
 
   async leaveChannel(user, channel)
   {
-    channel.removeParticipantId(user.id);
     global._eventEmitter.connectionLost(channel);
+    channel.removeParticipantId(user.id);
 
     await Promise.all([
       this._channelRepo.deleteById(channel.id),

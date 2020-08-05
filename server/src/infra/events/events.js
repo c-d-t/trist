@@ -16,6 +16,7 @@ class EventEmitter
     this.io = socketIo(http, { wsEngine: 'ws' });
     this.io.use(cookieParser());
     this.io.on('connect', (socket) => {
+      console.log('connected')
       // get jwt token
       const token = socket.request.cookies.jwt;
       const data = jwt.decode(token);
@@ -31,12 +32,13 @@ class EventEmitter
       socket.join(accountId);
 
       // reconnect
-      socket.on('socket:reconnected', () => {
+      socket.on('socket:reconnected', ({ channelId }) => {
         if (this._reconnections[accountId])
         {
+          socket.join(channelId);
           delete this._reconnections[accountId];
         }
-      })
+      });
 
       // events
       socket.on('join-channel', ({ channelId }) => {
@@ -54,7 +56,6 @@ class EventEmitter
           {
             await messagingController.leavePrivateChannel.run({ thisAccount: { id: accountId }, query: { all: true } });
             delete this._reconnections[accountId];
-            socket.emit('socket:disconnected');
           }
         }, 5000);
       });

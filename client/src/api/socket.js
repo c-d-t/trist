@@ -1,9 +1,9 @@
 import io from 'socket.io-client';
 import { GOT_MESSAGE, getDms, createSystemMessage } from '../redux/actions/channelActions';
+import { connect, disconnect } from '../redux/actions/connectionActions';
 
 let socket = null;
 let store = null;
-let reconnecting = false;
 
 export const joinChannel = (channelId) => {
   socket.emit('join-channel', { channelId });
@@ -17,6 +17,7 @@ export function initSocket()
 {
   if (!!socket) return;
   socket = io();
+  store.dispatch(connect());
   socket.on('message-created', (data) => {
     let hasDm = false;
     store.getState().channel.dms.forEach((dm) => {
@@ -42,19 +43,19 @@ export function initSocket()
   });
 
   socket.on('disconnect', () => {
-    reconnecting = true;
-    store.dispatch(createSystemMessage('Reconnecting...'));
-    setTimeout(() => {
-      if (reconnecting)
-      {
-        store.dispatch(createSystemMessage('Connection Lost :()'));
-      }
-    }, 5000);
+    console.log('disconnected')
+    store.dispatch(disconnect());
   });
 
+  socket.on('reconnecting', (n) => {
+    console.log('reconnecting', n)
+  })
+
   socket.on('reconnect', (n) => {
-    reconnecting = false;
-    socket.emit('socket:reconnected');
+    console.log('reconnect', n)
+    store.dispatch(connect());
+    const channelId = store.getState().channel.currentChannel.id;
+    socket.emit('socket:reconnected', { channelId });
   });
   
   socket.on('connection-lost', (data) => {
@@ -64,7 +65,7 @@ export function initSocket()
       const otherUser = channel.participants[0];
       store.dispatch(createSystemMessage(`${otherUser.name} disconnected`));
     }
-  })
+  });
 }
 
 export function closeSocket()
