@@ -27,7 +27,7 @@ cd <folder_name>
 or just make one however you like.
 ##### 2 - Clone this repository
 ```
-git clone https://github.com/c-d-t/trist.git
+git clone https://github.com/CoherentNonsense/trist.git
 ```
 ##### 2.5 - Download dependecies
 ```
